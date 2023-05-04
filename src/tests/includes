@@ -1,0 +1,7 @@
+#include <check.h>
+// #include <stdio.h>
+
+#include "3DViewer_v1_0/functions/affine_transformations.h"
+#include "3DViewer_v1_0/functions/reading_obj_file.h"
+
+#define ACC 1.0e-6

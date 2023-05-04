@@ -1,0 +1,350 @@
+#test scan_obj_test_badload_1
+obj_data A;
+init_data(&A);
+int res;
+res = obj_in_data(&A, "cuba.obj");
+ck_assert_int_eq(res, 0);
+remove_data(&A);
+
+#test scan_obj_test_badload_2
+obj_data A;
+init_data(&A);
+unsigned res;
+res = obj_in_data(&A, "tests/models/cube_3.obj");
+ck_assert_int_eq(res, 0);
+remove_data(&A);
+
+#test scan_obj_test_badload_3
+obj_data A;
+init_data(&A);
+unsigned res;
+res = obj_in_data(&A, "tests/models/cube_4.obj");
+ck_assert_int_eq(res, 0);
+remove_data(&A);
+
+#test scan_obj_test_load_1
+obj_data A;
+init_data(&A);
+unsigned res;
+res = obj_in_data(&A, "tests/models/cube.obj");
+ck_assert_int_eq(res, 8);
+remove_data(&A);
+
+#test scan_obj_test_statistic
+obj_data A;
+init_data(&A);
+obj_in_data(&A, "tests/models/cube_2.obj");
+// print_data(&A);
+ck_assert_str_eq(A.name_file, "tests/models/cube_2.obj");
+ck_assert_int_eq(A.number_of_vertex, 8);
+ck_assert_int_eq(A.number_of_facetes, 7);
+ck_assert_int_eq(A.number_of_edges, 13);
+remove_data(&A);
+
+#test scan_obj_test_vertex
+obj_data A;
+init_data(&A);
+obj_in_data(&A, "tests/models/cube.obj");
+
+ck_assert_int_eq(A.matrix_3d.matrix[1][0], 0);
+ck_assert_int_eq(A.matrix_3d.matrix[1][1], 0);
+ck_assert_int_eq(A.matrix_3d.matrix[1][2], 0);
+
+ck_assert_int_eq(A.matrix_3d.matrix[2][0], 0);
+ck_assert_int_eq(A.matrix_3d.matrix[2][1], 0);
+ck_assert_int_eq(A.matrix_3d.matrix[2][2], 2);
+
+ck_assert_int_eq(A.matrix_3d.matrix[3][0], 0);
+ck_assert_int_eq(A.matrix_3d.matrix[3][1], 2);
+ck_assert_int_eq(A.matrix_3d.matrix[3][2], 0);
+
+ck_assert_int_eq(A.matrix_3d.matrix[4][0], 0);
+ck_assert_int_eq(A.matrix_3d.matrix[4][1], 2);
+ck_assert_int_eq(A.matrix_3d.matrix[4][2], 2);
+
+ck_assert_int_eq(A.matrix_3d.matrix[5][0], 2);
+ck_assert_int_eq(A.matrix_3d.matrix[5][1], 0);
+ck_assert_int_eq(A.matrix_3d.matrix[5][2], 0);
+
+ck_assert_int_eq(A.matrix_3d.matrix[6][0], 2);
+ck_assert_int_eq(A.matrix_3d.matrix[6][1], 0);
+ck_assert_int_eq(A.matrix_3d.matrix[6][2], 2);
+
+ck_assert_int_eq(A.matrix_3d.matrix[7][0], 2);
+ck_assert_int_eq(A.matrix_3d.matrix[7][1], 2);
+ck_assert_int_eq(A.matrix_3d.matrix[7][2], 0);
+
+ck_assert_int_eq(A.matrix_3d.matrix[8][0], 2);
+ck_assert_int_eq(A.matrix_3d.matrix[8][1], 2);
+ck_assert_int_eq(A.matrix_3d.matrix[8][2], 2);
+
+remove_data(&A);
+
+#test aff_trans_test_centering
+obj_data A;
+init_data(&A);
+obj_in_data(&A, "tests/models/cube.obj");
+inscribe(&A);
+model_scaling(&A, 0.5);
+
+ck_assert_int_eq(A.matrix_3d.matrix[1][0], -0.5);
+ck_assert_int_eq(A.matrix_3d.matrix[1][1], -0.5);
+ck_assert_int_eq(A.matrix_3d.matrix[1][2], -0.5);
+
+ck_assert_int_eq(A.matrix_3d.matrix[2][0], -0.5);
+ck_assert_int_eq(A.matrix_3d.matrix[2][1], -0.5);
+ck_assert_int_eq(A.matrix_3d.matrix[2][2], 0.5);
+
+ck_assert_int_eq(A.matrix_3d.matrix[3][0], -0.5);
+ck_assert_int_eq(A.matrix_3d.matrix[3][1], 0.5);
+ck_assert_int_eq(A.matrix_3d.matrix[3][2], -0.5);
+
+ck_assert_int_eq(A.matrix_3d.matrix[4][0], -0.5);
+ck_assert_int_eq(A.matrix_3d.matrix[4][1], 0.5);
+ck_assert_int_eq(A.matrix_3d.matrix[4][2], 0.5);
+
+ck_assert_int_eq(A.matrix_3d.matrix[5][0], 0.5);
+ck_assert_int_eq(A.matrix_3d.matrix[5][1], -0.5);
+ck_assert_int_eq(A.matrix_3d.matrix[5][2], -0.5);
+
+ck_assert_int_eq(A.matrix_3d.matrix[6][0], 0.5);
+ck_assert_int_eq(A.matrix_3d.matrix[6][1], -0.5);
+ck_assert_int_eq(A.matrix_3d.matrix[6][2], 0.5);
+
+ck_assert_int_eq(A.matrix_3d.matrix[7][0], 0.5);
+ck_assert_int_eq(A.matrix_3d.matrix[7][1], 0.5);
+ck_assert_int_eq(A.matrix_3d.matrix[7][2], -0.5);
+
+ck_assert_int_eq(A.matrix_3d.matrix[8][0], 0.5);
+ck_assert_int_eq(A.matrix_3d.matrix[8][1], 0.5);
+ck_assert_int_eq(A.matrix_3d.matrix[8][2], 0.5);
+
+remove_data(&A);
+
+#test aff_trans_test_shift
+obj_data A;
+init_data(&A);
+obj_in_data(&A, "tests/models/cube.obj");
+model_shift(&A, -1, -1, -1);
+
+ck_assert_int_eq(A.matrix_3d.matrix[1][0], -1);
+ck_assert_int_eq(A.matrix_3d.matrix[1][1], -1);
+ck_assert_int_eq(A.matrix_3d.matrix[1][2], -1);
+
+ck_assert_int_eq(A.matrix_3d.matrix[2][0], -1);
+ck_assert_int_eq(A.matrix_3d.matrix[2][1], -1);
+ck_assert_int_eq(A.matrix_3d.matrix[2][2], 1);
+
+ck_assert_int_eq(A.matrix_3d.matrix[3][0], -1);
+ck_assert_int_eq(A.matrix_3d.matrix[3][1], 1);
+ck_assert_int_eq(A.matrix_3d.matrix[3][2], -1);
+
+ck_assert_int_eq(A.matrix_3d.matrix[4][0], -1);
+ck_assert_int_eq(A.matrix_3d.matrix[4][1], 1);
+ck_assert_int_eq(A.matrix_3d.matrix[4][2], 1);
+
+ck_assert_int_eq(A.matrix_3d.matrix[5][0], 1);
+ck_assert_int_eq(A.matrix_3d.matrix[5][1], -1);
+ck_assert_int_eq(A.matrix_3d.matrix[5][2], -1);
+
+ck_assert_int_eq(A.matrix_3d.matrix[6][0], 1);
+ck_assert_int_eq(A.matrix_3d.matrix[6][1], -1);
+ck_assert_int_eq(A.matrix_3d.matrix[6][2], 1);
+
+ck_assert_int_eq(A.matrix_3d.matrix[7][0], 1);
+ck_assert_int_eq(A.matrix_3d.matrix[7][1], 1);
+ck_assert_int_eq(A.matrix_3d.matrix[7][2], -1);
+
+ck_assert_int_eq(A.matrix_3d.matrix[8][0], 1);
+ck_assert_int_eq(A.matrix_3d.matrix[8][1], 1);
+ck_assert_int_eq(A.matrix_3d.matrix[8][2], 1);
+
+remove_data(&A);
+
+#test aff_trans_test_scaling
+obj_data A;
+init_data(&A);
+obj_in_data(&A, "tests/models/cube.obj");
+model_scaling(&A, 2.15);
+
+ck_assert_int_eq(A.matrix_3d.matrix[1][0], 0);
+ck_assert_int_eq(A.matrix_3d.matrix[1][1], 0);
+ck_assert_int_eq(A.matrix_3d.matrix[1][2], 0);
+
+ck_assert_int_eq(A.matrix_3d.matrix[2][0], 0);
+ck_assert_int_eq(A.matrix_3d.matrix[2][1], 0);
+ck_assert_int_eq(A.matrix_3d.matrix[2][2], 4.3);
+
+ck_assert_int_eq(A.matrix_3d.matrix[3][0], 0);
+ck_assert_int_eq(A.matrix_3d.matrix[3][1], 4.3);
+ck_assert_int_eq(A.matrix_3d.matrix[3][2], 0);
+
+ck_assert_int_eq(A.matrix_3d.matrix[4][0], 0);
+ck_assert_int_eq(A.matrix_3d.matrix[4][1], 4.3);
+ck_assert_int_eq(A.matrix_3d.matrix[4][2], 4.3);
+
+ck_assert_int_eq(A.matrix_3d.matrix[5][0], 4.3);
+ck_assert_int_eq(A.matrix_3d.matrix[5][1], 0);
+ck_assert_int_eq(A.matrix_3d.matrix[5][2], 0);
+
+ck_assert_int_eq(A.matrix_3d.matrix[6][0], 4.3);
+ck_assert_int_eq(A.matrix_3d.matrix[6][1], 0);
+ck_assert_int_eq(A.matrix_3d.matrix[6][2], 4.3);
+
+ck_assert_int_eq(A.matrix_3d.matrix[7][0], 4.3);
+ck_assert_int_eq(A.matrix_3d.matrix[7][1], 4.3);
+ck_assert_int_eq(A.matrix_3d.matrix[7][2], 0);
+
+ck_assert_int_eq(A.matrix_3d.matrix[8][0], 4.3);
+ck_assert_int_eq(A.matrix_3d.matrix[8][1], 4.3);
+ck_assert_int_eq(A.matrix_3d.matrix[8][2], 4.3);
+
+remove_data(&A);
+
+#test aff_trans_test_rotation_x
+obj_data A;
+init_data(&A);
+obj_in_data(&A, "tests/models/cube.obj");
+rotation_model(&A, 90, 0, 0);
+
+ck_assert(fabsl(A.matrix_3d.matrix[1][0] - 0) < ACC);
+ck_assert(fabsl(A.matrix_3d.matrix[1][1] - 0) < ACC);
+ck_assert(fabsl(A.matrix_3d.matrix[1][2] - 0) < ACC);
+
+ck_assert(fabsl(A.matrix_3d.matrix[2][0] - 0) < ACC);
+ck_assert(fabsl(A.matrix_3d.matrix[2][1] - 2) < ACC);
+ck_assert(fabsl(A.matrix_3d.matrix[2][2] - 0) < ACC);
+
+ck_assert(fabsl(A.matrix_3d.matrix[3][0] - 0) < ACC);
+ck_assert(fabsl(A.matrix_3d.matrix[3][1] - 0) < ACC);
+ck_assert(fabsl(A.matrix_3d.matrix[3][2] - -2) < ACC);
+
+ck_assert(fabsl(A.matrix_3d.matrix[4][0] - 0) < ACC);
+ck_assert(fabsl(A.matrix_3d.matrix[4][1] - 2) < ACC);
+ck_assert(fabsl(A.matrix_3d.matrix[4][2] - -2) < ACC);
+
+ck_assert(fabsl(A.matrix_3d.matrix[5][0] - 2) < ACC);
+ck_assert(fabsl(A.matrix_3d.matrix[5][1] - 0) < ACC);
+ck_assert(fabsl(A.matrix_3d.matrix[5][2] - 0) < ACC);
+
+ck_assert(fabsl(A.matrix_3d.matrix[6][0] - 2) < ACC);
+ck_assert(fabsl(A.matrix_3d.matrix[6][1] - 2) < ACC);
+ck_assert(fabsl(A.matrix_3d.matrix[6][2] - 0) < ACC);
+
+ck_assert(fabsl(A.matrix_3d.matrix[7][0] - 2) < ACC);
+ck_assert(fabsl(A.matrix_3d.matrix[7][1] - 0) < ACC);
+ck_assert(fabsl(A.matrix_3d.matrix[7][2] - -2) < ACC);
+
+ck_assert(fabsl(A.matrix_3d.matrix[8][0] - 2) < ACC);
+ck_assert(fabsl(A.matrix_3d.matrix[8][1] - 2) < ACC);
+ck_assert(fabsl(A.matrix_3d.matrix[8][2] - -2) < ACC);
+
+remove_data(&A);
+
+#test aff_trans_test_rotation_y
+obj_data A;
+init_data(&A);
+obj_in_data(&A, "tests/models/cube.obj");
+rotation_model(&A, 0, 90, 0);
+
+ck_assert(fabsl(A.matrix_3d.matrix[1][0] - 0) < ACC);
+ck_assert(fabsl(A.matrix_3d.matrix[1][1] - 0) < ACC);
+ck_assert(fabsl(A.matrix_3d.matrix[1][2] - 0) < ACC);
+
+ck_assert(fabsl(A.matrix_3d.matrix[2][0] - 2) < ACC);
+ck_assert(fabsl(A.matrix_3d.matrix[2][1] - 0) < ACC);
+ck_assert(fabsl(A.matrix_3d.matrix[2][2] - 0) < ACC);
+
+ck_assert(fabsl(A.matrix_3d.matrix[3][0] - 0) < ACC);
+ck_assert(fabsl(A.matrix_3d.matrix[3][1] - 2) < ACC);
+ck_assert(fabsl(A.matrix_3d.matrix[3][2] - 0) < ACC);
+
+ck_assert(fabsl(A.matrix_3d.matrix[4][0] - 2) < ACC);
+ck_assert(fabsl(A.matrix_3d.matrix[4][1] - 2) < ACC);
+ck_assert(fabsl(A.matrix_3d.matrix[4][2] - 0) < ACC);
+
+ck_assert(fabsl(A.matrix_3d.matrix[5][0] - 0) < ACC);
+ck_assert(fabsl(A.matrix_3d.matrix[5][1] - 0) < ACC);
+ck_assert(fabsl(A.matrix_3d.matrix[5][2] - -2) < ACC);
+
+ck_assert(fabsl(A.matrix_3d.matrix[6][0] - 2) < ACC);
+ck_assert(fabsl(A.matrix_3d.matrix[6][1] - 0) < ACC);
+ck_assert(fabsl(A.matrix_3d.matrix[6][2] - -2) < ACC);
+
+ck_assert(fabsl(A.matrix_3d.matrix[7][0] - 0) < ACC);
+ck_assert(fabsl(A.matrix_3d.matrix[7][1] - 2) < ACC);
+ck_assert(fabsl(A.matrix_3d.matrix[7][2] - -2) < ACC);
+
+ck_assert(fabsl(A.matrix_3d.matrix[8][0] - 2) < ACC);
+ck_assert(fabsl(A.matrix_3d.matrix[8][1] - 2) < ACC);
+ck_assert(fabsl(A.matrix_3d.matrix[8][2] - -2) < ACC);
+
+remove_data(&A);
+
+#test aff_trans_test_rotation_z
+obj_data A;
+init_data(&A);
+obj_in_data(&A, "tests/models/cube.obj");
+rotation_model(&A, 0, 0, 90);
+
+ck_assert(fabsl(A.matrix_3d.matrix[1][0] - 0) < ACC);
+ck_assert(fabsl(A.matrix_3d.matrix[1][1] - 0) < ACC);
+ck_assert(fabsl(A.matrix_3d.matrix[1][2] - 0) < ACC);
+
+ck_assert(fabsl(A.matrix_3d.matrix[2][0] - 0) < ACC);
+ck_assert(fabsl(A.matrix_3d.matrix[2][1] - 0) < ACC);
+ck_assert(fabsl(A.matrix_3d.matrix[2][2] - 2) < ACC);
+
+ck_assert(fabsl(A.matrix_3d.matrix[3][0] - -2) < ACC);
+ck_assert(fabsl(A.matrix_3d.matrix[3][1] - 0) < ACC);
+ck_assert(fabsl(A.matrix_3d.matrix[3][2] - 0) < ACC);
+
+ck_assert(fabsl(A.matrix_3d.matrix[4][0] - -2) < ACC);
+ck_assert(fabsl(A.matrix_3d.matrix[4][1] - 0) < ACC);
+ck_assert(fabsl(A.matrix_3d.matrix[4][2] - 2) < ACC);
+
+ck_assert(fabsl(A.matrix_3d.matrix[5][0] - 0) < ACC);
+ck_assert(fabsl(A.matrix_3d.matrix[5][1] - 2) < ACC);
+ck_assert(fabsl(A.matrix_3d.matrix[5][2] - 0) < ACC);
+
+ck_assert(fabsl(A.matrix_3d.matrix[6][0] - 0) < ACC);
+ck_assert(fabsl(A.matrix_3d.matrix[6][1] - 2) < ACC);
+ck_assert(fabsl(A.matrix_3d.matrix[6][2] - 2) < ACC);
+
+ck_assert(fabsl(A.matrix_3d.matrix[7][0] - -2) < ACC);
+ck_assert(fabsl(A.matrix_3d.matrix[7][1] - 2) < ACC);
+ck_assert(fabsl(A.matrix_3d.matrix[7][2] - 0) < ACC);
+
+ck_assert(fabsl(A.matrix_3d.matrix[8][0] - -2) < ACC);
+ck_assert(fabsl(A.matrix_3d.matrix[8][1] - 2) < ACC);
+ck_assert(fabsl(A.matrix_3d.matrix[8][2] - 2) < ACC);
+
+remove_data(&A);
+
+#test scan_obj_test_load_2
+obj_data A;
+init_data(&A);
+unsigned res;
+res = obj_in_data(&A, "tests/models/12140_Skull_v3_L2.obj");
+ck_assert_int_eq(res, 40062);
+inscribe(&A);
+remove_data(&A);
+
+#test scan_obj_test_load_5
+obj_data A;
+init_data(&A);
+unsigned res;
+double res_insc;
+res = obj_in_data(&A, "tests/models/cube.obj");
+ck_assert_int_eq(res, 8);
+res_insc = inscribe(&A);
+ck_assert(fabsl(res_insc - 0.5) < ACC);
+remove_data(&A);
+
+#test scan_obj_test_load_6
+obj_data A;
+init_data(&A);
+unsigned res;
+res = obj_in_data(&A, "tests/models/c1.obj");
+ck_assert_int_eq(res, 0);
+remove_data(&A);
