@@ -14,6 +14,8 @@
 #include <QWindow>
 
 #include "info.h"
+//#include "movement_controller.h"
+//#include "rotation_controller.h"
 #include "ui_mainwindow.h"
 #include "widget.h"
 
@@ -75,6 +77,9 @@ MainWindow::MainWindow(QWidget *parent)
   setupRadiobuttons();
   MainWindow::defaultControls();
   MainWindow::enableControls(0);
+  movement_controller_.SetupMove(
+      ui->widget, ui->statusbar, ui->doubleSpinBox_move_x,
+      ui->doubleSpinBox_move_y, ui->doubleSpinBox_move_z);
 }
 
 MainWindow::~MainWindow() {
@@ -165,3 +170,40 @@ void MainWindow::on_actionOpen_documentation_triggered() {
     ui->statusbar->showMessage("Documentation file not found");
   }
 }
+
+// void MainWindow::on_toolButton_xNeg_clicked() {
+//   MovementController.MoveOnX(-1);
+// }
+
+// void MainWindow::on_toolButton_xPos_clicked() {
+// MovementController.MoveOnX(1); }
+
+// void MainWindow::on_toolButton_yNeg_clicked() {
+//   MovementController.MoveOnY(-1);
+// }
+
+// void MainWindow::on_toolButton_yPos_clicked() {
+// MovementController.MoveOnY(1); }
+
+// void MainWindow::on_toolButton_zNeg_clicked() {
+//   MovementController.MoveOnZ(-1);
+// }
+
+// void MainWindow::on_toolButton_zPos_clicked() {
+// MovementController.MoveOnZ(1); }
+
+void MainWindow::on_toolButton_xNeg_clicked() {
+  movement_controller_.MoveOnX(-1);
+}
+
+void MainWindow::on_toolButton_xPos_clicked() {
+  movement_controller_.MoveOnX(+1);
+}
+
+void MainWindow::on_toolButton_yNeg_clicked() {}
+
+void MainWindow::on_toolButton_yPos_clicked() {}
+
+void MainWindow::on_toolButton_zNeg_clicked() {}
+
+void MainWindow::on_toolButton_zPos_clicked() {}

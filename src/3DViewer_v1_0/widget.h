@@ -21,12 +21,6 @@ extern "C" {
 #include "functions/structs.h"
 }
 
-struct VertexData {
-  VertexData() {}
-  VertexData(QVector3D p) : position(p) {}
-  QVector3D position;
-};
-
 typedef struct {
   QColor vertexColor;
   QColor edgeColor;
@@ -67,7 +61,6 @@ class Widget : public QOpenGLWidget, protected QOpenGLFunctions {
 
  private:
   QString *setFileName(QString fn) { return &(objFileName = fn); };
-  QMatrix4x4 m_projectionMatrix;
   widgetSettings settings;
   int ModelIsLoad = 0;  // by default file is not loaded ModelIsLoad == 0
   obj_data A;

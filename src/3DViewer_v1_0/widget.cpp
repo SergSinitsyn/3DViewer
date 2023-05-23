@@ -143,7 +143,7 @@ void Widget::rotate(int x_angle, int y_angle, int z_angle) {
 void Widget::move(double x_shift, double y_shift, double z_shift) {
   if (ModelIsLoad) {
     model_shift(&A, x_shift, y_shift, z_shift);
-    update();
+    this->update();
   }
 }
 

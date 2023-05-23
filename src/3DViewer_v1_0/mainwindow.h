@@ -5,6 +5,7 @@
 #include <QTimer>
 
 #include "gifanim/gifanim.h"
+#include "movement_controller.h"
 #include "widget.h"
 
 QT_BEGIN_NAMESPACE
@@ -94,6 +95,8 @@ class MainWindow : public QMainWindow {
 
  private:
   Ui::MainWindow *ui;
+  MovementController movement_controller_;
+
   widgetSettings settings;
   double old_scale = 100;
   // video recording variables

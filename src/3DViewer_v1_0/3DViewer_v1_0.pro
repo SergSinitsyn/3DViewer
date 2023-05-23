@@ -23,6 +23,8 @@ SOURCES += \
     mainwindow_scale.cpp \
     mainwindow_settings.cpp \
     mainwindow_screenshots.cpp \
+    movement_controller.cc \
+    rotation_controller.cc \
     widget.cpp
 
 HEADERS += \
@@ -32,6 +34,8 @@ HEADERS += \
     info.h \
     mainwindow.h \
     gifanim/gifanim.h \
+    movement_controller.h \
+    rotation_controller.h \
     widget.h
 
 FORMS += \
