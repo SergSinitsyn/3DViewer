@@ -29,17 +29,17 @@ set(PROJECT_SOURCES
     view/rotation_control.h
     view/movement_control.cc
     view/movement_control.h
-
+    view/scaling_control.cc
+    view/scaling_control.h
 
     view/mainwindow_settings.cc
     view/mainwindow_screenshots.cc
-    view/mainwindow_scale.cc
 
     view/info/info.cc
     view/info/info.h
     view/info/info.ui
 
-    view/gifanim/gifanim.cpp  #TODO cc
+    view/gifanim/gifanim.cpp
     view/gifanim/gifanim.h
 
     model/affine_transformations.c

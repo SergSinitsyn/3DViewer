@@ -7,6 +7,7 @@
 #include "gifanim/gifanim.h"
 #include "movement_control.h"
 #include "rotation_control.h"
+#include "scaling_control.h"
 #include "widget.h"
 
 QT_BEGIN_NAMESPACE
@@ -30,7 +31,7 @@ class MainWindow : public QMainWindow {
   int load_file();
   void on_actionOpen_OBJ_file_triggered();
   void on_actionModel_information_triggered();
-  void defaultControls();
+  void DefaultControls();
   void EnableControls(bool enable);
   void on_actionOpen_documentation_triggered();
 
@@ -54,7 +55,6 @@ class MainWindow : public QMainWindow {
   void on_doubleSpinBox_scale_editingFinished();
   void on_toolButton_scaleL_clicked();
   void on_toolButton_scaleH_clicked();
-  void newScale(double newValue);
 
   // move
   void on_toolButton_xNeg_clicked();
@@ -98,9 +98,10 @@ class MainWindow : public QMainWindow {
   Ui::MainWindow *ui;
   MovementControl movement_control_;
   RotationControl rotation_control_;
+  ScalingControl scaling_control_;
 
   widgetSettings settings;
-  double old_scale = 100;
+  //  double old_scale = 100;
   // video recording variables
   bool record = false;
   QTimer recordTimer;

@@ -75,7 +75,8 @@ MainWindow::MainWindow(QWidget *parent)
   setAppPath(path);
   load_setting_from_file();
   setupRadiobuttons();
-  MainWindow::defaultControls();
+
+  DefaultControls();
   EnableControls(false);
   movement_control_.SetupMovementControl(
       ui->widget, ui->statusbar, ui->doubleSpinBox_move_x,
@@ -83,14 +84,15 @@ MainWindow::MainWindow(QWidget *parent)
   rotation_control_.SetupRotationControl(
       ui->widget, ui->statusbar, ui->spinBox_x, ui->spinBox_y, ui->spinBox_z,
       ui->dial_x, ui->dial_y, ui->dial_z);
+  scaling_control_.SetupScalingControl(
+      ui->widget, ui->statusbar, ui->doubleSpinBox_scale, ui->toolButton_scaleL,
+      ui->toolButton_scaleH);
 
-  // это просто шаблоны
-  //  connect(ui->toolButton_xPos, SIGNAL(clicked()), this,
-  //          movement_control_.MoveOnXAxis(+1));
-  //  //  connect(this, &MainWindow::SendExpressionToGraph, graph_view_,
-  //  //          &GraphWindow::TakeExpressionFromCalc);
-  //  //  connect(graph_view_, &GraphWindow::SendExpressionToCalc, this,
-  //  //          &MainWindow::TakeExpressionFromGraph);
+  //  connect(&(ui->dial_x), SIGNAL(sliderMoved(int)), &rotation_control_,
+  //            SLOT(RotateAroundXAxis(int)));
+
+  //    connect(ui->dial_x, SIGNAL(valueChanged(int)), &rotation_control_,
+  //            SLOT(RotateAroundXAxis(int)));
 }
 
 MainWindow::~MainWindow() {
@@ -109,7 +111,7 @@ int MainWindow::load_file() {
     error_code = 1;
     ui->statusbar->showMessage("File not selected");
   } else {
-    defaultControls();
+    DefaultControls();
     QString oldTitle = windowTitle(), separator = " @ ";
     QString oldFileName = *ui->widget->getObjFileName();
     if (oldFileName != "") {
@@ -148,18 +150,25 @@ void MainWindow::on_actionModel_information_triggered() {
   info.exec();
 }
 
-void MainWindow::defaultControls() {
-  //  ui->dial_x->setValue(0);
-  //  ui->dial_y->setValue(0);
-  //  ui->dial_z->setValue(0);
+void MainWindow::DefaultControls() {
+  ui->centralwidget->blockSignals(true);
+
+  ui->dial_x->setValue(0);
+  ui->dial_y->setValue(0);
+  ui->dial_z->setValue(0);
+  ui->spinBox_x->setValue(0);
+  ui->spinBox_y->setValue(0);
+  ui->spinBox_z->setValue(0);
   ui->doubleSpinBox_move_x->setValue(0.05);
   ui->doubleSpinBox_move_y->setValue(0.05);
   ui->doubleSpinBox_move_z->setValue(0.05);
   ui->doubleSpinBox_scale->setValue(100);
-  old_scale = 100;
+
   ui->widget->height();
   ui->widget->width();
   ui->actionModel_information->setEnabled(false);
+
+  ui->centralwidget->blockSignals(false);
 }
 
 void MainWindow::EnableControls(bool enable) {
@@ -183,6 +192,7 @@ void MainWindow::on_actionOpen_documentation_triggered() {
 }
 
 // movement_block
+// TODO переместить в виде коннектов внутрь класса
 
 void MainWindow::on_toolButton_xNeg_clicked() {
   movement_control_.MoveOnXAxis(movement_control_.kNegative);
@@ -209,6 +219,7 @@ void MainWindow::on_toolButton_zPos_clicked() {
 }
 
 // rotation_block
+// TODO переместить в виде коннектов внутрь класса
 
 void MainWindow::on_dial_x_sliderMoved(int position) {
   rotation_control_.RotateAroundXAxis(position);
@@ -251,3 +262,24 @@ void MainWindow::on_spinBox_y_valueChanged(int arg1) {
 void MainWindow::on_spinBox_z_valueChanged(int arg1) {
   rotation_control_.RotateAroundZAxis(arg1);
 }
+
+// scale_block
+// TODO переместить в виде коннектов внутрь класса
+
+void MainWindow::on_pushButton_normalize_clicked() {
+  scaling_control_.Normalize();
+}
+
+void MainWindow::on_pushButton_scale_clicked() {
+  scaling_control_.UpdateScale();
+}
+
+void MainWindow::on_doubleSpinBox_scale_editingFinished() {
+  scaling_control_.UpdateScale();
+}
+
+void MainWindow::on_toolButton_scaleL_clicked() {
+  scaling_control_.ScaleDown();
+}
+
+void MainWindow::on_toolButton_scaleH_clicked() { scaling_control_.ScaleUp(); }

@@ -133,6 +133,8 @@ void Widget::paintImage() {
   }
 }
 
+// этих функций тут не должно быть
+
 void Widget::rotate(int x_angle, int y_angle, int z_angle) {
   if (ModelIsLoad) {
     rotation_model(&A, x_angle, y_angle, z_angle);

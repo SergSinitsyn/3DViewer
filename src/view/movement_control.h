@@ -16,18 +16,20 @@ class MovementControl {
 
   MovementControl();
   void SetupMovementControl(Widget* widget, QStatusBar* status_bar,
-                            QDoubleSpinBox* move_x, QDoubleSpinBox* move_y,
-                            QDoubleSpinBox* move_z);
+                            QDoubleSpinBox* x_box, QDoubleSpinBox* y_box,
+                            QDoubleSpinBox* z_box);
+
   void MoveOnXAxis(Direction direction);
   void MoveOnYAxis(Direction direction);
   void MoveOnZAxis(Direction direction);
 
  private:
+  void SetupConnections();
   Widget* widget_;
   QStatusBar* status_bar_;
-  QDoubleSpinBox* move_x_;
-  QDoubleSpinBox* move_y_;
-  QDoubleSpinBox* move_z_;
+  QDoubleSpinBox* x_box_;
+  QDoubleSpinBox* y_box_;
+  QDoubleSpinBox* z_box_;
 };
 
 #endif  // MOVEMENT_CONTROLLER_H
