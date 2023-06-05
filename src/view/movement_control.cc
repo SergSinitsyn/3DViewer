@@ -1,12 +1,23 @@
 #include "movement_control.h"
 
-MovementControl::MovementControl() {}
+MovementControl::MovementControl(){};
 
-void MovementControl::SetupMovementControl(Widget *widget,
-                                           QStatusBar *status_bar,
-                                           QDoubleSpinBox *x_box,
-                                           QDoubleSpinBox *y_box,
-                                           QDoubleSpinBox *z_box) {
+MovementControl::MovementControl(Widget* widget, QStatusBar* status_bar,
+                                 QDoubleSpinBox* x_box, QDoubleSpinBox* y_box,
+                                 QDoubleSpinBox* z_box)
+    : widget_(widget),
+      status_bar_(status_bar),
+      x_box_(x_box),
+      y_box_(y_box),
+      z_box_(z_box) {
+  SetupConnections();
+}
+
+void MovementControl::SetupMovementControl(Widget* widget,
+                                           QStatusBar* status_bar,
+                                           QDoubleSpinBox* x_box,
+                                           QDoubleSpinBox* y_box,
+                                           QDoubleSpinBox* z_box) {
   widget_ = widget;
   status_bar_ = status_bar;
   x_box_ = x_box;

@@ -1,5 +1,22 @@
 #include "rotation_control.h"
 
+RotationControl::RotationControl(){};
+
+RotationControl::RotationControl(Widget* widget, QStatusBar* status_bar,
+                                 QSpinBox* x_box, QSpinBox* y_box,
+                                 QSpinBox* z_box, QDial* x_dial, QDial* y_dial,
+                                 QDial* z_dial)
+    : widget_(widget),
+      status_bar_(status_bar),
+      x_box_(x_box),
+      y_box_(y_box),
+      z_box_(z_box),
+      x_dial_(x_dial),
+      y_dial_(y_dial),
+      z_dial_(z_dial) {
+  SetupConnections();
+}
+
 void RotationControl::SetupRotationControl(Widget* widget,
                                            QStatusBar* status_bar,
                                            QSpinBox* x_box, QSpinBox* y_box,
@@ -13,20 +30,13 @@ void RotationControl::SetupRotationControl(Widget* widget,
   x_dial_ = x_dial;
   y_dial_ = y_dial;
   z_dial_ = z_dial;
-  x_box_->setValue(0);
-  y_box_->setValue(0);
-  z_box_->setValue(0);
-  x_dial_->setValue(0);
-  y_dial_->setValue(0);
-  z_dial_->setValue(0);
-  SetupConnections();
 }
 
 void RotationControl::SetupConnections() {
   // TODO сделать коннекты от кнопок здесь
 
-  //  QObject::connect(x_dial_, SIGNAL(valueChanged(int)), this,
-  //                   SLOT(RotateAroundXAxis(int)));
+  // QObject::connect(x_dial_, SIGNAL(valueChanged(int)), this,
+  //                  SLOT(RotateAroundXAxis(int)));
 
   //  QObject::connect(x_dial_, &QDial::valueChanged, this,
   //                   &RotationControl::RotateAroundXAxis);

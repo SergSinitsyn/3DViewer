@@ -19,33 +19,25 @@ include_directories(view)
 set(PROJECT_SOURCES
     main.cc
 
-    view/mainwindow.cc
-    view/mainwindow.h
-    view/mainwindow.ui
+    view/mainwindow.cc          view/mainwindow.h   view/mainwindow.ui
 
-    view/widget.cc
-    view/widget.h
-    view/rotation_control.cc
-    view/rotation_control.h
-    view/movement_control.cc
-    view/movement_control.h
-    view/scaling_control.cc
-    view/scaling_control.h
+    view/widget.cc              view/widget.h
+    view/rotation_control.cc    view/rotation_control.h
+    view/movement_control.cc    view/movement_control.h
+    view/scaling_control.cc     view/scaling_control.h
 
-    view/mainwindow_settings.cc
+    view/mainwindow_settings.cc    
     view/mainwindow_screenshots.cc
 
-    view/info/info.cc
-    view/info/info.h
-    view/info/info.ui
+    view/info/info.cc           view/info/info.h    view/info/info.ui
 
-    view/gifanim/gifanim.cpp
-    view/gifanim/gifanim.h
+    view/gifanim/gifanim.cpp    view/gifanim/gifanim.h
 
-    model/affine_transformations.c
-    model/affine_transformations.h
-    model/reading_obj_file.c
-    model/reading_obj_file.h
+
+    controller/controller.cc    controller/controller.h
+
+    model/affine_transformations.c   model/affine_transformations.h
+    model/reading_obj_file.c         model/reading_obj_file.h
     model/structs.h
 
 )

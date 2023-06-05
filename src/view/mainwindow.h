@@ -96,6 +96,17 @@ class MainWindow : public QMainWindow {
 
  private:
   Ui::MainWindow *ui;
+  // MovementControl movement_control_(ui->widget, ui->statusbar,
+  //                                   ui->doubleSpinBox_move_x,
+  //                                   ui->doubleSpinBox_move_y,
+  //                                   ui->doubleSpinBox_move_z);
+  // RotationControl rotation_control_(ui->widget, ui->statusbar, ui->spinBox_x,
+  //                                   ui->spinBox_y, ui->spinBox_z, ui->dial_x,
+  //                                   ui->dial_y, ui->dial_z);
+  // ScalingControl scaling_control_(ui->widget, ui->statusbar,
+  //                                 ui->doubleSpinBox_scale,
+  //                                 ui->toolButton_scaleL,
+  //                                 ui->toolButton_scaleH);
   MovementControl movement_control_;
   RotationControl rotation_control_;
   ScalingControl scaling_control_;

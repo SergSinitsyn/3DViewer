@@ -69,15 +69,21 @@ void MainWindow::setupRadiobuttons() {
 }
 
 MainWindow::MainWindow(QWidget *parent)
-    : QMainWindow(parent), ui(new Ui::MainWindow) {
-  ui->setupUi(this);
-  QString path = QCoreApplication::applicationDirPath();
-  setAppPath(path);
-  load_setting_from_file();
-  setupRadiobuttons();
+    : QMainWindow(parent),
+      ui(new Ui::MainWindow)
 
-  DefaultControls();
-  EnableControls(false);
+// !не рабатает через конструктор и список инициализации
+// ,
+// movement_control_(ui->widget, ui->statusbar, ui->doubleSpinBox_move_x,
+//                   ui->doubleSpinBox_move_y, ui->doubleSpinBox_move_z),
+// rotation_control_(ui->widget, ui->statusbar, ui->spinBox_x, ui->spinBox_y,
+//                   ui->spinBox_z, ui->dial_x, ui->dial_y, ui->dial_z),
+// scaling_control_(ui->widget, ui->statusbar, ui->doubleSpinBox_scale,
+//                  ui->toolButton_scaleL, ui->toolButton_scaleH)
+
+{
+  ui->setupUi(this);
+
   movement_control_.SetupMovementControl(
       ui->widget, ui->statusbar, ui->doubleSpinBox_move_x,
       ui->doubleSpinBox_move_y, ui->doubleSpinBox_move_z);
@@ -88,11 +94,11 @@ MainWindow::MainWindow(QWidget *parent)
       ui->widget, ui->statusbar, ui->doubleSpinBox_scale, ui->toolButton_scaleL,
       ui->toolButton_scaleH);
 
-  //  connect(&(ui->dial_x), SIGNAL(sliderMoved(int)), &rotation_control_,
-  //            SLOT(RotateAroundXAxis(int)));
-
-  //    connect(ui->dial_x, SIGNAL(valueChanged(int)), &rotation_control_,
-  //            SLOT(RotateAroundXAxis(int)));
+  setAppPath(QCoreApplication::applicationDirPath());
+  load_setting_from_file();
+  setupRadiobuttons();
+  DefaultControls();
+  EnableControls(false);
 }
 
 MainWindow::~MainWindow() {

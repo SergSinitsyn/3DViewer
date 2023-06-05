@@ -7,7 +7,7 @@
 Widget::Widget(QWidget *parent) : QOpenGLWidget(parent) {}
 
 Widget::~Widget() {
-  if (ModelIsLoad) remove_data(&A);
+  if (ModelIsLoad) remove_data(&A);  // TODO удаление данных?
 }
 
 void Widget::setBgColor() {
@@ -77,12 +77,13 @@ void Widget::resizeGL(int w, int h) {
 }
 
 void Widget::paintGL() {
-  double ratio = (double)Widget::width() / (double)Widget::height();
+  double width = static_cast<double>(Widget::width());
+  double height = static_cast<double>(Widget::height());
   double h = 1, w = 1;
-  if (ratio > 1) {
-    w = ratio;
-  } else if (ratio < 1) {
-    h = 1.0 / ratio;
+  if (width > height) {
+    w = width / height;
+  } else {
+    h = height / width;
   }
 
   setBgColor();

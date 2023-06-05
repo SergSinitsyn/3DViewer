@@ -13,8 +13,10 @@ class MovementControl {
     kNegative = -1,
     kPositive = 1,
   };
-
   MovementControl();
+  MovementControl(Widget* widget, QStatusBar* status_bar, QDoubleSpinBox* x_box,
+                  QDoubleSpinBox* y_box, QDoubleSpinBox* z_box);
+
   void SetupMovementControl(Widget* widget, QStatusBar* status_bar,
                             QDoubleSpinBox* x_box, QDoubleSpinBox* y_box,
                             QDoubleSpinBox* z_box);

@@ -11,31 +11,34 @@
 
 class RotationControl {
  public:
-  RotationControl() = default;
-  void SetupRotationControl(Widget* widget, QStatusBar* status_bar,
-                            QSpinBox* x_box, QSpinBox* y_box, QSpinBox* z_box,
-                            QDial* x_dial, QDial* y_dial, QDial* z_dial);
+  RotationControl();
+  RotationControl(Widget *widget, QStatusBar *status_bar, QSpinBox *x_box,
+                  QSpinBox *y_box, QSpinBox *z_box, QDial *x_dial,
+                  QDial *y_dial, QDial *z_dial);
 
- public:
+  void SetupRotationControl(Widget *widget, QStatusBar *status_bar,
+                            QSpinBox *x_box, QSpinBox *y_box, QSpinBox *z_box,
+                            QDial *x_dial, QDial *y_dial, QDial *z_dial);
+
   void RotateAroundXAxis(int position);
   void RotateAroundYAxis(int position);
   void RotateAroundZAxis(int position);
 
  private:
   void SetupConnections();
-  Widget* widget_;
-  QStatusBar* status_bar_;
+  Widget *widget_;
+  QStatusBar *status_bar_;
 
   int current_x_angle_ = 0;
   int current_y_angle_ = 0;
   int current_z_angle_ = 0;
 
-  QSpinBox* x_box_;
-  QSpinBox* y_box_;
-  QSpinBox* z_box_;
-  QDial* x_dial_;
-  QDial* y_dial_;
-  QDial* z_dial_;
+  QSpinBox *x_box_;
+  QSpinBox *y_box_;
+  QSpinBox *z_box_;
+  QDial *x_dial_;
+  QDial *y_dial_;
+  QDial *z_dial_;
 };
 
 #endif  // ROTATION_CONTROL_H
