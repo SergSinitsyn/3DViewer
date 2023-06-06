@@ -106,6 +106,10 @@ MainWindow::~MainWindow() {
   delete ui;
 }
 
+void MainWindow::SetController(Controller &controller) {
+  controller_ = &controller;
+}
+
 int MainWindow::load_file() {
   ui->statusbar->showMessage("Loading file...");
   int error_code = 0;

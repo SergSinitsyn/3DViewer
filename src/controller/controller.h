@@ -1,19 +1,28 @@
 #ifndef CONTROLLER_H
 #define CONTROLLER_H
 
+#include <../model/vmodel.h>
+#include <../view/mainwindow.h>
+
 class Controller {
  public:
-  Controller(Model& model, View& view) : model_(model), view_(view) {}
+  Controller(Model& model, View& view);
 
-  void HandleUserInput(const std::string& user_input) {
-    // Обработка пользовательского ввода
-    model_.UpdateData(user_input);
-    view_.Render(model_.GetData());
-  }
+  void LoadFile(std::string file_name);
+
+  void RotateAroundXAxis(int angle);
+  void RotateAroundYAxis(int angle);
+  void RotateAroundZAxis(int angle);
+
+  void ShiftOnXAxis(double length);
+  void ShiftOnYAxis(double length);
+  void ShiftOnZAxis(double length);
+
+  void Scaling(double scale);
 
  private:
-  Model& model_;
-  View& view_;
+  VModel& model_;
+  MainWindow& view_;
 };
 
 #endif  // CONTROLLER_H

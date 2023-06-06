@@ -34,7 +34,7 @@ void MovementControl::MoveOnXAxis(Direction direction) {
   double movement = direction * x_box_->value();
   // TODO здесь вызов контроллера а не метода виджета
   widget_->move(movement, 0.0, 0.0);
-  widget_->update();
+  widget_->update();  // TODO через наблюдатель виджета из модели
   status_bar_->showMessage(QString("movement on axis x: %1").arg(movement));
 }
 

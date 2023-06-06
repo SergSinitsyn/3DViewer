@@ -16,14 +16,22 @@ class MainWindow;
 }
 QT_END_NAMESPACE
 
+class Controller;
 class MainWindow : public QMainWindow {
   Q_OBJECT
 
  public:
   MainWindow(QWidget *parent = nullptr);
   ~MainWindow();
+  void SetController(Controller &controller);
   void setAppPath(QString path) { appPath = path; };
   const QString *getAppPath() { return &appPath; };
+
+  // !это пример
+  void HandleButtonClick() {
+    int newData = 0 /* Получить новые данные */;
+    controller->SetData(newData);
+  }
 
  private slots:
 
@@ -96,23 +104,15 @@ class MainWindow : public QMainWindow {
 
  private:
   Ui::MainWindow *ui;
-  // MovementControl movement_control_(ui->widget, ui->statusbar,
-  //                                   ui->doubleSpinBox_move_x,
-  //                                   ui->doubleSpinBox_move_y,
-  //                                   ui->doubleSpinBox_move_z);
-  // RotationControl rotation_control_(ui->widget, ui->statusbar, ui->spinBox_x,
-  //                                   ui->spinBox_y, ui->spinBox_z, ui->dial_x,
-  //                                   ui->dial_y, ui->dial_z);
-  // ScalingControl scaling_control_(ui->widget, ui->statusbar,
-  //                                 ui->doubleSpinBox_scale,
-  //                                 ui->toolButton_scaleL,
-  //                                 ui->toolButton_scaleH);
+
+  Controller *controller_;
+
   MovementControl movement_control_;
   RotationControl rotation_control_;
   ScalingControl scaling_control_;
 
   widgetSettings settings;
-  //  double old_scale = 100;
+
   // video recording variables
   bool record = false;
   QTimer recordTimer;
