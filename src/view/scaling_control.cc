@@ -1,22 +1,30 @@
 #include "scaling_control.h"
 
+#include "../controller/controller.h"
+
 void ScalingControl::SetupScalingControl(Widget* widget, QStatusBar* status_bar,
                                          QDoubleSpinBox* scale_box,
+                                         QPushButton* scale_button,
                                          QToolButton* scale_down_button,
                                          QToolButton* scale_up_button) {
   widget_ = widget;
   status_bar_ = status_bar;
   scale_box_ = scale_box;
+  scale_button_ = scale_button;
   scale_down_button_ = scale_down_button;
   scale_up_button_ = scale_up_button;
   SetupConnections();
 }
 
 void ScalingControl::SetupConnections() {
-  //    connect(scale_box_, SIGNAL(editingFinished()), this,
-  //                            SLOT(Scale()));
-  //  connect(scale_down_button_, SIGNAL(clicked()), this, SLOT(ScaleDown()));
-  //  connect(scale_up_button_, SIGNAL(clicked()), this, SLOT(ScaleUp()));
+  connect(scale_box_, SIGNAL(editingFinished()), this, SLOT(UpdateScale()));
+  connect(scale_button_, SIGNAL(clicked()), this, SLOT(UpdateScale()));
+  connect(scale_down_button_, SIGNAL(clicked()), this, SLOT(ScaleDown()));
+  connect(scale_up_button_, SIGNAL(clicked()), this, SLOT(ScaleUp()));
+}
+
+void ScalingControl::SetController(Controller& controller) {
+  controller_ = &controller;
 }
 
 void ScalingControl::Normalize() {
@@ -43,11 +51,14 @@ void ScalingControl::ScaleUp() {
 }
 
 void ScalingControl::ApplyScale(double new_scale) {
+  scale_box_->blockSignals(true);
   double scale_factor = new_scale / currect_scale_;
   currect_scale_ = new_scale;
+
   widget_->scale(scale_factor);  // TODO вызов контроллера
-  scale_box_->blockSignals(true);
+  controller_->Scaling(scale_factor);
+
   scale_box_->setValue(currect_scale_);
-  scale_box_->blockSignals(false);
   status_bar_->showMessage("scale");
+  scale_box_->blockSignals(false);
 }

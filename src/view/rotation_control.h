@@ -9,7 +9,9 @@
 
 #include "widget.h"
 
-class RotationControl {
+class Controller;
+class RotationControl : public QObject {
+  Q_OBJECT
  public:
   RotationControl();
   RotationControl(Widget *widget, QStatusBar *status_bar, QSpinBox *x_box,
@@ -19,13 +21,16 @@ class RotationControl {
   void SetupRotationControl(Widget *widget, QStatusBar *status_bar,
                             QSpinBox *x_box, QSpinBox *y_box, QSpinBox *z_box,
                             QDial *x_dial, QDial *y_dial, QDial *z_dial);
+  void SetController(Controller &controller);
 
+ public slots:
   void RotateAroundXAxis(int position);
   void RotateAroundYAxis(int position);
   void RotateAroundZAxis(int position);
 
  private:
   void SetupConnections();
+  Controller *controller_;
   Widget *widget_;
   QStatusBar *status_bar_;
 

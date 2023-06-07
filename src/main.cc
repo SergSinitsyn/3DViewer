@@ -6,8 +6,8 @@
 int main(int argc, char *argv[]) {
   QApplication application(argc, argv);
   MainWindow view;
-  // VModel model;
-  // Controller controller(&model, &view);
+  s21::VModel model;
+  Controller controller(model, view);
   view.show();
   return application.exec();
 }

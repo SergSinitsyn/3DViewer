@@ -109,14 +109,15 @@ void Widget::paintGL() {
 
 void Widget::paintImage() {
   if (ModelIsLoad) {
-    glVertexPointer(3, GL_DOUBLE, 0, &A.matrix_3d.matrix[1][0]);
+    glVertexPointer(3, GL_DOUBLE, 0, &A.matrix_3d.matrix[1][0]);  //!
     if (settings.line == DASHED) {
       glEnable(GL_LINE_STIPPLE);
       glLineStipple(1, 0x00F0);
     }
     setDrawColor(LINE);
     setDrawSize(LINE);
-    glDrawElements(GL_LINES, 2 * A.number_of_edges, GL_UNSIGNED_INT, A.edges);
+    glDrawElements(GL_LINES, 2 * A.number_of_edges, GL_UNSIGNED_INT,
+                   A.edges);  //!
     glDisable(GL_LINE_STIPPLE);
 
     if (settings.displayVertexes != NONE) {
@@ -134,7 +135,7 @@ void Widget::paintImage() {
   }
 }
 
-// этих функций тут не должно быть
+// этих функций не будет здесь
 
 void Widget::rotate(int x_angle, int y_angle, int z_angle) {
   if (ModelIsLoad) {

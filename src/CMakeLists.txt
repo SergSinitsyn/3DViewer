@@ -36,6 +36,8 @@ set(PROJECT_SOURCES
 
     controller/controller.cc    controller/controller.h
 
+    model/vmodel.cc             model/vmodel.h
+
     model/affine_transformations.c   model/affine_transformations.h
     model/reading_obj_file.c         model/reading_obj_file.h
     model/structs.h

@@ -4,12 +4,14 @@
 #include <../model/vmodel.h>
 #include <../view/mainwindow.h>
 
-class Controller {
+class Controller : public QObject {
+  Q_OBJECT
  public:
-  Controller(Model& model, View& view);
+  Controller(s21::VModel& model, MainWindow& view);
 
   void LoadFile(std::string file_name);
 
+ public slots:
   void RotateAroundXAxis(int angle);
   void RotateAroundYAxis(int angle);
   void RotateAroundZAxis(int angle);
@@ -21,7 +23,7 @@ class Controller {
   void Scaling(double scale);
 
  private:
-  VModel& model_;
+  s21::VModel& model_;
   MainWindow& view_;
 };
 

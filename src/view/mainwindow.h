@@ -24,16 +24,21 @@ class MainWindow : public QMainWindow {
   MainWindow(QWidget *parent = nullptr);
   ~MainWindow();
   void SetController(Controller &controller);
+
+  Controller *controller_;
+
   void setAppPath(QString path) { appPath = path; };
   const QString *getAppPath() { return &appPath; };
 
   // !это пример
-  void HandleButtonClick() {
-    int newData = 0 /* Получить новые данные */;
-    controller->SetData(newData);
-  }
+  // void HandleButtonClick() {
+  //   int newData = 0 /* Получить новые данные */;
+  //   controller->SetData(newData);
+  // }
 
  private slots:
+
+  void SetupControls();
 
   // main
   int load_file();
@@ -43,34 +48,7 @@ class MainWindow : public QMainWindow {
   void EnableControls(bool enable);
   void on_actionOpen_documentation_triggered();
 
-  // rotate
-  void on_dial_x_sliderMoved(int position);
-  void on_dial_y_sliderMoved(int position);
-  void on_dial_z_sliderMoved(int position);
-  void on_spinBox_x_editingFinished();
-  void on_spinBox_y_editingFinished();
-  void on_spinBox_z_editingFinished();
-  void on_dial_x_valueChanged(int value);
-  void on_dial_y_valueChanged(int value);
-  void on_dial_z_valueChanged(int value);
-  void on_spinBox_x_valueChanged(int arg1);
-  void on_spinBox_y_valueChanged(int arg1);
-  void on_spinBox_z_valueChanged(int arg1);
-
-  // scale
-  void on_pushButton_scale_clicked();
   void on_pushButton_normalize_clicked();
-  void on_doubleSpinBox_scale_editingFinished();
-  void on_toolButton_scaleL_clicked();
-  void on_toolButton_scaleH_clicked();
-
-  // move
-  void on_toolButton_xNeg_clicked();
-  void on_toolButton_xPos_clicked();
-  void on_toolButton_yNeg_clicked();
-  void on_toolButton_yPos_clicked();
-  void on_toolButton_zNeg_clicked();
-  void on_toolButton_zPos_clicked();
 
   // settings
   void on_actionColor_edges_triggered();
@@ -104,8 +82,6 @@ class MainWindow : public QMainWindow {
 
  private:
   Ui::MainWindow *ui;
-
-  Controller *controller_;
 
   MovementControl movement_control_;
   RotationControl rotation_control_;
