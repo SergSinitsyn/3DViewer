@@ -23,6 +23,7 @@ void VModel::ReadModelFile(std::string file_name) {
     }
   }
   UniquelizationEdges();
+  Inscribe();
 }
 
 void VModel::Inscribe() {

@@ -10,6 +10,11 @@ Widget::~Widget() {
   if (ModelIsLoad) remove_data(&A);  // TODO удаление данных?
 }
 
+void Widget::SetModelData(const ModelData &model_data) {
+  model_data_ = model_data;
+  model_is_load_ = true;
+}
+
 void Widget::setBgColor() {
 #ifdef Q_OS_LINUX
   qreal r, g, b, f;
@@ -53,13 +58,13 @@ void Widget::getSettings(widgetSettings *sptr) {
   update();
 }
 
-int Widget::loadFile(QString *fileName) {
-  if (ModelIsLoad || objFileName != "") remove_data(&A);
-  ModelIsLoad = obj_in_data(&A, (char *)(*fileName).toLocal8Bit().data());
-  setFileName(*fileName);
-  update();
-  return ModelIsLoad;
-}
+// int Widget::loadFile(QString *fileName) {
+//   if (ModelIsLoad || objFileName != "") remove_data(&A);
+//   ModelIsLoad = obj_in_data(&A, (char *)(*fileName).toLocal8Bit().data());
+//   setFileName(*fileName);
+//   update();
+//   return ModelIsLoad;
+// }
 
 void Widget::initializeGL() {
   initializeOpenGLFunctions();
@@ -101,68 +106,74 @@ void Widget::paintGL() {
 
   QElapsedTimer time;
   time.start();
-  paintImage();
+  PaintImage();
   qDebug() << time.elapsed() << "msec, " << time.nsecsElapsed() << "nanosec";
 
   glDisableClientState(GL_VERTEX_ARRAY);
 }
 
-void Widget::paintImage() {
-  if (ModelIsLoad) {
-    glVertexPointer(3, GL_DOUBLE, 0, &A.matrix_3d.matrix[1][0]);  //!
-    if (settings.line == DASHED) {
-      glEnable(GL_LINE_STIPPLE);
-      glLineStipple(1, 0x00F0);
+void Widget::PaintImage() {
+  if (!model_is_load_) {
+    return;
+  }
+
+  // glVertexPointer(3, GL_DOUBLE, 0, &A.matrix_3d.matrix[1][0]);  //!
+  glVertexPointer(3, GL_DOUBLE, 0, model_data_.vertices.front());
+  if (settings.line == DASHED) {
+    glEnable(GL_LINE_STIPPLE);
+    glLineStipple(1, 0x00F0);
+  }
+  setDrawColor(LINE);
+  setDrawSize(LINE);
+
+  // glDrawElements(GL_LINES, 2 * A.number_of_edges, GL_UNSIGNED_INT,
+  //                A.edges);  //!
+  glDrawElements(GL_LINES, 2 * model_data_.edges.size(), GL_UNSIGNED_INT,
+                 model_data_.edges.front());
+  glDisable(GL_LINE_STIPPLE);
+
+  if (settings.displayVertexes != NONE) {
+    if (settings.displayVertexes == CIRCLE) {
+      glEnable(GL_POINT_SMOOTH);
+      //          glEnable(GL_BLEND);
+      //          glBlendFunc(GL_SRC_ALPHA, GL_ONE_MINUS_SRC_ALPHA);
     }
-    setDrawColor(LINE);
-    setDrawSize(LINE);
-    glDrawElements(GL_LINES, 2 * A.number_of_edges, GL_UNSIGNED_INT,
-                   A.edges);  //!
-    glDisable(GL_LINE_STIPPLE);
-
-    if (settings.displayVertexes != NONE) {
-      if (settings.displayVertexes == CIRCLE) {
-        glEnable(GL_POINT_SMOOTH);
-        //          glEnable(GL_BLEND);
-        //          glBlendFunc(GL_SRC_ALPHA, GL_ONE_MINUS_SRC_ALPHA);
-      }
-      setDrawColor(VERTEX);
-      setDrawSize(VERTEX);
-      glDrawArrays(GL_POINTS, 0, A.number_of_vertex);
-      glDisable(GL_POINT_SMOOTH);
-      //        glDisable(GL_BLEND);
-    }
+    setDrawColor(VERTEX);
+    setDrawSize(VERTEX);
+    glDrawArrays(GL_POINTS, 0, model_data_.vertices.size());  //!
+    glDisable(GL_POINT_SMOOTH);
+    //        glDisable(GL_BLEND);
   }
 }
 
-// этих функций не будет здесь
+// // этих функций не будет здесь
 
-void Widget::rotate(int x_angle, int y_angle, int z_angle) {
-  if (ModelIsLoad) {
-    rotation_model(&A, x_angle, y_angle, z_angle);
-    update();
-  }
-}
+// void Widget::rotate(int x_angle, int y_angle, int z_angle) {
+//   if (ModelIsLoad) {
+//     rotation_model(&A, x_angle, y_angle, z_angle);
+//     update();
+//   }
+// }
 
-void Widget::move(double x_shift, double y_shift, double z_shift) {
-  if (ModelIsLoad) {
-    model_shift(&A, x_shift, y_shift, z_shift);
-    update();
-  }
-}
+// void Widget::move(double x_shift, double y_shift, double z_shift) {
+//   if (ModelIsLoad) {
+//     model_shift(&A, x_shift, y_shift, z_shift);
+//     update();
+//   }
+// }
 
-void Widget::scale(double scaling) {
-  if (ModelIsLoad) {
-    model_scaling(&A, scaling);
-    update();
-  }
-}
+// void Widget::scale(double scaling) {
+//   if (ModelIsLoad) {
+//     model_scaling(&A, scaling);
+//     update();
+//   }
+// }
 
-double Widget::norm() {
-  double a = 1;
-  if (ModelIsLoad) {
-    a = inscribe(&A);
-    a = a * 1.5;
-  }
-  return a;
-}
+// double Widget::norm() {
+//   double a = 1;
+//   if (ModelIsLoad) {
+//     a = inscribe(&A);
+//     a = a * 1.5;
+//   }
+//   return a;
+// }

@@ -20,10 +20,25 @@ class Controller;
 class MainWindow : public QMainWindow {
   Q_OBJECT
 
+  struct ModelInformation {
+    int edges_num;
+    int facetes_num;
+    std::string file_name;
+    int vertex_num;
+  };
+
+  struct ModelData {
+    std::vector<double> vertices;
+    std::vector<int> edges;
+  };
+
  public:
   MainWindow(QWidget *parent = nullptr);
   ~MainWindow();
   void SetController(Controller &controller);
+  void SetModelData(const std::vector<double> &vertices,
+                    const std::vector<int> &edges);
+  void SetModelInformation(const ModelInformation &information);
 
   Controller *controller_;
 
@@ -41,7 +56,7 @@ class MainWindow : public QMainWindow {
   void SetupControls();
 
   // main
-  int load_file();
+  void LoadFile();
   void on_actionOpen_OBJ_file_triggered();
   void on_actionModel_information_triggered();
   void DefaultControls();
@@ -81,11 +96,13 @@ class MainWindow : public QMainWindow {
   void settingsChanged(widgetSettings *);
 
  private:
-  Ui::MainWindow *ui;
+  Ui::MainWindow *ui;  // TODO заменить все на ui_
 
   MovementControl movement_control_;
   RotationControl rotation_control_;
   ScalingControl scaling_control_;
+  ModelInformation model_information_;
+  ModelData model_data_;
 
   widgetSettings settings;
 

@@ -21,7 +21,10 @@
 #include "widget.h"
 
 MainWindow::MainWindow(QWidget *parent)
-    : QMainWindow(parent), ui(new Ui::MainWindow) {
+    : QMainWindow(parent),
+      ui(new Ui::MainWindow),
+      model_information_(),
+      model_data_() {
   ui->setupUi(this);
   SetupControls();
 
@@ -39,6 +42,29 @@ MainWindow::~MainWindow() {
 
 void MainWindow::SetController(Controller &controller) {
   controller_ = &controller;
+}
+
+void MainWindow::SetModelData(const std::vector<double> &vertices,
+                              const std::vector<int> &edges) {
+  model_data_.vertices = vertices;
+  model_data_.edges = edges;
+  ui->widget->SetModelData(model_data_);
+}
+
+void MainWindow::SetModelInformation(const ModelInformation &information) {
+  model_information_ = &information;
+  //  ShowInformation();  // TODO
+  QString number_of_edges =
+      QString::number(model_information_.edges_num, 'g', 8);
+  QString number_of_vertices =
+      QString::number(model_information_.vertex_num, 'g', 8);
+  QString number_of_faces =
+      QString::number(model_information_.facetes_num, 'g', 8);
+  ui->statusbar->showMessage("File: '" + model_information_.file_name +
+                             "', Edges: " + number_of_edges +
+                             ", Vertices: " + number_of_vertices +
+                             ", Faces: " + number_of_faces);
+  ui->actionModel_information->setEnabled(true);
 }
 
 void MainWindow::SetupControls() {
@@ -107,51 +133,46 @@ void MainWindow::setupRadiobuttons() {
   }
 }
 
-int MainWindow::load_file() {
+void MainWindow::LoadFile() {
+  // TODO декомпозировать
+
   ui->statusbar->showMessage("Loading file...");
-  int error_code = 0;
+
   QDir::currentPath();
-  QString newFileName = QFileDialog::getOpenFileName(0, "Open", "", "*.obj");
-  std::string str = newFileName.toStdString();
-  char *c_string = ((char *)str.c_str());
-  if (*c_string == 0) {
-    error_code = 1;
+  QString new_filename = QFileDialog::getOpenFileName(0, "Open", "", "*.obj");
+  if (new_filename.isEmpty()) {
     ui->statusbar->showMessage("File not selected");
-  } else {
-    DefaultControls();
-    QString oldTitle = windowTitle(), separator = " @ ";
-    QString oldFileName = *ui->widget->getObjFileName();
-    if (oldFileName != "") {
-      oldFileName = basename(oldFileName.toLocal8Bit().data());
-      if (oldTitle.contains(oldFileName))
-        oldTitle =
-            oldTitle.remove(0, oldFileName.length() + separator.length());
-    }
-    // ! здесь загрузка модели
-    int load_ok = ui->widget->loadFile(&newFileName);
-    const obj_data *data = ui->widget->getObjData();  // !
-
-    QString numberOfEdges = QString::number(data->number_of_edges, 'g', 8);
-    QString numberOfVertices = QString::number(data->number_of_vertex, 'g', 8);
-    QString numberOfFaces = QString::number(data->number_of_facetes, 'g', 8);
-    if (load_ok) {
-      ui->statusbar->showMessage(
-          "File: '" + newFileName + "', Edges: " + numberOfEdges +
-          ", Vertexes: " + numberOfVertices + ", Faces: " + numberOfFaces);
-      ui->actionModel_information->setEnabled(true);
-      EnableControls(true);
-
-      setWindowTitle(QString(basename(data->name_file)) + separator + oldTitle);
-    } else {
-      EnableControls(false);
-      ui->statusbar->showMessage("Error loading file: '" + newFileName + "'");
-      setWindowTitle(oldTitle);
-    }
+    return;
   }
-  return error_code;
+  DefaultControls();  //? здесь
+
+  QString old_title = windowTitle(), separator = " @ ";
+  QString old_filename = *ui->widget->getObjFileName();
+  if (!old_filename.isEmpty()) {
+    old_filename = basename(old_filename.toLocal8Bit().data());
+    if (old_title.contains(old_filename))
+      old_title =
+          old_title.remove(0, old_filename.length() + separator.length());
+  }
+
+  try {
+    controller_->LoadFile(new_filename);
+    // int load_ok = ui->widget->loadFile(&new_filename);
+    // const obj_data *data = ui->widget->getObjData();  // !
+    // ! здесь загрузка модели
+    // ui->widget->loadFile(new_filename);
+
+    EnableControls(true);
+    setWindowTitle(QString(basename(data->name_file)) + separator + old_title);
+
+  } catch (...) {
+    ui->statusbar->showMessage("Error loading file: '" + new_filename + "'");
+    EnableControls(false);
+    setWindowTitle(old_title);
+  }
 }
 
-void MainWindow::on_actionOpen_OBJ_file_triggered() { load_file(); }
+void MainWindow::on_actionOpen_OBJ_file_triggered() { LoadFile(); }
 
 void MainWindow::on_actionModel_information_triggered() {
   Info info(nullptr, ui->widget->getObjData());

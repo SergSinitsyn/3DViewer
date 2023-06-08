@@ -10,8 +10,9 @@ Controller::Controller(s21::VModel &model, MainWindow &view)
 
 void Controller::LoadFile(std::string file_name) {
   model_.ReadModelFile(file_name);
-  //   view_.SetInfo(model_.GetData());
-  //   view_.SetModel(model_.GetData());
+
+  view_.SetModelData(model_.GetVertices(), model_.GetEdges());
+  view_.SetModelInformation(model_.GetInformation());
 }
 
 void Controller::RotateAroundXAxis(int angle) { /*model_.XRotation(angle);*/

@@ -33,16 +33,24 @@ typedef struct {
 
 class Widget : public QOpenGLWidget, protected QOpenGLFunctions {
   Q_OBJECT
+
+  struct ModelData {
+    std::vector<double> vertices;
+    std::vector<int> edges;
+  };
+
  public:
   explicit Widget(QWidget *parent = nullptr);
   ~Widget();
-  int loadFile(QString *);
-  void rotate(int x_angle, int y_angle, int z_angle);
-  void move(double x_shift, double y_shift, double z_shift);
-  void scale(double scaling);
-  double norm();
-  const obj_data *getObjData() { return &A; };
-  const QString *getObjFileName() { return &objFileName; };
+  // int loadFile(QString *);
+  // void rotate(int x_angle, int y_angle, int z_angle);
+  // void move(double x_shift, double y_shift, double z_shift);
+  // void scale(double scaling);
+  // double norm();
+  // const obj_data *getObjData() { return &A; };
+  // const QString *getObjFileName() { return &objFileName; };
+
+  void SetModelData(const ModelData &model_data);
 
  private slots:
   void getSettings(widgetSettings *sptr);
@@ -54,16 +62,19 @@ class Widget : public QOpenGLWidget, protected QOpenGLFunctions {
   void resizeGL(int w, int h);
   void paintGL();
   void setBgColor();
-  void paintImage();
+  void PaintImage();
   void setDrawColor(element e);
   void setDrawSize(element e);
 
  private:
-  QString *setFileName(QString fn) { return &(objFileName = fn); };
+  ModelData model_data_;
+  bool model_is_load_ = false;
+
+  // QString *setFileName(QString fn) { return &(objFileName = fn); };
   widgetSettings settings;
-  bool ModelIsLoad = false;  // by default file is not loaded ModelIsLoad == 0
-  obj_data A;
-  QString objFileName = "";
+
+  // obj_data A;
+  // QString objFileName = "";
 };
 
 #endif  // WIDGET_H
