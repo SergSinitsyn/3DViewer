@@ -31,14 +31,8 @@ class MainWindow : public QMainWindow {
 
   Controller *controller_;
 
-  void setAppPath(QString path) { appPath = path; };
-  const QString *getAppPath() { return &appPath; };
-
-  // !это пример
-  // void HandleButtonClick() {
-  //   int newData = 0 /* Получить новые данные */;
-  //   controller->SetData(newData);
-  // }
+  void setAppPath(QString path) { appPath = path; };  // to google-style
+  const QString *getAppPath() { return &appPath; };   // to google-style
 
  private slots:
 
@@ -52,14 +46,12 @@ class MainWindow : public QMainWindow {
   void EnableControls(bool enable);
   void on_actionOpen_documentation_triggered();
 
-  // settings
+  // settings  //TODO перенести в отдельный класс?
   void on_actionColor_edges_triggered();
   void on_actionColor_vertices_triggered();
   void on_actionBackground_color_triggered();
   void on_actionThickness_triggered();
   void on_actionSize_triggered();
-  void load_setting_from_file();
-  void save_setting_to_file();
   void on_actionNone_triggered(bool checked);
   void on_actionCircle_triggered(bool checked);
   void on_actionSquare_triggered(bool checked);
@@ -67,8 +59,11 @@ class MainWindow : public QMainWindow {
   void on_actionDashed_triggered(bool checked);
   void on_actionParallel_triggered(bool checked);
   void on_actionCentral_triggered(bool checked);
-  void setupRadiobuttons();
-  int fileNameErrorDialog(const char *msg);
+
+  void load_setting_from_file();             // to google-style
+  void save_setting_to_file();               // to google-style
+  void setupRadiobuttons();                  // to google-style
+  int fileNameErrorDialog(const char *msg);  // to google-style
 
   // screenshot
   void saveImageAs();
@@ -80,7 +75,7 @@ class MainWindow : public QMainWindow {
   //
 
  signals:
-  void settingsChanged(widgetSettings *);
+  void settingsChanged(widgetSettings *);  // to google-style
 
  private:
   Ui::MainWindow *ui;  // TODO заменить все на ui_

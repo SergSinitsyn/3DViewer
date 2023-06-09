@@ -10,6 +10,7 @@
 #include <QFileDialog>
 #include <QFileInfo>
 #include <QInputDialog>
+#include <QMessageBox>
 #include <QUrl>
 #include <QWindow>
 
@@ -51,23 +52,6 @@ void MainWindow::SetModelData(const std::vector<double> &vertices,
   ui->widget->SetModelData(model_data_);
 }
 
-void MainWindow::SetModelInformation(const ModelInformation &information) {
-  model_information_ = information;
-  //  ShowInformation();  // TODO
-  QString number_of_edges =
-      QString::number(model_information_.edges_number, 'g', 8);
-  QString number_of_vertices =
-      QString::number(model_information_.vertices_number, 'g', 8);
-  QString number_of_faces =
-      QString::number(model_information_.facetes_number, 'g', 8);
-
-  QString filename = QString::fromStdString(model_information_.file_name);
-  ui->statusbar->showMessage(
-      "File: '" + filename + "', Edges: " + number_of_edges +
-      ", Vertices: " + number_of_vertices + ", Faces: " + number_of_faces);
-  ui->actionModel_information->setEnabled(true);
-}
-
 void MainWindow::SetupControls() {
   rotation_control_.SetupRotationControl(ui->statusbar, ui->spinBox_x,
                                          ui->spinBox_y, ui->spinBox_z,
@@ -83,6 +67,23 @@ void MainWindow::SetupControls() {
   rotation_control_.SetController(*controller_);
   movement_control_.SetController(*controller_);
   scaling_control_.SetController(*controller_);
+}
+
+void MainWindow::SetModelInformation(const ModelInformation &information) {
+  model_information_ = information;
+  //  ShowInformation();  // TODO
+  QString number_of_edges =
+      QString::number(model_information_.edges_number, 'g', 8);
+  QString number_of_vertices =
+      QString::number(model_information_.vertices_number, 'g', 8);
+  QString number_of_faces =
+      QString::number(model_information_.facetes_number, 'g', 8);
+
+  QString filename = QString::fromStdString(model_information_.file_name);
+  ui->statusbar->showMessage(
+      "File: '" + filename + "', Edges: " + number_of_edges +
+      ", Vertices: " + number_of_vertices + ", Faces: " + number_of_faces);
+  ui->actionModel_information->setEnabled(true);
 }
 
 void MainWindow::setupRadiobuttons() {
@@ -136,9 +137,7 @@ void MainWindow::setupRadiobuttons() {
 
 void MainWindow::LoadFile() {
   // TODO декомпозировать
-
   ui->statusbar->showMessage("Loading file...");
-
   QDir::currentPath();
   QString new_filename = QFileDialog::getOpenFileName(0, "Open", "", "*.obj");
   if (new_filename.isEmpty()) {
@@ -147,34 +146,37 @@ void MainWindow::LoadFile() {
   }
   DefaultControls();  //? здесь
 
-  QString old_title = windowTitle(), separator = " @ ";
-  //  QString old_filename = *ui->widget->getObjFileName();
-  QString old_filename = "fix filemane";
-  if (!old_filename.isEmpty()) {
-    old_filename = basename(old_filename.toLocal8Bit().data());
-    if (old_title.contains(old_filename))
-      old_title =
-          old_title.remove(0, old_filename.length() + separator.length());
-  }
+  // TODO fix
+  // ?это все связано с названием
+  // QString old_title = windowTitle(), separator = " @ ";
+  // //  QString old_filename = *ui->widget->getObjFileName();
+  // QString old_filename = "fix filemane";
+  // if (!old_filename.isEmpty()) {
+  //   old_filename = basename(old_filename.toLocal8Bit().data());
+  //   if (old_title.contains(old_filename))
+  //     old_title =
+  //         old_title.remove(0, old_filename.length() + separator.length());
+  // }
 
   try {
     controller_->LoadFile(new_filename.toStdString());
-    // int load_ok = ui->widget->loadFile(&new_filename);
-    // const obj_data *data = ui->widget->getObjData();  // !
-    // ! здесь загрузка модели
-    // ui->widget->loadFile(new_filename);
 
     EnableControls(true);
 
     // TODO fix
+    //?это все связано с названием 2
     //    setWindowTitle(QString(basename(model_information_.file_name)) +
     //    separator +
     //                   old_title);
 
-  } catch (...) {
-    ui->statusbar->showMessage("Error loading file: '" + new_filename + "'");
+  } catch (const std::exception &e) {
+    QMessageBox::critical(this, "Warning", e.what());
+    ui->statusbar->showMessage("Error loading file: '" + new_filename + "'" +
+                               ", error:" + e.what());
     EnableControls(false);
-    setWindowTitle(old_title);
+    // TODO fix
+    // ?это все связано с названием 3
+    // setWindowTitle(old_title);
   }
 }
 

@@ -1,5 +1,7 @@
 #include "movement_control.h"
 
+#include <QMessageBox>
+
 #include "../controller/controller.h"
 
 MovementControl::MovementControl(){};
@@ -79,7 +81,12 @@ void MovementControl::MoveOnZAxisNegative() {
 
 void MovementControl::MoveOnXAxis(MovementControl::Direction direction) {
   double movement = direction * x_box_->value();
-  controller_->ShiftOnXAxis(movement);
+  try {
+    controller_->ShiftOnXAxis(movement);
+  } catch (const std::exception& e) {
+    QString myQString = QString::fromStdString(e.what());
+    qDebug() << myQString;
+  }
   status_bar_->showMessage(QString("movement on axis x: %1").arg(movement));
 }
 

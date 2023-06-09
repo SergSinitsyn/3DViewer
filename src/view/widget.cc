@@ -73,13 +73,7 @@ void Widget::initializeGL() {
   glEnable(GL_CULL_FACE);
 }
 
-void Widget::resizeGL(int w, int h) {
-  glViewport(0, 0, w, h);
-  //  float aspect = w / (float)h;
-  //  m_projectionMatrix.setToIdentity();  // единичная
-  //  m_projectionMatrix.perspective(45, aspect, 0.1f,
-  //                                 10.0f);  // матрица задания перспективы
-}
+void Widget::resizeGL(int w, int h) { glViewport(0, 0, w, h); }
 
 void Widget::paintGL() {
   double width = static_cast<double>(Widget::width());
@@ -118,7 +112,7 @@ void Widget::PaintImage() {
   }
 
   // glVertexPointer(3, GL_DOUBLE, 0, &A.matrix_3d.matrix[1][0]);  //!
-  glVertexPointer(3, GL_DOUBLE, 0, model_data_.vertices.data());
+  glVertexPointer(3, GL_DOUBLE, 0, model_data_.vertices.data() - 3);
   if (settings.line == DASHED) {
     glEnable(GL_LINE_STIPPLE);
     glLineStipple(1, 0x00F0);
@@ -128,7 +122,7 @@ void Widget::PaintImage() {
 
   // glDrawElements(GL_LINES, 2 * A.number_of_edges, GL_UNSIGNED_INT,
   //                A.edges);  //!
-  glDrawElements(GL_LINES, 2 * model_data_.edges.size(), GL_UNSIGNED_INT,
+  glDrawElements(GL_LINES, model_data_.edges.size(), GL_UNSIGNED_INT,
                  model_data_.edges.data());
   glDisable(GL_LINE_STIPPLE);
 
@@ -140,7 +134,7 @@ void Widget::PaintImage() {
     }
     setDrawColor(VERTEX);
     setDrawSize(VERTEX);
-    glDrawArrays(GL_POINTS, 0, model_data_.vertices.size());  //!
+    glDrawArrays(GL_POINTS, 0, model_data_.vertices.size() / 3);  //!
     glDisable(GL_POINT_SMOOTH);
     //        glDisable(GL_BLEND);
   }
