@@ -6,6 +6,7 @@
 
 class Controller : public QObject {
   Q_OBJECT
+
  public:
   Controller(s21::VModel& model, MainWindow& view);
 

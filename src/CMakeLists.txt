@@ -1,6 +1,6 @@
 cmake_minimum_required(VERSION 3.5)
 
-project(3D_Viewer_2 VERSION 0.1 LANGUAGES CXX C)
+project(3D_Viewer_2 VERSION 0.1 LANGUAGES CXX)
 
 set(CMAKE_INCLUDE_CURRENT_DIR ON)
 
@@ -19,8 +19,9 @@ include_directories(view)
 set(PROJECT_SOURCES
     main.cc
 
-    view/mainwindow.cc          view/mainwindow.h   view/mainwindow.ui
+    other/structs.h
 
+    view/mainwindow.cc          view/mainwindow.h   view/mainwindow.ui
     view/widget.cc              view/widget.h
     view/rotation_control.cc    view/rotation_control.h
     view/movement_control.cc    view/movement_control.h
@@ -33,15 +34,9 @@ set(PROJECT_SOURCES
 
     view/gifanim/gifanim.cpp    view/gifanim/gifanim.h
 
-
     controller/controller.cc    controller/controller.h
 
     model/vmodel.cc             model/vmodel.h
-
-    model/affine_transformations.c   model/affine_transformations.h
-    model/reading_obj_file.c         model/reading_obj_file.h
-    model/structs.h
-
 )
 
 if(${QT_VERSION_MAJOR} GREATER_EQUAL 6)

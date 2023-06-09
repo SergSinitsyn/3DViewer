@@ -4,21 +4,22 @@
 
 #include "ui_info.h"
 
-Info::Info(QWidget *parent, const obj_data *data)
-    : QDialog(parent), ui(new Ui::Info) {
+Info::Info(QWidget *parent, ModelInformation model_information)
+    : QDialog(parent), ui(new Ui::Info), model_information_(model_information) {
   ui->setupUi(this);
-  Info::initialization_info(data);
+  InitializationInfo();
 }
+
 Info::~Info() { delete ui; }
 
-void Info::initialization_info(const obj_data *data) {
-  QString filemane = basename(data->name_file);
-  QString numberOfEdges = QString("%L1").arg(data->number_of_edges);
-  QString numberOfVertices = QString("%L1").arg(data->number_of_vertex);
-  QString numberOfFaces = QString("%L1").arg(data->number_of_facetes);
+void Info::InitializationInfo() {
+  QString filename = QString::fromStdString(model_information_.file_name);
+  QString edges = QString::number(model_information_.edges_number);
+  QString vertices = QString::number(model_information_.vertices_number);
+  QString faces = QString::number(model_information_.facetes_number);
 
-  ui->label_filename->setText(filemane);
-  ui->label_numberOfEdges->setText(numberOfEdges);
-  ui->label_numberOfVertices->setText(numberOfVertices);
-  ui->label_numberOfFaces->setText(numberOfFaces);
+  ui->label_filename->setText(filename);
+  ui->label_numberOfEdges->setText(edges);
+  ui->label_numberOfVertices->setText(vertices);
+  ui->label_numberOfFaces->setText(faces);
 }

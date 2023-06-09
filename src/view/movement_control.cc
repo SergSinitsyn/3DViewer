@@ -5,12 +5,11 @@
 MovementControl::MovementControl(){};
 
 MovementControl::MovementControl(
-    Widget* widget, QStatusBar* status_bar, QDoubleSpinBox* x_box,
-    QDoubleSpinBox* y_box, QDoubleSpinBox* z_box, QToolButton* x_positive,
-    QToolButton* x_negative, QToolButton* y_positive, QToolButton* y_negative,
-    QToolButton* z_positive, QToolButton* z_negative)
-    : widget_(widget),
-      status_bar_(status_bar),
+    QStatusBar* status_bar, QDoubleSpinBox* x_box, QDoubleSpinBox* y_box,
+    QDoubleSpinBox* z_box, QToolButton* x_positive, QToolButton* x_negative,
+    QToolButton* y_positive, QToolButton* y_negative, QToolButton* z_positive,
+    QToolButton* z_negative)
+    : status_bar_(status_bar),
       x_box_(x_box),
       y_box_(y_box),
       z_box_(z_box),
@@ -24,11 +23,10 @@ MovementControl::MovementControl(
 }
 
 void MovementControl::SetupMovementControl(
-    Widget* widget, QStatusBar* status_bar, QDoubleSpinBox* x_box,
-    QDoubleSpinBox* y_box, QDoubleSpinBox* z_box, QToolButton* x_positive,
-    QToolButton* x_negative, QToolButton* y_positive, QToolButton* y_negative,
-    QToolButton* z_positive, QToolButton* z_negative) {
-  widget_ = widget;
+    QStatusBar* status_bar, QDoubleSpinBox* x_box, QDoubleSpinBox* y_box,
+    QDoubleSpinBox* z_box, QToolButton* x_positive, QToolButton* x_negative,
+    QToolButton* y_positive, QToolButton* y_negative, QToolButton* z_positive,
+    QToolButton* z_negative) {
   status_bar_ = status_bar;
   x_box_ = x_box;
   y_box_ = y_box;
@@ -81,27 +79,18 @@ void MovementControl::MoveOnZAxisNegative() {
 
 void MovementControl::MoveOnXAxis(MovementControl::Direction direction) {
   double movement = direction * x_box_->value();
-
-  widget_->move(movement, 0.0, 0.0);  // TODO удалить это
   controller_->ShiftOnXAxis(movement);
-
   status_bar_->showMessage(QString("movement on axis x: %1").arg(movement));
 }
 
 void MovementControl::MoveOnYAxis(MovementControl::Direction direction) {
   double movement = direction * y_box_->value();
-
-  widget_->move(0, movement, 0);  // TODO удалить это
   controller_->ShiftOnYAxis(movement);
-
   status_bar_->showMessage(QString("movement on axis y: %1").arg(movement));
 }
 
 void MovementControl::MoveOnZAxis(MovementControl::Direction direction) {
   double movement = direction * z_box_->value();
-
-  widget_->move(0, 0, movement);  // TODO удалить это
   controller_->ShiftOnZAxis(movement);
-
   status_bar_->showMessage(QString("movement on axis z: %1").arg(movement));
 }

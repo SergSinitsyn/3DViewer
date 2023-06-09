@@ -14,13 +14,12 @@ class RotationControl : public QObject {
   Q_OBJECT
  public:
   RotationControl();
-  RotationControl(Widget *widget, QStatusBar *status_bar, QSpinBox *x_box,
-                  QSpinBox *y_box, QSpinBox *z_box, QDial *x_dial,
-                  QDial *y_dial, QDial *z_dial);
+  RotationControl(QStatusBar *status_bar, QSpinBox *x_box, QSpinBox *y_box,
+                  QSpinBox *z_box, QDial *x_dial, QDial *y_dial, QDial *z_dial);
 
-  void SetupRotationControl(Widget *widget, QStatusBar *status_bar,
-                            QSpinBox *x_box, QSpinBox *y_box, QSpinBox *z_box,
-                            QDial *x_dial, QDial *y_dial, QDial *z_dial);
+  void SetupRotationControl(QStatusBar *status_bar, QSpinBox *x_box,
+                            QSpinBox *y_box, QSpinBox *z_box, QDial *x_dial,
+                            QDial *y_dial, QDial *z_dial);
   void SetController(Controller &controller);
 
  public slots:
@@ -31,7 +30,6 @@ class RotationControl : public QObject {
  private:
   void SetupConnections();
   Controller *controller_;
-  Widget *widget_;
   QStatusBar *status_bar_;
 
   int current_x_angle_ = 0;

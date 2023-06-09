@@ -52,32 +52,33 @@ void MainWindow::SetModelData(const std::vector<double> &vertices,
 }
 
 void MainWindow::SetModelInformation(const ModelInformation &information) {
-  model_information_ = &information;
+  model_information_ = information;
   //  ShowInformation();  // TODO
   QString number_of_edges =
-      QString::number(model_information_.edges_num, 'g', 8);
+      QString::number(model_information_.edges_number, 'g', 8);
   QString number_of_vertices =
-      QString::number(model_information_.vertex_num, 'g', 8);
+      QString::number(model_information_.vertices_number, 'g', 8);
   QString number_of_faces =
-      QString::number(model_information_.facetes_num, 'g', 8);
-  ui->statusbar->showMessage("File: '" + model_information_.file_name +
-                             "', Edges: " + number_of_edges +
-                             ", Vertices: " + number_of_vertices +
-                             ", Faces: " + number_of_faces);
+      QString::number(model_information_.facetes_number, 'g', 8);
+
+  QString filename = QString::fromStdString(model_information_.file_name);
+  ui->statusbar->showMessage(
+      "File: '" + filename + "', Edges: " + number_of_edges +
+      ", Vertices: " + number_of_vertices + ", Faces: " + number_of_faces);
   ui->actionModel_information->setEnabled(true);
 }
 
 void MainWindow::SetupControls() {
-  rotation_control_.SetupRotationControl(
-      ui->widget, ui->statusbar, ui->spinBox_x, ui->spinBox_y, ui->spinBox_z,
-      ui->dial_x, ui->dial_y, ui->dial_z);
+  rotation_control_.SetupRotationControl(ui->statusbar, ui->spinBox_x,
+                                         ui->spinBox_y, ui->spinBox_z,
+                                         ui->dial_x, ui->dial_y, ui->dial_z);
   movement_control_.SetupMovementControl(
-      ui->widget, ui->statusbar, ui->doubleSpinBox_move_x,
-      ui->doubleSpinBox_move_y, ui->doubleSpinBox_move_z, ui->toolButton_xPos,
-      ui->toolButton_xNeg, ui->toolButton_yPos, ui->toolButton_yNeg,
-      ui->toolButton_zPos, ui->toolButton_zNeg);
+      ui->statusbar, ui->doubleSpinBox_move_x, ui->doubleSpinBox_move_y,
+      ui->doubleSpinBox_move_z, ui->toolButton_xPos, ui->toolButton_xNeg,
+      ui->toolButton_yPos, ui->toolButton_yNeg, ui->toolButton_zPos,
+      ui->toolButton_zNeg);
   scaling_control_.SetupScalingControl(
-      ui->widget, ui->statusbar, ui->doubleSpinBox_scale, ui->pushButton_scale,
+      ui->statusbar, ui->doubleSpinBox_scale, ui->pushButton_scale,
       ui->toolButton_scaleL, ui->toolButton_scaleH);
   rotation_control_.SetController(*controller_);
   movement_control_.SetController(*controller_);
@@ -147,7 +148,8 @@ void MainWindow::LoadFile() {
   DefaultControls();  //? здесь
 
   QString old_title = windowTitle(), separator = " @ ";
-  QString old_filename = *ui->widget->getObjFileName();
+  //  QString old_filename = *ui->widget->getObjFileName();
+  QString old_filename = "fix filemane";
   if (!old_filename.isEmpty()) {
     old_filename = basename(old_filename.toLocal8Bit().data());
     if (old_title.contains(old_filename))
@@ -156,14 +158,18 @@ void MainWindow::LoadFile() {
   }
 
   try {
-    controller_->LoadFile(new_filename);
+    controller_->LoadFile(new_filename.toStdString());
     // int load_ok = ui->widget->loadFile(&new_filename);
     // const obj_data *data = ui->widget->getObjData();  // !
     // ! здесь загрузка модели
     // ui->widget->loadFile(new_filename);
 
     EnableControls(true);
-    setWindowTitle(QString(basename(data->name_file)) + separator + old_title);
+
+    // TODO fix
+    //    setWindowTitle(QString(basename(model_information_.file_name)) +
+    //    separator +
+    //                   old_title);
 
   } catch (...) {
     ui->statusbar->showMessage("Error loading file: '" + new_filename + "'");
@@ -175,7 +181,7 @@ void MainWindow::LoadFile() {
 void MainWindow::on_actionOpen_OBJ_file_triggered() { LoadFile(); }
 
 void MainWindow::on_actionModel_information_triggered() {
-  Info info(nullptr, ui->widget->getObjData());
+  Info info(nullptr, model_information_);
   info.setModal(true);
   info.exec();
 }
@@ -219,8 +225,4 @@ void MainWindow::on_actionOpen_documentation_triggered() {
   } else {
     ui->statusbar->showMessage("Documentation file not found");
   }
-}
-
-void MainWindow::on_pushButton_normalize_clicked() {
-  scaling_control_.Normalize();
 }

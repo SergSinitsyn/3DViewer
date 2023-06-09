@@ -8,22 +8,12 @@
 #include <string>
 #include <vector>
 
+#include "../other/structs.h"
+
 const double kMy_pi = 3.14159265358979323846;  // TODO сделать полем класса
 
 namespace s21 {
 class VModel {
-  struct Information {
-    int edges_num;
-    int facetes_num;
-    std::string file_name;
-    int vertex_num;
-  };
-
-  // struct Data {
-  //   std::vector<int> edges;
-  //   std::vector<double> vertices;
-  // };
-
  public:
   VModel() : edges_num_(0), facetes_num_(0), file_name_(""), vertex_num_(0) {}
   ~VModel() {}
@@ -35,18 +25,17 @@ class VModel {
   int GetFacetesNum() const { return facetes_num_; }
   std::string GetFileName() const { return file_name_; }
   int GetVertexNum() const { return vertex_num_; }
-  Information GetInformation() const {
-    Information info;
-    info.edges_num = edges_num_;
-    info.facetes_num = facetes_num_;
+  ModelInformation GetInformation() const {
+    ModelInformation info;
+    info.edges_number = edges_num_;
+    info.facetes_number = facetes_num_;
     info.file_name = file_name_;
-    info.vertex_num = vertex_num_;
+    info.vertices_number = vertex_num_;
     return info;
   }
 
   // const data& GetData() const { return data_{edges_, vertex_}; }
 
-  void Inscribe();
   void ReadModelFile(std::string file_name);
   void Scaling(double scale);
   void XRotation(double x_rot);
@@ -72,6 +61,7 @@ class VModel {
   double z_max_;
 
   void Centering();
+  void Inscribe();
   void EdgesAdd(std::string line);
   int EdgesCount(std::string line);
   void EdgeDuplicateDel();

@@ -4,6 +4,7 @@
 #include <QMainWindow>
 #include <QTimer>
 
+#include "../other/structs.h"
 #include "gifanim/gifanim.h"
 #include "movement_control.h"
 #include "rotation_control.h"
@@ -19,18 +20,6 @@ QT_END_NAMESPACE
 class Controller;
 class MainWindow : public QMainWindow {
   Q_OBJECT
-
-  struct ModelInformation {
-    int edges_num;
-    int facetes_num;
-    std::string file_name;
-    int vertex_num;
-  };
-
-  struct ModelData {
-    std::vector<double> vertices;
-    std::vector<int> edges;
-  };
 
  public:
   MainWindow(QWidget *parent = nullptr);
@@ -62,8 +51,6 @@ class MainWindow : public QMainWindow {
   void DefaultControls();
   void EnableControls(bool enable);
   void on_actionOpen_documentation_triggered();
-
-  void on_pushButton_normalize_clicked();
 
   // settings
   void on_actionColor_edges_triggered();

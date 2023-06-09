@@ -6,6 +6,8 @@
 #include <QOpenGLFunctions>
 #include <QOpenGLWidget>
 
+#include "../other/structs.h"
+
 typedef enum { LINE, VERTEX } element;
 
 typedef enum { SOLID, DASHED } Line_type;
@@ -13,12 +15,6 @@ typedef enum { SOLID, DASHED } Line_type;
 typedef enum { PARALLEL, CENTRAL } Projection_type;
 
 typedef enum { NONE, CIRCLE, SQUARE } Display_method;
-
-extern "C" {
-#include "../model/affine_transformations.h"
-#include "../model/reading_obj_file.h"
-#include "../model/structs.h"
-}
 
 typedef struct {
   QColor vertexColor;
@@ -34,19 +30,11 @@ typedef struct {
 class Widget : public QOpenGLWidget, protected QOpenGLFunctions {
   Q_OBJECT
 
-  struct ModelData {
-    std::vector<double> vertices;
-    std::vector<int> edges;
-  };
-
  public:
   explicit Widget(QWidget *parent = nullptr);
   ~Widget();
   // int loadFile(QString *);
-  // void rotate(int x_angle, int y_angle, int z_angle);
-  // void move(double x_shift, double y_shift, double z_shift);
-  // void scale(double scaling);
-  // double norm();
+
   // const obj_data *getObjData() { return &A; };
   // const QString *getObjFileName() { return &objFileName; };
 

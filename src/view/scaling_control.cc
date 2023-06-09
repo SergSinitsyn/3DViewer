@@ -2,12 +2,11 @@
 
 #include "../controller/controller.h"
 
-void ScalingControl::SetupScalingControl(Widget* widget, QStatusBar* status_bar,
+void ScalingControl::SetupScalingControl(QStatusBar* status_bar,
                                          QDoubleSpinBox* scale_box,
                                          QPushButton* scale_button,
                                          QToolButton* scale_down_button,
                                          QToolButton* scale_up_button) {
-  widget_ = widget;
   status_bar_ = status_bar;
   scale_box_ = scale_box;
   scale_button_ = scale_button;
@@ -25,13 +24,6 @@ void ScalingControl::SetupConnections() {
 
 void ScalingControl::SetController(Controller& controller) {
   controller_ = &controller;
-}
-
-void ScalingControl::Normalize() {
-  // widget_->norm() сам делает сдвиг модели (оставить так?)
-  double new_scale =
-      widget_->norm() * currect_scale_;  // TODO вызов контроллера
-  ApplyScale(new_scale);
 }
 
 void ScalingControl::UpdateScale() { ApplyScale(scale_box_->value()); }
@@ -55,10 +47,9 @@ void ScalingControl::ApplyScale(double new_scale) {
   double scale_factor = new_scale / currect_scale_;
   currect_scale_ = new_scale;
 
-  widget_->scale(scale_factor);  // TODO вызов контроллера
   controller_->Scaling(scale_factor);
 
   scale_box_->setValue(currect_scale_);
-  status_bar_->showMessage("scale");
+  status_bar_->showMessage(QString("scale on: %1").arg(scale_factor));
   scale_box_->blockSignals(false);
 }

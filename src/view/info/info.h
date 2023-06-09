@@ -3,7 +3,7 @@
 
 #include <QDialog>
 
-#include "../../model/structs.h"
+#include "../../other/structs.h"
 
 namespace Ui {
 class Info;
@@ -13,13 +13,14 @@ class Info : public QDialog {
   Q_OBJECT
 
  public:
-  //    explicit Info(QWidget *parent = nullptr);
-  explicit Info(QWidget *parent = nullptr, const obj_data *data = nullptr);
+  Info(QWidget *parent = nullptr,
+       ModelInformation model_information = ModelInformation());
   ~Info();
-  void initialization_info(const obj_data *data);
+  void InitializationInfo();
 
  private:
   Ui::Info *ui;
+  ModelInformation model_information_;
 };
 
 #endif  // INFO_H

@@ -4,12 +4,10 @@
 
 RotationControl::RotationControl(){};
 
-RotationControl::RotationControl(Widget* widget, QStatusBar* status_bar,
-                                 QSpinBox* x_box, QSpinBox* y_box,
-                                 QSpinBox* z_box, QDial* x_dial, QDial* y_dial,
-                                 QDial* z_dial)
-    : widget_(widget),
-      status_bar_(status_bar),
+RotationControl::RotationControl(QStatusBar* status_bar, QSpinBox* x_box,
+                                 QSpinBox* y_box, QSpinBox* z_box,
+                                 QDial* x_dial, QDial* y_dial, QDial* z_dial)
+    : status_bar_(status_bar),
       x_box_(x_box),
       y_box_(y_box),
       z_box_(z_box),
@@ -19,12 +17,10 @@ RotationControl::RotationControl(Widget* widget, QStatusBar* status_bar,
   SetupConnections();
 }
 
-void RotationControl::SetupRotationControl(Widget* widget,
-                                           QStatusBar* status_bar,
+void RotationControl::SetupRotationControl(QStatusBar* status_bar,
                                            QSpinBox* x_box, QSpinBox* y_box,
                                            QSpinBox* z_box, QDial* x_dial,
                                            QDial* y_dial, QDial* z_dial) {
-  widget_ = widget;
   status_bar_ = status_bar;
   x_box_ = x_box;
   y_box_ = y_box;
@@ -65,7 +61,6 @@ void RotationControl::RotateAroundXAxis(int position) {
   x_dial_->blockSignals(true);
 
   int new_angle = position - current_x_angle_;
-  widget_->rotate(new_angle, 0, 0);  // TODO удалить это
   controller_->RotateAroundXAxis(new_angle);
 
   current_x_angle_ = position;
@@ -82,7 +77,6 @@ void RotationControl::RotateAroundYAxis(int position) {
   y_dial_->blockSignals(true);
 
   int new_angle = position - current_y_angle_;
-  widget_->rotate(0, new_angle, 0);  // TODO удалить это
   controller_->RotateAroundYAxis(new_angle);
 
   current_y_angle_ = position;
@@ -99,7 +93,6 @@ void RotationControl::RotateAroundZAxis(int position) {
   z_dial_->blockSignals(true);
 
   int new_angle = position - current_z_angle_;
-  widget_->rotate(0, 0, new_angle);  // TODO удалить это
   controller_->RotateAroundYAxis(new_angle);
 
   current_z_angle_ = position;

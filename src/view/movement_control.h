@@ -17,18 +17,17 @@ class MovementControl : public QObject {
     kPositive = 1,
   };
   MovementControl();
-  MovementControl(Widget* widget, QStatusBar* status_bar, QDoubleSpinBox* x_box,
+  MovementControl(QStatusBar* status_bar, QDoubleSpinBox* x_box,
                   QDoubleSpinBox* y_box, QDoubleSpinBox* z_box,
                   QToolButton* x_positive, QToolButton* x_negative,
                   QToolButton* y_positive, QToolButton* y_negative,
                   QToolButton* z_positive, QToolButton* z_negative);
 
-  void SetupMovementControl(Widget* widget, QStatusBar* status_bar,
-                            QDoubleSpinBox* x_box, QDoubleSpinBox* y_box,
-                            QDoubleSpinBox* z_box, QToolButton* x_positive,
-                            QToolButton* x_negative, QToolButton* y_positive,
-                            QToolButton* y_negative, QToolButton* z_positive,
-                            QToolButton* z_negative);
+  void SetupMovementControl(QStatusBar* status_bar, QDoubleSpinBox* x_box,
+                            QDoubleSpinBox* y_box, QDoubleSpinBox* z_box,
+                            QToolButton* x_positive, QToolButton* x_negative,
+                            QToolButton* y_positive, QToolButton* y_negative,
+                            QToolButton* z_positive, QToolButton* z_negative);
   void SetController(Controller& controller);
 
  private slots:
@@ -42,7 +41,7 @@ class MovementControl : public QObject {
  private:
   void SetupConnections();
   Controller* controller_;
-  Widget* widget_;
+
   QStatusBar* status_bar_;
   QDoubleSpinBox* x_box_;
   QDoubleSpinBox* y_box_;

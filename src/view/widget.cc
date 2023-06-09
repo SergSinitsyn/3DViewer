@@ -7,7 +7,7 @@
 Widget::Widget(QWidget *parent) : QOpenGLWidget(parent) {}
 
 Widget::~Widget() {
-  if (ModelIsLoad) remove_data(&A);  // TODO удаление данных?
+  //  if (ModelIsLoad) remove_data(&A);  // TODO удаление данных?
 }
 
 void Widget::SetModelData(const ModelData &model_data) {
@@ -118,7 +118,7 @@ void Widget::PaintImage() {
   }
 
   // glVertexPointer(3, GL_DOUBLE, 0, &A.matrix_3d.matrix[1][0]);  //!
-  glVertexPointer(3, GL_DOUBLE, 0, model_data_.vertices.front());
+  glVertexPointer(3, GL_DOUBLE, 0, model_data_.vertices.data());
   if (settings.line == DASHED) {
     glEnable(GL_LINE_STIPPLE);
     glLineStipple(1, 0x00F0);
@@ -129,7 +129,7 @@ void Widget::PaintImage() {
   // glDrawElements(GL_LINES, 2 * A.number_of_edges, GL_UNSIGNED_INT,
   //                A.edges);  //!
   glDrawElements(GL_LINES, 2 * model_data_.edges.size(), GL_UNSIGNED_INT,
-                 model_data_.edges.front());
+                 model_data_.edges.data());
   glDisable(GL_LINE_STIPPLE);
 
   if (settings.displayVertexes != NONE) {
@@ -145,35 +145,3 @@ void Widget::PaintImage() {
     //        glDisable(GL_BLEND);
   }
 }
-
-// // этих функций не будет здесь
-
-// void Widget::rotate(int x_angle, int y_angle, int z_angle) {
-//   if (ModelIsLoad) {
-//     rotation_model(&A, x_angle, y_angle, z_angle);
-//     update();
-//   }
-// }
-
-// void Widget::move(double x_shift, double y_shift, double z_shift) {
-//   if (ModelIsLoad) {
-//     model_shift(&A, x_shift, y_shift, z_shift);
-//     update();
-//   }
-// }
-
-// void Widget::scale(double scaling) {
-//   if (ModelIsLoad) {
-//     model_scaling(&A, scaling);
-//     update();
-//   }
-// }
-
-// double Widget::norm() {
-//   double a = 1;
-//   if (ModelIsLoad) {
-//     a = inscribe(&A);
-//     a = a * 1.5;
-//   }
-//   return a;
-// }

@@ -15,23 +15,22 @@ void Controller::LoadFile(std::string file_name) {
   view_.SetModelInformation(model_.GetInformation());
 }
 
-void Controller::RotateAroundXAxis(int angle) { /*model_.XRotation(angle);*/
+void Controller::RotateAroundXAxis(int angle) {
+  model_.XRotation((double)angle);
 }
 
-void Controller::RotateAroundYAxis(int angle) { /*model_.YRotation(angle);*/
+void Controller::RotateAroundYAxis(int angle) {
+  model_.YRotation((double)angle);
 }
 
-void Controller::RotateAroundZAxis(int angle) { /*model_.ZRotation(angle);*/
+void Controller::RotateAroundZAxis(int angle) {
+  model_.ZRotation((double)angle);
 }
 
-void Controller::ShiftOnXAxis(double length) { /*model_.XShift(length);*/
-}
+void Controller::ShiftOnXAxis(double length) { model_.XShift(length); }
 
-void Controller::ShiftOnYAxis(double length) { /*model_.YShift(length);*/
-}
+void Controller::ShiftOnYAxis(double length) { model_.YShift(length); }
 
-void Controller::ShiftOnZAxis(double length) { /* model_.YShift(length);*/
-}
+void Controller::ShiftOnZAxis(double length) { model_.ZShift(length); }
 
-void Controller::Scaling(double scale) { /*model_.Scaling(scale);*/
-}
+void Controller::Scaling(double scale) { model_.Scaling(scale); }
