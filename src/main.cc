@@ -6,6 +6,7 @@
 
 int main(int argc, char *argv[]) {
   QApplication application(argc, argv);
+  QLocale::setDefault(QLocale::C);
   MainWindow view;
   s21::VModel model;
   Controller controller(model, view);

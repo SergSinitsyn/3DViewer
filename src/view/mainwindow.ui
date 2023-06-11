@@ -79,32 +79,6 @@
       <property name="autoFillBackground">
        <bool>true</bool>
       </property>
-      <widget class="QLabel" name="label">
-       <property name="geometry">
-        <rect>
-         <x>310</x>
-         <y>240</y>
-         <width>58</width>
-         <height>16</height>
-        </rect>
-       </property>
-       <property name="text">
-        <string/>
-       </property>
-      </widget>
-      <widget class="QTableWidget" name="tableWidget">
-       <property name="enabled">
-        <bool>false</bool>
-       </property>
-       <property name="geometry">
-        <rect>
-         <x>110</x>
-         <y>480</y>
-         <width>256</width>
-         <height>192</height>
-        </rect>
-       </property>
-      </widget>
      </widget>
     </item>
     <item>
