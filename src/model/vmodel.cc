@@ -1,5 +1,6 @@
 #include "vmodel.h"
 
+#include <QDebug>
 namespace s21 {
 
 void VModel::ReadModelFile(std::string file_name) {
@@ -224,7 +225,9 @@ void VModel::VertexAdd(std::string line) {
   size_t vertex_count = 0;
   for (size_t i = 1; i < line.size() && vertex_count < 3;) {
     size_t num_size = 0;
-    if (line[i] != ' ') throw std::invalid_argument("IV");
+    if (line[i] != ' ') {
+      throw std::invalid_argument("IV");
+    }
     double d = std::stod(&line[i], &num_size);
     vertex_.push_back(d);
 
