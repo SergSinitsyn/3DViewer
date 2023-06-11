@@ -17,10 +17,12 @@ RotationControl::RotationControl(QStatusBar* status_bar, QSpinBox* x_box,
   SetupConnections();
 }
 
-void RotationControl::SetupRotationControl(QStatusBar* status_bar,
+void RotationControl::SetupRotationControl(Widget* widget,
+                                           QStatusBar* status_bar,
                                            QSpinBox* x_box, QSpinBox* y_box,
                                            QSpinBox* z_box, QDial* x_dial,
                                            QDial* y_dial, QDial* z_dial) {
+  widget_ = widget;
   status_bar_ = status_bar;
   x_box_ = x_box;
   y_box_ = y_box;
@@ -62,6 +64,7 @@ void RotationControl::RotateAroundXAxis(int position) {
 
   int new_angle = position - current_x_angle_;
   controller_->RotateAroundXAxis(new_angle);
+  widget_->update();
 
   current_x_angle_ = position;
   x_box_->setValue(current_x_angle_);
@@ -78,6 +81,7 @@ void RotationControl::RotateAroundYAxis(int position) {
 
   int new_angle = position - current_y_angle_;
   controller_->RotateAroundYAxis(new_angle);
+  widget_->update();
 
   current_y_angle_ = position;
   y_box_->setValue(current_y_angle_);
@@ -94,6 +98,7 @@ void RotationControl::RotateAroundZAxis(int position) {
 
   int new_angle = position - current_z_angle_;
   controller_->RotateAroundYAxis(new_angle);
+  widget_->update();
 
   current_z_angle_ = position;
   z_box_->setValue(current_z_angle_);

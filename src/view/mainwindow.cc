@@ -56,14 +56,14 @@ void MainWindow::SetModelData(const std::vector<double> &vertices,
 }
 
 void MainWindow::SetupControls() {
-  rotation_control_.SetupRotationControl(ui->statusbar, ui->spinBox_x,
-                                         ui->spinBox_y, ui->spinBox_z,
-                                         ui->dial_x, ui->dial_y, ui->dial_z);
+  rotation_control_.SetupRotationControl(
+      ui->widget, ui->statusbar, ui->spinBox_x, ui->spinBox_y, ui->spinBox_z,
+      ui->dial_x, ui->dial_y, ui->dial_z);
   movement_control_.SetupMovementControl(
-      ui->statusbar, ui->doubleSpinBox_move_x, ui->doubleSpinBox_move_y,
-      ui->doubleSpinBox_move_z, ui->toolButton_xPos, ui->toolButton_xNeg,
-      ui->toolButton_yPos, ui->toolButton_yNeg, ui->toolButton_zPos,
-      ui->toolButton_zNeg);
+      ui->widget, ui->statusbar, ui->doubleSpinBox_move_x,
+      ui->doubleSpinBox_move_y, ui->doubleSpinBox_move_z, ui->toolButton_xPos,
+      ui->toolButton_xNeg, ui->toolButton_yPos, ui->toolButton_yNeg,
+      ui->toolButton_zPos, ui->toolButton_zNeg);
   scaling_control_.SetupScalingControl(
       ui->widget, ui->statusbar, ui->doubleSpinBox_scale, ui->pushButton_scale,
       ui->toolButton_scaleL, ui->toolButton_scaleH);
