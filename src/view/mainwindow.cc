@@ -83,7 +83,6 @@ void MainWindow::SetModelInformation(const ModelInformation &information) {
   ui->statusbar->showMessage(
       "File: '" + filename + "', Edges: " + number_of_edges +
       ", Vertices: " + number_of_vertices + ", Faces: " + number_of_faces);
-  ui->actionModel_information->setEnabled(true);
 }
 
 void MainWindow::setupRadiobuttons() {
@@ -211,6 +210,8 @@ void MainWindow::DefaultControls() {
 
 void MainWindow::EnableControls(bool enable) {
   ui->centralwidget->setEnabled(enable);
+  ui->actionModel_information->setEnabled(enable);
+  ui->actionSave_OBJ_to_Image->setEnabled(enable);
 }
 
 void MainWindow::on_actionOpen_documentation_triggered() {
