@@ -65,7 +65,7 @@ void MainWindow::SetupControls() {
       ui->toolButton_yPos, ui->toolButton_yNeg, ui->toolButton_zPos,
       ui->toolButton_zNeg);
   scaling_control_.SetupScalingControl(
-      ui->statusbar, ui->doubleSpinBox_scale, ui->pushButton_scale,
+      ui->widget, ui->statusbar, ui->doubleSpinBox_scale, ui->pushButton_scale,
       ui->toolButton_scaleL, ui->toolButton_scaleH);
   //  rotation_control_.SetController(*controller_);
   //  movement_control_.SetController(*controller_);

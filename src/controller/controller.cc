@@ -17,20 +17,35 @@ void Controller::LoadFile(std::string file_name) {
 
 void Controller::RotateAroundXAxis(int angle) {
   model_.XRotation((double)angle);
+  view_.SetModelData(model_.GetVertices(), model_.GetEdges());
 }
 
 void Controller::RotateAroundYAxis(int angle) {
   model_.YRotation((double)angle);
+  view_.SetModelData(model_.GetVertices(), model_.GetEdges());
 }
 
 void Controller::RotateAroundZAxis(int angle) {
   model_.ZRotation((double)angle);
+  view_.SetModelData(model_.GetVertices(), model_.GetEdges());
 }
 
-void Controller::ShiftOnXAxis(double length) { model_.XShift(length); }
+void Controller::ShiftOnXAxis(double length) {
+  model_.XShift(length);
+  view_.SetModelData(model_.GetVertices(), model_.GetEdges());
+}
 
-void Controller::ShiftOnYAxis(double length) { model_.YShift(length); }
+void Controller::ShiftOnYAxis(double length) {
+  model_.YShift(length);
+  view_.SetModelData(model_.GetVertices(), model_.GetEdges());
+}
 
-void Controller::ShiftOnZAxis(double length) { model_.ZShift(length); }
+void Controller::ShiftOnZAxis(double length) {
+  model_.ZShift(length);
+  view_.SetModelData(model_.GetVertices(), model_.GetEdges());
+}
 
-void Controller::Scaling(double scale) { model_.Scaling(scale); }
+void Controller::Scaling(double scale) {
+  model_.Scaling(scale);
+  view_.SetModelData(model_.GetVertices(), model_.GetEdges());
+}
