@@ -43,6 +43,9 @@ MainWindow::~MainWindow() {
 
 void MainWindow::SetController(Controller &controller) {
   controller_ = &controller;
+  rotation_control_.SetController(*controller_);
+  movement_control_.SetController(*controller_);
+  scaling_control_.SetController(*controller_);
 }
 
 void MainWindow::SetModelData(const std::vector<double> &vertices,
@@ -64,9 +67,9 @@ void MainWindow::SetupControls() {
   scaling_control_.SetupScalingControl(
       ui->statusbar, ui->doubleSpinBox_scale, ui->pushButton_scale,
       ui->toolButton_scaleL, ui->toolButton_scaleH);
-  rotation_control_.SetController(*controller_);
-  movement_control_.SetController(*controller_);
-  scaling_control_.SetController(*controller_);
+  //  rotation_control_.SetController(*controller_);
+  //  movement_control_.SetController(*controller_);
+  //  scaling_control_.SetController(*controller_);
 }
 
 void MainWindow::SetModelInformation(const ModelInformation &information) {
