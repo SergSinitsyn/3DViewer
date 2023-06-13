@@ -97,7 +97,7 @@ void RotationControl::RotateAroundZAxis(int position) {
   z_dial_->blockSignals(true);
 
   int new_angle = position - current_z_angle_;
-  controller_->RotateAroundYAxis(new_angle);
+  controller_->RotateAroundZAxis(new_angle);
   widget_->update();
 
   current_z_angle_ = position;
