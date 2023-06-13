@@ -10,7 +10,7 @@ Controller::Controller(s21::VModel &model, MainWindow &view)
 
 void Controller::LoadFile(std::string file_name) {
   model_.ReadModelFile(file_name);
-
+  model_.Inscribe();
   view_.SetModelData(model_.GetVertices(), model_.GetEdges());
   view_.SetModelInformation(model_.GetInformation());
 }
