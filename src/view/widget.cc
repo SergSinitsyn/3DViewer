@@ -63,11 +63,11 @@ void Widget::initializeGL() {
   //  glViewport(0, 0, width(), height());
   glEnable(GL_DEPTH_TEST);
   glEnable(GL_CULL_FACE);
-  setBgColor();
 }
 
-void Widget::resizeGL(int w, int h) {
-  glViewport(0, 0, w, h);
+void Widget::resizeGL(int w, int h) { glViewport(0, 0, w, h); }
+
+void Widget::paintGL() {
   double width = static_cast<double>(Widget::width());
   double height = static_cast<double>(Widget::height());
   double height_rate = 1, width_rate = 1;
@@ -77,6 +77,7 @@ void Widget::resizeGL(int w, int h) {
     height_rate = height / width;
   }
 
+  setBgColor();
   glClear(GL_COLOR_BUFFER_BIT | GL_DEPTH_BUFFER_BIT);
   glLoadIdentity();
 
@@ -86,11 +87,7 @@ void Widget::resizeGL(int w, int h) {
     glOrtho(-width_rate, width_rate, -height_rate, height_rate, 3, 10);
 
   glTranslatef(0.0, 0.0, -8.0);
-  setBgColor();
-}
 
-void Widget::paintGL() {
-  setBgColor();
   glEnableClientState(GL_VERTEX_ARRAY);
   QElapsedTimer time;
   time.start();
