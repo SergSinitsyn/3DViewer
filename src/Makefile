@@ -66,10 +66,10 @@ gcov_report: report/index.html
 
 
 install:
-	cmake -S . -B build -G "Unix Makefiles"
-	make -C build
-	cd ./build && rm -rf CMakeFiles cmake_install.cmake CMakeCache.txt Makefile
-	open build
+	cmake -S . -B $(BUILD_DIR) -G "Unix Makefiles"
+	make -C  $(BUILD_DIR)
+	cd $(BUILD_DIR) && rm -rf CMakeFiles cmake_install.cmake CMakeCache.txt Makefile $(NAME)_autogen
+	open  $(BUILD_DIR)
 
 
 # install: uninstall dvi 
@@ -81,7 +81,7 @@ install:
 # 	$(CLEAN) $(BUILD_DIR)/qmake_qmake_qm_files.qrc
 # 	$(CLEAN) $(BUILD_DIR)/.qm
 
-uninstall: clean
+uninstall:
 	$(CLEAN) $(BUILD_DIR)	
 
 dvi:

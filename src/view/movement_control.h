@@ -8,6 +8,8 @@
 
 #include "widget.h"
 
+namespace s21 {
+
 class Controller;
 class MovementControl : public QObject {
   Q_OBJECT
@@ -23,12 +25,11 @@ class MovementControl : public QObject {
                   QToolButton* y_positive, QToolButton* y_negative,
                   QToolButton* z_positive, QToolButton* z_negative);
 
-  void SetupMovementControl(Widget* widget, QStatusBar* status_bar,
-                            QDoubleSpinBox* x_box, QDoubleSpinBox* y_box,
-                            QDoubleSpinBox* z_box, QToolButton* x_positive,
-                            QToolButton* x_negative, QToolButton* y_positive,
-                            QToolButton* y_negative, QToolButton* z_positive,
-                            QToolButton* z_negative);
+  void SetupMovementControl(QStatusBar* status_bar, QDoubleSpinBox* x_box,
+                            QDoubleSpinBox* y_box, QDoubleSpinBox* z_box,
+                            QToolButton* x_positive, QToolButton* x_negative,
+                            QToolButton* y_positive, QToolButton* y_negative,
+                            QToolButton* z_positive, QToolButton* z_negative);
   void SetController(Controller& controller);
 
  private slots:
@@ -43,7 +44,6 @@ class MovementControl : public QObject {
   void SetupConnections();
   Controller* controller_;
 
-  Widget* widget_;
   QStatusBar* status_bar_;
   QDoubleSpinBox* x_box_;
   QDoubleSpinBox* y_box_;
@@ -59,5 +59,7 @@ class MovementControl : public QObject {
   void MoveOnYAxis(MovementControl::Direction direction);
   void MoveOnZAxis(MovementControl::Direction direction);
 };
+
+};  // namespace s21
 
 #endif  // MOVEMENT_CONTROLLER_H

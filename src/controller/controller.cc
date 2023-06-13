@@ -3,7 +3,9 @@
 #include <../model/vmodel.h>
 #include <../view/mainwindow.h>
 
-Controller::Controller(s21::VModel &model, MainWindow &view)
+namespace s21 {
+
+Controller::Controller(s21::VModel &model, s21::MainWindow &view)
     : model_(model), view_(view) {
   view_.SetController(*this);
 }
@@ -49,3 +51,5 @@ void Controller::Scaling(double scale) {
   model_.Scaling(scale);
   view_.SetModelData(model_.GetVertices(), model_.GetEdges());
 }
+
+};  // namespace s21

@@ -4,11 +4,13 @@
 #include <../model/vmodel.h>
 #include <../view/mainwindow.h>
 
+namespace s21 {
+
 class Controller : public QObject {
   Q_OBJECT
 
  public:
-  Controller(s21::VModel& model, MainWindow& view);
+  Controller(s21::VModel& model, s21::MainWindow& view);
 
   void LoadFile(std::string file_name);
 
@@ -25,7 +27,9 @@ class Controller : public QObject {
 
  private:
   s21::VModel& model_;
-  MainWindow& view_;
+  s21::MainWindow& view_;
 };
+
+};  // namespace s21
 
 #endif  // CONTROLLER_H

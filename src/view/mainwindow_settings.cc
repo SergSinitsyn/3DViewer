@@ -9,12 +9,14 @@
 #include "mainwindow.h"
 #include "ui_mainwindow.h"
 
+namespace s21 {
+
 void MainWindow::on_actionColor_edges_triggered() {
   QColor c = QColorDialog::getColor(settings.edgeColor, this,
                                     "Choose color for edges");
   if (c.isValid()) {
     settings.edgeColor = c;
-    ui->statusbar->showMessage("correct color");
+    ui_->statusbar->showMessage("correct color");
     emit settingsChanged(&settings);
   }
 }
@@ -24,7 +26,7 @@ void MainWindow::on_actionColor_vertices_triggered() {
                                     "Choose color for vertices");
   if (c.isValid()) {
     settings.vertexColor = c;
-    ui->statusbar->showMessage("correct color");
+    ui_->statusbar->showMessage("correct color");
     emit settingsChanged(&settings);
   }
 }
@@ -34,7 +36,7 @@ void MainWindow::on_actionBackground_color_triggered() {
                                     "Choose background color");
   if (c.isValid()) {
     settings.backgroundColor = c;
-    ui->statusbar->showMessage("correct color");
+    ui_->statusbar->showMessage("correct color");
     emit settingsChanged(&settings);
   }
 }
@@ -94,15 +96,15 @@ void MainWindow::save_setting_to_file() {
 
   if (settings.backgroundColor.isValid()) {
     settingsFile.setValue("backgroundColor", settings.backgroundColor);
-    ui->statusbar->showMessage("backgroundColor setting stored");
+    ui_->statusbar->showMessage("backgroundColor setting stored");
   }
   if (settings.vertexColor.isValid()) {
     settingsFile.setValue("vertexColor", settings.vertexColor);
-    ui->statusbar->showMessage("Vertex color setting stored");
+    ui_->statusbar->showMessage("Vertex color setting stored");
   }
   if (settings.edgeColor.isValid()) {
     settingsFile.setValue("edgeColor", settings.edgeColor);
-    ui->statusbar->showMessage("edgeColor setting stored");
+    ui_->statusbar->showMessage("edgeColor setting stored");
   }
   settingsFile.endGroup();
 }
@@ -149,3 +151,5 @@ void MainWindow::on_actionCentral_triggered(bool checked) {
   }
   emit settingsChanged(&settings);
 }
+
+};  // namespace s21

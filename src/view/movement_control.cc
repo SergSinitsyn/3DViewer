@@ -4,6 +4,8 @@
 
 #include "../controller/controller.h"
 
+namespace s21 {
+
 MovementControl::MovementControl(){};
 
 MovementControl::MovementControl(
@@ -25,11 +27,10 @@ MovementControl::MovementControl(
 }
 
 void MovementControl::SetupMovementControl(
-    Widget* widget, QStatusBar* status_bar, QDoubleSpinBox* x_box,
-    QDoubleSpinBox* y_box, QDoubleSpinBox* z_box, QToolButton* x_positive,
-    QToolButton* x_negative, QToolButton* y_positive, QToolButton* y_negative,
-    QToolButton* z_positive, QToolButton* z_negative) {
-  widget_ = widget;
+    QStatusBar* status_bar, QDoubleSpinBox* x_box, QDoubleSpinBox* y_box,
+    QDoubleSpinBox* z_box, QToolButton* x_positive, QToolButton* x_negative,
+    QToolButton* y_positive, QToolButton* y_negative, QToolButton* z_positive,
+    QToolButton* z_negative) {
   status_bar_ = status_bar;
   x_box_ = x_box;
   y_box_ = y_box;
@@ -84,7 +85,7 @@ void MovementControl::MoveOnXAxis(MovementControl::Direction direction) {
   double movement = direction * x_box_->value();
   try {
     controller_->ShiftOnXAxis(movement);
-    widget_->update();
+    // widget_->update();
   } catch (const std::exception& e) {
     QString myQString = QString::fromStdString(e.what());
     qDebug() << myQString;
@@ -95,13 +96,15 @@ void MovementControl::MoveOnXAxis(MovementControl::Direction direction) {
 void MovementControl::MoveOnYAxis(MovementControl::Direction direction) {
   double movement = direction * y_box_->value();
   controller_->ShiftOnYAxis(movement);
-  widget_->update();
+  // widget_->update();
   status_bar_->showMessage(QString("movement on axis y: %1").arg(movement));
 }
 
 void MovementControl::MoveOnZAxis(MovementControl::Direction direction) {
   double movement = direction * z_box_->value();
   controller_->ShiftOnZAxis(movement);
-  widget_->update();
+  // widget_->update();
   status_bar_->showMessage(QString("movement on axis z: %1").arg(movement));
 }
+
+};  // namespace s21

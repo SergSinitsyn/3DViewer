@@ -28,16 +28,14 @@ typedef struct {
   Line_type line;
 } widgetSettings;
 
+// namespace s21 {
+
 class Widget : public QOpenGLWidget, protected QOpenGLFunctions {
   Q_OBJECT
 
  public:
   explicit Widget(QWidget *parent = nullptr);
   ~Widget();
-  // int loadFile(QString *);
-
-  // const obj_data *getObjData() { return &A; };
-  // const QString *getObjFileName() { return &objFileName; };
 
   void SetModelData(const ModelData &model_data);
 
@@ -58,12 +56,9 @@ class Widget : public QOpenGLWidget, protected QOpenGLFunctions {
  private:
   ModelData model_data_;
   bool model_is_load_ = false;
-
-  // QString *setFileName(QString fn) { return &(objFileName = fn); };
   widgetSettings settings;
-
-  // obj_data A;
-  // QString objFileName = "";
 };
+
+// };  // namespace s21
 
 #endif  // WIDGET_H

@@ -2,12 +2,13 @@
 
 #include "../controller/controller.h"
 
-void ScalingControl::SetupScalingControl(Widget* widget, QStatusBar* status_bar,
+namespace s21 {
+
+void ScalingControl::SetupScalingControl(QStatusBar* status_bar,
                                          QDoubleSpinBox* scale_box,
                                          QPushButton* scale_button,
                                          QToolButton* scale_down_button,
                                          QToolButton* scale_up_button) {
-  widget_ = widget;
   status_bar_ = status_bar;
   scale_box_ = scale_box;
   scale_button_ = scale_button;
@@ -49,9 +50,11 @@ void ScalingControl::ApplyScale(double new_scale) {
   currect_scale_ = new_scale;
 
   controller_->Scaling(scale_factor);
-  widget_->update();
+  // widget_->update();
 
   scale_box_->setValue(currect_scale_);
   status_bar_->showMessage(QString("scale on: %1").arg(scale_factor));
   scale_box_->blockSignals(false);
 }
+
+};  // namespace s21

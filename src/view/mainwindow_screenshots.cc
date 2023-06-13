@@ -10,6 +10,8 @@
 #include "mainwindow.h"
 #include "ui_mainwindow.h"
 
+namespace s21 {
+
 int MainWindow::fileNameErrorDialog(const char *msg) {
   QMessageBox msgBox(this);
   msgBox.setText(msg);
@@ -26,7 +28,7 @@ void MainWindow::saveImageAs() {
   if (!fileName.isEmpty()) {
     if (fileName.right(4) == ".bmp" || fileName.right(4) == ".jpg" ||
         fileName.right(5) == ".jpeg") {
-      QImage img = ui->widget->grabFramebuffer();
+      QImage img = ui_->widget->grabFramebuffer();
       img.save(fileName);
     } else {
       int res = fileNameErrorDialog(
@@ -46,8 +48,8 @@ void MainWindow::on_pushButton_image_clicked() { saveImageAs(); }
 void MainWindow::on_pushButton_record_clicked() {
   record = !record;
   if (record) {
-    ui->pushButton_record->setText("Recording...");
-    ui->pushButton_record->setEnabled(false);
+    ui_->pushButton_record->setText("Recording...");
+    ui_->pushButton_record->setEnabled(false);
     frames = 0;
     do {
       gifFileName = QFileDialog::getSaveFileName(
@@ -71,8 +73,8 @@ void MainWindow::on_pushButton_record_clicked() {
     connect(&recordTimer, SIGNAL(timeout()), this, SLOT(recordTimerAlarm()));
     recordTimer.start(100);
   } else {
-    ui->pushButton_record->setText("Record");
-    ui->pushButton_record->setEnabled(true);
+    ui_->pushButton_record->setText("Record");
+    ui_->pushButton_record->setEnabled(true);
     recordTimer.stop();
     disconnect(&recordTimer, nullptr, this, nullptr);
   }
@@ -89,7 +91,7 @@ void MainWindow::recordTimerAlarm() {
   }
   if (frames > 0) {
     QImage frame_scaled =
-        ui->widget->grabFramebuffer()
+        ui_->widget->grabFramebuffer()
             .scaled(width, height, Qt::KeepAspectRatioByExpanding)
             .convertToFormat(QImage::Format_RGBA8888);
     QRect gifSize(0, 0, width, height);
@@ -99,10 +101,12 @@ void MainWindow::recordTimerAlarm() {
     ganim.GifWriteFrame(&gwriter, frame.constBits(), width, height, delay);
     --frames;
     QString frNum;
-    ui->pushButton_record->setText(
+    ui_->pushButton_record->setText(
         QString("Frame ").append(frNum.setNum(50 - frames)));
   } else {
     if (frames == 0) ganim.GifEnd(&gwriter);
     on_pushButton_record_clicked();
   }
 }
+
+};  // namespace s21

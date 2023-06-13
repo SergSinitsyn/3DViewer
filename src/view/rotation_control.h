@@ -9,6 +9,8 @@
 
 #include "widget.h"
 
+namespace s21 {
+
 class Controller;
 class RotationControl : public QObject {
   Q_OBJECT
@@ -17,9 +19,9 @@ class RotationControl : public QObject {
   RotationControl(QStatusBar *status_bar, QSpinBox *x_box, QSpinBox *y_box,
                   QSpinBox *z_box, QDial *x_dial, QDial *y_dial, QDial *z_dial);
 
-  void SetupRotationControl(Widget *widget, QStatusBar *status_bar,
-                            QSpinBox *x_box, QSpinBox *y_box, QSpinBox *z_box,
-                            QDial *x_dial, QDial *y_dial, QDial *z_dial);
+  void SetupRotationControl(QStatusBar *status_bar, QSpinBox *x_box,
+                            QSpinBox *y_box, QSpinBox *z_box, QDial *x_dial,
+                            QDial *y_dial, QDial *z_dial);
   void SetController(Controller &controller);
 
  public slots:
@@ -36,7 +38,6 @@ class RotationControl : public QObject {
   int current_y_angle_ = 0;
   int current_z_angle_ = 0;
 
-  Widget *widget_;
   QSpinBox *x_box_;
   QSpinBox *y_box_;
   QSpinBox *z_box_;
@@ -44,5 +45,7 @@ class RotationControl : public QObject {
   QDial *y_dial_;
   QDial *z_dial_;
 };
+
+};  // namespace s21
 
 #endif  // ROTATION_CONTROL_H

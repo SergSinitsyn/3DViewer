@@ -10,6 +10,8 @@
 
 #include "widget.h"
 
+namespace s21 {
+
 class Controller;
 class ScalingControl : public QObject {
   Q_OBJECT
@@ -26,8 +28,8 @@ class ScalingControl : public QObject {
         currect_scale_(100.0) {
     SetupConnections();
   }
-  void SetupScalingControl(Widget* widget, QStatusBar* status_bar,
-                           QDoubleSpinBox* scale_box, QPushButton* scale_button,
+  void SetupScalingControl(QStatusBar* status_bar, QDoubleSpinBox* scale_box,
+                           QPushButton* scale_button,
                            QToolButton* scale_down_button,
                            QToolButton* scale_up_button);
   void SetController(Controller& controller);
@@ -35,7 +37,7 @@ class ScalingControl : public QObject {
  private:
   void ApplyScale(double new_scale);
   void SetupConnections();
-  Widget* widget_;
+
   Controller* controller_;
   QStatusBar* status_bar_;
   QDoubleSpinBox* scale_box_;
@@ -49,5 +51,7 @@ class ScalingControl : public QObject {
   void ScaleDown();
   void ScaleUp();
 };
+
+};  // namespace s21
 
 #endif  // SCALING_CONTROL_H

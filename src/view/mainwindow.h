@@ -17,7 +17,9 @@ class MainWindow;
 }
 QT_END_NAMESPACE
 
+namespace s21 {
 class Controller;
+
 class MainWindow : public QMainWindow {
   Q_OBJECT
 
@@ -78,7 +80,7 @@ class MainWindow : public QMainWindow {
   void settingsChanged(widgetSettings *);  // to google-style
 
  private:
-  Ui::MainWindow *ui;  // TODO заменить все на ui_
+  Ui::MainWindow *ui_;
 
   MovementControl movement_control_;
   RotationControl rotation_control_;
@@ -97,4 +99,7 @@ class MainWindow : public QMainWindow {
   GifWriter gwriter;
   QString appPath;
 };
+
+}  // namespace s21
+
 #endif  // MAINWINDOW_H
