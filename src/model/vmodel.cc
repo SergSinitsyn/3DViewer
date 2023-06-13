@@ -1,6 +1,6 @@
 #include "vmodel.h"
 
-#include <QDebug>
+// #include <QDebug>
 namespace s21 {
 
 void VModel::ReadModelFile(std::string file_name) {
@@ -24,7 +24,7 @@ void VModel::ReadModelFile(std::string file_name) {
     }
   }
   UniquelizationEdges();
-  Inscribe();
+  // Inscribe();
 }
 
 void VModel::Inscribe() {

@@ -36,6 +36,7 @@ class VModel {
 
   // const data& GetData() const { return data_{edges_, vertex_}; }
 
+  void Inscribe();
   void ReadModelFile(std::string file_name);
   void Scaling(double scale);
   void XRotation(double x_rot);
@@ -61,7 +62,6 @@ class VModel {
   double z_max_;
 
   void Centering();
-  void Inscribe();
   void EdgesAdd(std::string line);
   int EdgesCount(std::string line);
   void EdgeDuplicateDel();

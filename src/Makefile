@@ -19,7 +19,7 @@ endif
 
 NAME					= 3D_Viewer_2
 
-SRC_DIR					= ./model/*
+SRC_DIR					= ./model
 SOURCE_FILES			= *.cc
 
 TEST_FILE				= $(NAME)_test
@@ -46,8 +46,9 @@ clean:
 	# $(CLEAN) *.jpg *.gif */*.jpg */*.gif */*/*.jpg */*/*.gif */*/*/*.jpg */*/*/*.gif
 
 
-$(TEST_FILE): $(SOURCE) $(TEST)
+$(TEST_FILE):
 	$(CC) $(WFLAGS) $(SOURCE) $(TEST) -o $(TEST_FILE) $(CHECKFLAGS)
+	# @g++ $(WCHECK) tests/test_vmodel.cc 3DViewer_v1_0/functions/vmodel.cc -lgtest -lstdc++ -std=c++17 -pthread 
 
 test: $(TEST_FILE)
 	./$(TEST_FILE)
