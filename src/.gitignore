@@ -5,6 +5,8 @@
 *.autosave
 *.a
 *.core
+*.gif
+*.jpg
 *.moc
 *.o
 *.obj

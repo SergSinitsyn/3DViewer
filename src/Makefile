@@ -43,6 +43,8 @@ clean:
 	$(CLEAN) ../$(DIST_NAME).tar.gz ../$(DIST_NAME)
 	$(CLEAN) ../documentation
 	$(CLEAN) report*
+	# $(CLEAN) *.jpg *.gif */*.jpg */*.gif */*/*.jpg */*/*.gif */*/*/*.jpg */*/*/*.gif
+
 
 $(TEST_FILE): $(SOURCE) $(TEST)
 	$(CC) $(WFLAGS) $(SOURCE) $(TEST) -o $(TEST_FILE) $(CHECKFLAGS)
