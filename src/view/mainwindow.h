@@ -31,21 +31,13 @@ class MainWindow : public QMainWindow {
                     const std::vector<int> &edges);
   void SetModelInformation(const ModelInformation &information);
 
-  Controller *controller_;
-
+  //! private?
   void setAppPath(QString path) { appPath = path; };  // to google-style
   const QString *getAppPath() { return &appPath; };   // to google-style
 
  private slots:
-
-  void SetupControls();
-
-  // main
-  void LoadFile();
   void on_actionOpen_OBJ_file_triggered();
   void on_actionModel_information_triggered();
-  void DefaultControls();
-  void EnableControls(bool enable);
   void on_actionOpen_documentation_triggered();
 
   // settings  //TODO перенести в отдельный класс?
@@ -68,36 +60,42 @@ class MainWindow : public QMainWindow {
   int fileNameErrorDialog(const char *msg);  // to google-style
 
   // screenshot
-  void saveImageAs();
   void on_actionSave_OBJ_to_Image_triggered();
   void on_pushButton_image_clicked();
   void on_pushButton_record_clicked();
-  void recordTimerAlarm();
-
-  //
-
- signals:
-  void settingsChanged(widgetSettings *);  // to google-style
+  void saveImageAs();       //!
+  void recordTimerAlarm();  //!
 
  private:
-  Ui::MainWindow *ui_;
+  void DefaultControls();
+  void EnableControls(bool enable);
+  void LoadFile();
+  void SetupControls();
+  void SetNewWindowTitle();
+  void ShowInformation();
 
+  Ui::MainWindow *ui_;
+  ModelData model_data_;
+  ModelInformation model_information_;
   MovementControl movement_control_;
   RotationControl rotation_control_;
   ScalingControl scaling_control_;
-  ModelInformation model_information_;
-  ModelData model_data_;
+  Controller *controller_;
+  const QString window_title_ = "3D Viewer v2.0 - Old Perrers Team";
 
-  widgetSettings settings;
+  widgetSettings settings;  //!
 
   // video recording variables
-  bool record = false;
-  QTimer recordTimer;
-  int frames;
-  QString gifFileName;
-  GifAnim ganim;
-  GifWriter gwriter;
-  QString appPath;
+  bool record = false;  //!
+  QTimer recordTimer;   //!
+  int frames;           //!
+  QString gifFileName;  //!
+  GifAnim ganim;        //!
+  GifWriter gwriter;    //!
+  QString appPath;      //!
+
+ signals:
+  void settingsChanged(widgetSettings *);  // to google-style
 };
 
 }  // namespace s21

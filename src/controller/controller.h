@@ -1,5 +1,5 @@
-#ifndef CONTROLLER_H
-#define CONTROLLER_H
+#ifndef VIEWER_2_CONTROLLER_CONTROLLER_H
+#define VIEWER_2_CONTROLLER_CONTROLLER_H
 
 #include <../model/vmodel.h>
 #include <../view/mainwindow.h>
@@ -32,4 +32,4 @@ class Controller : public QObject {
 
 };  // namespace s21
 
-#endif  // CONTROLLER_H
+#endif  // CPP4_3DVIEWER2_CONTROLLER_CONTROLLER_H

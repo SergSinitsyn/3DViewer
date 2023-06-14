@@ -9,7 +9,7 @@
    <rect>
     <x>0</x>
     <y>0</y>
-    <width>891</width>
+    <width>1160</width>
     <height>750</height>
    </rect>
   </property>
@@ -35,7 +35,7 @@
    <bool>false</bool>
   </property>
   <property name="windowTitle">
-   <string>3DViewer v1.0 - Old Peppers Team</string>
+   <string>3D Viewer v2.0 - Old Perrers Team</string>
   </property>
   <widget class="QWidget" name="centralwidget">
    <layout class="QHBoxLayout" name="horizontalLayout">
@@ -88,7 +88,6 @@
         <property name="font">
          <font>
           <pointsize>18</pointsize>
-          <weight>75</weight>
           <bold>true</bold>
          </font>
         </property>
@@ -577,7 +576,6 @@
             <property name="font">
              <font>
               <pointsize>16</pointsize>
-              <weight>50</weight>
               <bold>false</bold>
              </font>
             </property>
@@ -618,7 +616,6 @@
             <property name="font">
              <font>
               <pointsize>16</pointsize>
-              <weight>50</weight>
               <italic>false</italic>
               <bold>false</bold>
              </font>
@@ -1039,24 +1036,24 @@
          </layout>
         </item>
         <item>
-         <layout class="QHBoxLayout" name="horizontalLayout_scale2">
+         <layout class="QHBoxLayout" name="horizontalLayout_scale2" stretch="0,0,0">
           <item>
-           <widget class="QPushButton" name="pushButton_normalize">
-            <property name="cursor">
-             <cursorShape>PointingHandCursor</cursorShape>
+           <spacer name="horizontalSpacer">
+            <property name="orientation">
+             <enum>Qt::Horizontal</enum>
             </property>
-            <property name="focusPolicy">
-             <enum>Qt::StrongFocus</enum>
+            <property name="sizeType">
+             <enum>QSizePolicy::Ignored</enum>
             </property>
-            <property name="text">
-             <string>Normalize</string>
+            <property name="sizeHint" stdset="0">
+             <size>
+              <width>10</width>
+              <height>1</height>
+             </size>
             </property>
-            <property name="autoRepeatDelay">
-             <number>300</number>
-            </property>
-           </widget>
+           </spacer>
           </item>
-          <item>
+          <item alignment="Qt::AlignRight">
            <widget class="QToolButton" name="toolButton_scaleL">
             <property name="minimumSize">
              <size>
@@ -1081,6 +1078,9 @@
             <property name="focusPolicy">
              <enum>Qt::StrongFocus</enum>
             </property>
+            <property name="layoutDirection">
+             <enum>Qt::LeftToRight</enum>
+            </property>
             <property name="autoFillBackground">
              <bool>false</bool>
             </property>
@@ -1095,7 +1095,7 @@
             </property>
            </widget>
           </item>
-          <item>
+          <item alignment="Qt::AlignRight">
            <widget class="QToolButton" name="toolButton_scaleH">
             <property name="minimumSize">
              <size>
@@ -1112,7 +1112,6 @@
             <property name="font">
              <font>
               <pointsize>16</pointsize>
-              <weight>50</weight>
               <italic>false</italic>
               <bold>false</bold>
              </font>
@@ -1122,6 +1121,9 @@
             </property>
             <property name="focusPolicy">
              <enum>Qt::StrongFocus</enum>
+            </property>
+            <property name="layoutDirection">
+             <enum>Qt::LeftToRight</enum>
             </property>
             <property name="text">
              <string>+</string>
@@ -1235,8 +1237,8 @@
     <rect>
      <x>0</x>
      <y>0</y>
-     <width>891</width>
-     <height>22</height>
+     <width>1160</width>
+     <height>24</height>
     </rect>
    </property>
    <property name="cursor">
@@ -1496,7 +1498,6 @@
   <tabstop>toolButton_zPos</tabstop>
   <tabstop>doubleSpinBox_scale</tabstop>
   <tabstop>pushButton_scale</tabstop>
-  <tabstop>pushButton_normalize</tabstop>
   <tabstop>toolButton_scaleL</tabstop>
   <tabstop>toolButton_scaleH</tabstop>
   <tabstop>pushButton_image</tabstop>

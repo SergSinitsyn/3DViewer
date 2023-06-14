@@ -15,6 +15,75 @@ void Widget::SetModelData(const ModelData &model_data) {
   model_is_load_ = true;
 }
 
+void Widget::initializeGL() {
+  initializeOpenGLFunctions();
+  glEnable(GL_DEPTH_TEST);
+  glEnable(GL_CULL_FACE);
+}
+
+void Widget::resizeGL(int w, int h) { glViewport(0, 0, w, h); }
+
+void Widget::paintGL() {
+  double widget_width = static_cast<double>(Widget::width());
+  double widget_height = static_cast<double>(Widget::height());
+  double height = 1, width = 1;
+  if (widget_width > widget_height) {
+    width = widget_width / widget_height;
+  } else {
+    height = widget_height / widget_width;
+  }
+
+  setBgColor();
+  glClear(GL_COLOR_BUFFER_BIT | GL_DEPTH_BUFFER_BIT);
+  glLoadIdentity();
+
+  if (settings.projection == CENTRAL)
+    glFrustum(-width, width, -height, height, 3, 10);
+  else
+    glOrtho(-width, width, -height, height, 3, 10);
+
+  glTranslatef(0.0, 0.0, -8.0);
+
+  glEnableClientState(GL_VERTEX_ARRAY);
+  QElapsedTimer time;  //!
+  time.start();        //!
+  PaintImage();
+  qDebug() << time.elapsed() << "msec, " << time.nsecsElapsed()
+           << "nanosec";  //!
+  glDisableClientState(GL_VERTEX_ARRAY);
+}
+
+void Widget::PaintImage() {
+  if (!model_is_load_) {
+    return;
+  }
+
+  glVertexPointer(3, GL_DOUBLE, 0, model_data_.vertices.data() - 3);
+  if (settings.line == DASHED) {
+    glEnable(GL_LINE_STIPPLE);
+    glLineStipple(1, 0x00F0);
+  }
+  setDrawColor(LINE);
+  setDrawSize(LINE);
+
+  glDrawElements(GL_LINES, model_data_.edges.size(), GL_UNSIGNED_INT,
+                 model_data_.edges.data());
+  glDisable(GL_LINE_STIPPLE);
+
+  if (settings.displayVertexes != NONE) {
+    if (settings.displayVertexes == CIRCLE) {
+      glEnable(GL_POINT_SMOOTH);
+      //  glEnable(GL_BLEND);
+      //  glBlendFunc(GL_SRC_ALPHA, GL_ONE_MINUS_SRC_ALPHA);
+    }
+    setDrawColor(VERTEX);
+    setDrawSize(VERTEX);
+    glDrawArrays(GL_POINTS, 0, model_data_.vertices.size() / 3);  //!
+    glDisable(GL_POINT_SMOOTH);
+    // glDisable(GL_BLEND);
+  }
+}
+
 void Widget::setBgColor() {
 #ifdef Q_OS_LINUX
   qreal r, g, b, f;
@@ -56,75 +125,6 @@ void Widget::setDrawSize(element e) {
 void Widget::getSettings(widgetSettings *sptr) {
   settings = *sptr;
   update();
-}
-
-void Widget::initializeGL() {
-  initializeOpenGLFunctions();
-  //  glViewport(0, 0, width(), height());
-  glEnable(GL_DEPTH_TEST);
-  glEnable(GL_CULL_FACE);
-}
-
-void Widget::resizeGL(int w, int h) { glViewport(0, 0, w, h); }
-
-void Widget::paintGL() {
-  double width = static_cast<double>(Widget::width());
-  double height = static_cast<double>(Widget::height());
-  double height_rate = 1, width_rate = 1;
-  if (width > height) {
-    width_rate = width / height;
-  } else {
-    height_rate = height / width;
-  }
-
-  setBgColor();
-  glClear(GL_COLOR_BUFFER_BIT | GL_DEPTH_BUFFER_BIT);
-  glLoadIdentity();
-
-  if (settings.projection == CENTRAL)
-    glFrustum(-width_rate, width_rate, -height_rate, height_rate, 3, 10);
-  else
-    glOrtho(-width_rate, width_rate, -height_rate, height_rate, 3, 10);
-
-  glTranslatef(0.0, 0.0, -8.0);
-
-  glEnableClientState(GL_VERTEX_ARRAY);
-  QElapsedTimer time;
-  time.start();
-  PaintImage();
-  qDebug() << time.elapsed() << "msec, " << time.nsecsElapsed() << "nanosec";
-  glDisableClientState(GL_VERTEX_ARRAY);
-}
-
-void Widget::PaintImage() {
-  if (!model_is_load_) {
-    return;
-  }
-
-  glVertexPointer(3, GL_DOUBLE, 0, model_data_.vertices.data() - 3);
-  if (settings.line == DASHED) {
-    glEnable(GL_LINE_STIPPLE);
-    glLineStipple(1, 0x00F0);
-  }
-  setDrawColor(LINE);
-  setDrawSize(LINE);
-
-  glDrawElements(GL_LINES, model_data_.edges.size(), GL_UNSIGNED_INT,
-                 model_data_.edges.data());
-  glDisable(GL_LINE_STIPPLE);
-
-  if (settings.displayVertexes != NONE) {
-    if (settings.displayVertexes == CIRCLE) {
-      glEnable(GL_POINT_SMOOTH);
-      //  glEnable(GL_BLEND);
-      //  glBlendFunc(GL_SRC_ALPHA, GL_ONE_MINUS_SRC_ALPHA);
-    }
-    setDrawColor(VERTEX);
-    setDrawSize(VERTEX);
-    glDrawArrays(GL_POINTS, 0, model_data_.vertices.size() / 3);  //!
-    glDisable(GL_POINT_SMOOTH);
-    // glDisable(GL_BLEND);
-  }
 }
 
 // };  // namespace s21

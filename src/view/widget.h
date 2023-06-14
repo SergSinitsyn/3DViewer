@@ -36,13 +36,10 @@ class Widget : public QOpenGLWidget, protected QOpenGLFunctions {
  public:
   explicit Widget(QWidget *parent = nullptr);
   ~Widget();
-
   void SetModelData(const ModelData &model_data);
 
  private slots:
   void getSettings(widgetSettings *sptr);
-
- signals:
 
  protected:
   void initializeGL();

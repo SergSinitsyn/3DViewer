@@ -29,12 +29,12 @@ MainWindow::MainWindow(QWidget *parent)
       model_data_() {
   ui_->setupUi(this);
   SetupControls();
-
   setAppPath(QCoreApplication::applicationDirPath());
   load_setting_from_file();
   setupRadiobuttons();
   DefaultControls();
   EnableControls(false);
+  setWindowTitle(window_title_);
 }
 
 MainWindow::~MainWindow() {
@@ -56,6 +56,59 @@ void MainWindow::SetModelData(const std::vector<double> &vertices,
   ui_->widget->SetModelData(model_data_);
 }
 
+void MainWindow::SetModelInformation(const ModelInformation &information) {
+  model_information_ = information;
+  ShowInformation();
+}
+
+void MainWindow::DefaultControls() {
+  ui_->centralwidget->blockSignals(true);
+
+  ui_->dial_x->setValue(0);
+  ui_->dial_y->setValue(0);
+  ui_->dial_z->setValue(0);
+  ui_->spinBox_x->setValue(0);
+  ui_->spinBox_y->setValue(0);
+  ui_->spinBox_z->setValue(0);
+  ui_->doubleSpinBox_move_x->setValue(0.05);
+  ui_->doubleSpinBox_move_y->setValue(0.05);
+  ui_->doubleSpinBox_move_z->setValue(0.05);
+  ui_->doubleSpinBox_scale->setValue(100);
+
+  ui_->widget->height();
+  ui_->widget->width();
+  ui_->actionModel_information->setEnabled(false);
+
+  ui_->centralwidget->blockSignals(false);
+}
+
+void MainWindow::EnableControls(bool enable) {
+  ui_->centralwidget->setEnabled(enable);
+  ui_->actionModel_information->setEnabled(enable);
+  ui_->actionSave_OBJ_to_Image->setEnabled(enable);
+}
+
+void MainWindow::LoadFile() {
+  ui_->statusbar->showMessage("Loading file...");
+  QDir::currentPath();
+  QString new_filename = QFileDialog::getOpenFileName(0, "Open", "", "*.obj");
+  if (new_filename.isEmpty()) {
+    ui_->statusbar->showMessage("File not selected");
+    return;
+  }
+  try {
+    controller_->LoadFile(new_filename.toStdString());
+    DefaultControls();
+    EnableControls(true);
+    SetNewWindowTitle();
+  } catch (const std::exception &e) {
+    QMessageBox::critical(this, "Warning", e.what());
+    ui_->statusbar->showMessage("Error loading file: '" + new_filename + "'" +
+                                ", error:" + e.what());
+    EnableControls(false);
+  }
+}
+
 void MainWindow::SetupControls() {
   rotation_control_.SetupRotationControl(ui_->statusbar, ui_->spinBox_x,
                                          ui_->spinBox_y, ui_->spinBox_z,
@@ -68,25 +121,24 @@ void MainWindow::SetupControls() {
   scaling_control_.SetupScalingControl(
       ui_->statusbar, ui_->doubleSpinBox_scale, ui_->pushButton_scale,
       ui_->toolButton_scaleL, ui_->toolButton_scaleH);
-  //  rotation_control_.SetController(*controller_);
-  //  movement_control_.SetController(*controller_);
-  //  scaling_control_.SetController(*controller_);
 }
 
-void MainWindow::SetModelInformation(const ModelInformation &information) {
-  model_information_ = information;
-  //  ShowInformation();  // TODO
+void MainWindow::SetNewWindowTitle() {
+  QString filename = QString::fromStdString(model_information_.file_name);
+  setWindowTitle(filename + " @ " + window_title_);
+}
+
+void MainWindow::ShowInformation() {
   QString number_of_edges =
       QString::number(model_information_.edges_number, 'g', 8);
   QString number_of_vertices =
       QString::number(model_information_.vertices_number, 'g', 8);
   QString number_of_faces =
       QString::number(model_information_.facetes_number, 'g', 8);
-
-  QString filename = QString::fromStdString(model_information_.file_name);
   ui_->statusbar->showMessage(
-      "File: '" + filename + "', Edges: " + number_of_edges +
-      ", Vertices: " + number_of_vertices + ", Faces: " + number_of_faces);
+      "File: '" + QString::fromStdString(model_information_.file_name) +
+      "', Edges: " + number_of_edges + ", Vertices: " + number_of_vertices +
+      ", Faces: " + number_of_faces);
 }
 
 void MainWindow::setupRadiobuttons() {
@@ -138,51 +190,6 @@ void MainWindow::setupRadiobuttons() {
   }
 }
 
-void MainWindow::LoadFile() {
-  // TODO декомпозировать
-  ui_->statusbar->showMessage("Loading file...");
-  QDir::currentPath();
-  QString new_filename = QFileDialog::getOpenFileName(0, "Open", "", "*.obj");
-  if (new_filename.isEmpty()) {
-    ui_->statusbar->showMessage("File not selected");
-    return;
-  }
-  DefaultControls();  //? здесь
-
-  // TODO fix
-  // ?это все связано с названием
-  // QString old_title = windowTitle(), separator = " @ ";
-  // //  QString old_filename = *ui_->widget->getObjFileName();
-  // QString old_filename = "fix filemane";
-  // if (!old_filename.isEmpty()) {
-  //   old_filename = basename(old_filename.toLocal8Bit().data());
-  //   if (old_title.contains(old_filename))
-  //     old_title =
-  //         old_title.remove(0, old_filename.length() + separator.length());
-  // }
-
-  try {
-    controller_->LoadFile(new_filename.toStdString());
-
-    EnableControls(true);
-
-    // TODO fix
-    //?это все связано с названием 2
-    //    setWindowTitle(QString(basename(model_information_.file_name)) +
-    //    separator +
-    //                   old_title);
-
-  } catch (const std::exception &e) {
-    QMessageBox::critical(this, "Warning", e.what());
-    ui_->statusbar->showMessage("Error loading file: '" + new_filename + "'" +
-                                ", error:" + e.what());
-    EnableControls(false);
-    // TODO fix
-    // ?это все связано с названием 3
-    // setWindowTitle(old_title);
-  }
-}
-
 void MainWindow::on_actionOpen_OBJ_file_triggered() { LoadFile(); }
 
 void MainWindow::on_actionModel_information_triggered() {
@@ -191,34 +198,8 @@ void MainWindow::on_actionModel_information_triggered() {
   info.exec();
 }
 
-void MainWindow::DefaultControls() {
-  ui_->centralwidget->blockSignals(true);
-
-  ui_->dial_x->setValue(0);
-  ui_->dial_y->setValue(0);
-  ui_->dial_z->setValue(0);
-  ui_->spinBox_x->setValue(0);
-  ui_->spinBox_y->setValue(0);
-  ui_->spinBox_z->setValue(0);
-  ui_->doubleSpinBox_move_x->setValue(0.05);
-  ui_->doubleSpinBox_move_y->setValue(0.05);
-  ui_->doubleSpinBox_move_z->setValue(0.05);
-  ui_->doubleSpinBox_scale->setValue(100);
-
-  ui_->widget->height();
-  ui_->widget->width();
-  ui_->actionModel_information->setEnabled(false);
-
-  ui_->centralwidget->blockSignals(false);
-}
-
-void MainWindow::EnableControls(bool enable) {
-  ui_->centralwidget->setEnabled(enable);
-  ui_->actionModel_information->setEnabled(enable);
-  ui_->actionSave_OBJ_to_Image->setEnabled(enable);
-}
-
 void MainWindow::on_actionOpen_documentation_triggered() {
+  //! правильные пути!
 #ifdef Q_OS_LINUX
   QString link =
       QCoreApplication::applicationDirPath() + "/../documentation/index.html";
