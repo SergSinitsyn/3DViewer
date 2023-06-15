@@ -43,14 +43,15 @@ clean:
 	$(CLEAN) ../$(DIST_NAME).tar.gz ../$(DIST_NAME)
 	$(CLEAN) ../documentation
 	$(CLEAN) report*
-	# $(CLEAN) *.jpg *.gif */*.jpg */*.gif */*/*.jpg */*/*.gif */*/*/*.jpg */*/*/*.gif
 
 
-$(TEST_FILE):
+# $(TEST_FILE):
+# 	$(CLEAN) $(TEST_FILE)
+# 	$(CC) $(WFLAGS) $(SOURCE) $(TEST) -o $(TEST_FILE) $(CHECKFLAGS)
+
+test:
+	$(CLEAN) $(TEST_FILE)
 	$(CC) $(WFLAGS) $(SOURCE) $(TEST) -o $(TEST_FILE) $(CHECKFLAGS)
-	# @g++ $(WCHECK) tests/test_vmodel.cc 3DViewer_v1_0/functions/vmodel.cc -lgtest -lstdc++ -std=c++17 -pthread 
-
-test: $(TEST_FILE)
 	./$(TEST_FILE)
 
 rebuild: clean all

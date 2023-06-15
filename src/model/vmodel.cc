@@ -23,8 +23,7 @@ void VModel::ReadModelFile(std::string file_name) {
       EdgesAdd(line);
     }
   }
-  UniquelizationEdges();
-  // Inscribe();
+  if (!edges_.empty()) UniquelizationEdges();
 }
 
 void VModel::Inscribe() {
@@ -95,8 +94,8 @@ void VModel::EdgeVertexSort() {
 
 void VModel::EdgeDuplicateDel() {
   std::vector<int> temp;
-  temp.push_back(edges_[0]);
-  temp.push_back(edges_[1]);
+  temp.push_back(edges_.at(0));
+  temp.push_back(edges_.at(1));
   for (size_t i = 2; i < edges_.size() - 2; i += 2) {
     if ((temp[temp.size() - 1] != edges_[i + 1]) ||
         (temp[temp.size() - 1] == edges_[i + 1] &&
@@ -209,7 +208,7 @@ double VModel::MaxSize() {
 }
 
 double VModel::InRadian(double angle_of_rotation) {
-  return angle_of_rotation * kMy_pi / 180;
+  return angle_of_rotation * M_PI / 180;
 }
 
 int VModel::EdgesCount(std::string line) {
