@@ -1,4 +1,0 @@
-/Users/bernarda/Projects_s21/cpp/CPP4_3DViewer_v2.0-1/build/CMakeFiles/3D_Viewer_2.dir
-/Users/bernarda/Projects_s21/cpp/CPP4_3DViewer_v2.0-1/build/CMakeFiles/edit_cache.dir
-/Users/bernarda/Projects_s21/cpp/CPP4_3DViewer_v2.0-1/build/CMakeFiles/rebuild_cache.dir
-/Users/bernarda/Projects_s21/cpp/CPP4_3DViewer_v2.0-1/build/CMakeFiles/3D_Viewer_2_autogen.dir
