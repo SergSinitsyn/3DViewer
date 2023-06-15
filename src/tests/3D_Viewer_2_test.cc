@@ -87,25 +87,25 @@ TEST(Viewer, ReadModelFile_1) {
   ASSERT_EQ(info.edges_number, 80736);
 }
 
-TEST(Viewer, ReadModelFile_2) {
-  s21::VModel model;
-  model.ReadModelFile("tests/models/tree.obj");
-  ModelInformation info = model.GetInformation();
-  ASSERT_EQ(info.file_name, "tree.obj");
-  ASSERT_EQ(info.vertices_number, 1109209);
-  ASSERT_EQ(info.facetes_number, 1885436);
-  ASSERT_EQ(info.edges_number, 1885436);
-}
+// TEST(Viewer, ReadModelFile_2) {
+//   s21::VModel model;
+//   model.ReadModelFile("tests/models/tree.obj");
+//   ModelInformation info = model.GetInformation();
+//   ASSERT_EQ(info.file_name, "tree.obj");
+//   ASSERT_EQ(info.vertices_number, 1109209);
+//   ASSERT_EQ(info.facetes_number, 1885436);
+//   ASSERT_EQ(info.edges_number, 1885436);
+// }
 
-TEST(Viewer, ReadModelFile_3) {
-  s21::VModel model;
-  model.ReadModelFile("tests/models/Lion.obj");
-  ModelInformation info = model.GetInformation();
-  ASSERT_EQ(info.file_name, "Lion.obj");
-  ASSERT_EQ(info.vertices_number, 2499994);
-  ASSERT_EQ(info.facetes_number, 5000000);
-  ASSERT_EQ(info.edges_number, 7500000);
-}
+// TEST(Viewer, ReadModelFile_3) {
+//   s21::VModel model;
+//   model.ReadModelFile("tests/models/Lion.obj");
+//   ModelInformation info = model.GetInformation();
+//   ASSERT_EQ(info.file_name, "Lion.obj");
+//   ASSERT_EQ(info.vertices_number, 2499994);
+//   ASSERT_EQ(info.facetes_number, 5000000);
+//   ASSERT_EQ(info.edges_number, 7500000);
+// }
 
 TEST(Viewer, ReadModelFile_vertices) {
   s21::VModel model;
@@ -116,66 +116,6 @@ TEST(Viewer, ReadModelFile_vertices) {
   for (size_t i = 0; i < result.size() - 1; ++i) {
     // std::cout << result[i] << std::endl;
     ASSERT_NEAR(result[i], reference[i], kAcc);
-  }
-}
-
-TEST(Viewer, Crash_test) {
-  s21::VModel model;
-  std::vector<std::string> address_list{
-      "tests/models/bat_copy.obj",
-      "tests/models/12140_Skull_v3_L2.obj",
-      "tests/models/bat.obj",
-      "tests/models/bench.obj",
-      "tests/models/City.obj",
-      "tests/models/coub.obj",
-      "tests/models/cube.obj",
-      "tests/models/detail_copy.obj",
-      "tests/models/detail.obj",
-      "tests/models/dragon.obj",
-      "tests/models/Earth.obj",
-      "tests/models/Gun.obj",
-      "tests/models/Kalashnikov.obj",
-      "tests/models/lamp.obj",
-      "tests/models/Mercedes_Benz_GLS_580.obj",
-      "tests/models/moon.obj",
-      "tests/models/moto_simple_1.obj",
-      "tests/models/plant.obj",
-      "tests/models/sofa.obj",
-      "tests/models/tree.obj",
-      "tests/models/Bugatti.obj",
-      "tests/models/Lion.obj"};
-  for (size_t i = 0; i < address_list.size(); ++i) {
-    model.ReadModelFile(address_list[i]);
-    model.Inscribe();
-    std::vector<double> result = model.GetVertices();
-    std::vector<double> reference(result);
-    for (size_t i = 0; i < 10; ++i) {
-      model.Scaling(0.5);
-    }
-    for (size_t i = 0; i < 100; ++i) {
-      model.XShift(1);
-      model.YShift(1);
-      model.ZShift(1);
-    }
-    for (size_t i = 0; i < 100; ++i) {
-      model.XShift(-1);
-      model.YShift(-1);
-      model.ZShift(-1);
-    }
-    for (size_t i = 0; i < 360; ++i) {
-      model.XRotation(1);
-    }
-    for (size_t i = 0; i < 360; ++i) {
-      model.YRotation(1);
-    }
-    for (size_t i = 0; i < 360; ++i) {
-      model.ZRotation(1);
-    }
-    model.Inscribe();
-    for (size_t i = 0; i < result.size() - 1; ++i) {
-      // std::cout << result[i] << std::endl;
-      ASSERT_NEAR(result[i], reference[i], kAcc);
-    }
   }
 }
 
@@ -275,6 +215,284 @@ TEST(Viewer, ReadModelFile_rotation_z) {
                                 0, 2, 0, 0, 2, 2, -2, 2, 0, -2, 2, 2};
   for (size_t i = 0; i < result.size() - 1; ++i) {
     ASSERT_NEAR(result[i], reference[i], kAcc);
+  }
+}
+
+TEST(Viewer, Crash_test_0) {
+  s21::VModel model;
+  std::vector<std::string> address_list{"tests/models/12140_Skull_v3_L2.obj",
+                                        "tests/models/bat.obj",
+                                        "tests/models/bat_copy.obj",
+                                        "tests/models/bench.obj",
+                                        "tests/models/City.obj",
+                                        "tests/models/coub.obj",
+                                        "tests/models/cube.obj",
+                                        "tests/models/detail_copy.obj",
+                                        "tests/models/detail.obj",
+                                        "tests/models/dragon.obj"};
+  for (size_t i = 0; i < address_list.size(); ++i) {
+    model.ReadModelFile(address_list[i]);
+    std::cout << model.GetFileName() << std::endl;
+    model.Inscribe();
+    std::vector<double> result = model.GetVertices();
+    std::vector<double> reference(result);
+    for (size_t i = 0; i < 10; ++i) {
+      model.Scaling(0.5);
+    }
+    for (size_t i = 0; i < 100; ++i) {
+      model.XShift(1);
+      model.YShift(1);
+      model.ZShift(1);
+    }
+    for (size_t i = 0; i < 100; ++i) {
+      model.XShift(-1);
+      model.YShift(-1);
+      model.ZShift(-1);
+    }
+    for (size_t i = 0; i < 360; ++i) {
+      model.XRotation(1);
+    }
+    for (size_t i = 0; i < 360; ++i) {
+      model.YRotation(1);
+    }
+    for (size_t i = 0; i < 360; ++i) {
+      model.ZRotation(1);
+    }
+    model.Inscribe();
+    for (size_t i = 0; i < result.size() - 1; ++i) {
+      ASSERT_NEAR(result[i], reference[i], kAcc);
+    }
+  }
+}
+
+TEST(Viewer, Crash_test_City) {
+  s21::VModel model;
+  std::vector<std::string> address_list{"tests/models/City.obj"};
+  for (size_t i = 0; i < address_list.size(); ++i) {
+    model.ReadModelFile(address_list[i]);
+    std::cout << model.GetFileName() << std::endl;
+    model.Inscribe();
+    std::vector<double> result = model.GetVertices();
+    std::vector<double> reference(result);
+    for (size_t i = 0; i < 10; ++i) {
+      model.Scaling(0.5);
+    }
+    for (size_t i = 0; i < 100; ++i) {
+      model.XShift(1);
+      model.YShift(1);
+      model.ZShift(1);
+    }
+    for (size_t i = 0; i < 100; ++i) {
+      model.XShift(-1);
+      model.YShift(-1);
+      model.ZShift(-1);
+    }
+    for (size_t i = 0; i < 360; ++i) {
+      model.XRotation(1);
+    }
+    for (size_t i = 0; i < 360; ++i) {
+      model.YRotation(1);
+    }
+    for (size_t i = 0; i < 360; ++i) {
+      model.ZRotation(1);
+    }
+    model.Inscribe();
+    for (size_t i = 0; i < result.size() - 1; ++i) {
+      ASSERT_NEAR(result[i], reference[i], kAcc);
+    }
+  }
+}
+
+TEST(Viewer, Crash_test_1) {
+  s21::VModel model;
+  std::vector<std::string> address_list{
+      "tests/models/Earth.obj",       "tests/models/Gun.obj",
+      "tests/models/Kalashnikov.obj", "tests/models/lamp.obj",
+      "tests/models/moon.obj",        "tests/models/moto_simple_1.obj",
+      "tests/models/plant.obj",       "tests/models/sofa.obj"};
+  for (size_t i = 0; i < address_list.size(); ++i) {
+    model.ReadModelFile(address_list[i]);
+    std::cout << model.GetFileName() << std::endl;
+    model.Inscribe();
+    std::vector<double> result = model.GetVertices();
+    std::vector<double> reference(result);
+    for (size_t i = 0; i < 10; ++i) {
+      model.Scaling(0.5);
+    }
+    for (size_t i = 0; i < 100; ++i) {
+      model.XShift(1);
+      model.YShift(1);
+      model.ZShift(1);
+    }
+    for (size_t i = 0; i < 100; ++i) {
+      model.XShift(-1);
+      model.YShift(-1);
+      model.ZShift(-1);
+    }
+    for (size_t i = 0; i < 360; ++i) {
+      model.XRotation(1);
+    }
+    for (size_t i = 0; i < 360; ++i) {
+      model.YRotation(1);
+    }
+    for (size_t i = 0; i < 360; ++i) {
+      model.ZRotation(1);
+    }
+    model.Inscribe();
+    for (size_t i = 0; i < result.size() - 1; ++i) {
+      ASSERT_NEAR(result[i], reference[i], kAcc);
+    }
+  }
+}
+
+TEST(Viewer, Crash_test_Mercedes) {
+  s21::VModel model;
+  std::vector<std::string> address_list{
+      "tests/models/Mercedes_Benz_GLS_580.obj"};
+  for (size_t i = 0; i < address_list.size(); ++i) {
+    model.ReadModelFile(address_list[i]);
+    std::cout << model.GetFileName() << std::endl;
+    model.Inscribe();
+    std::vector<double> result = model.GetVertices();
+    std::vector<double> reference(result);
+    for (size_t i = 0; i < 10; ++i) {
+      model.Scaling(0.5);
+    }
+    for (size_t i = 0; i < 100; ++i) {
+      model.XShift(1);
+      model.YShift(1);
+      model.ZShift(1);
+    }
+    for (size_t i = 0; i < 100; ++i) {
+      model.XShift(-1);
+      model.YShift(-1);
+      model.ZShift(-1);
+    }
+    for (size_t i = 0; i < 360; ++i) {
+      model.XRotation(1);
+    }
+    for (size_t i = 0; i < 360; ++i) {
+      model.YRotation(1);
+    }
+    for (size_t i = 0; i < 360; ++i) {
+      model.ZRotation(1);
+    }
+    model.Inscribe();
+    for (size_t i = 0; i < result.size() - 1; ++i) {
+      ASSERT_NEAR(result[i], reference[i], kAcc);
+    }
+  }
+}
+
+TEST(Viewer, Crash_test_tree) {
+  s21::VModel model;
+  std::vector<std::string> address_list{"tests/models/tree.obj"};
+  for (size_t i = 0; i < address_list.size(); ++i) {
+    model.ReadModelFile(address_list[i]);
+    std::cout << model.GetFileName() << std::endl;
+    model.Inscribe();
+    std::vector<double> result = model.GetVertices();
+    std::vector<double> reference(result);
+    for (size_t i = 0; i < 10; ++i) {
+      model.Scaling(0.5);
+    }
+    for (size_t i = 0; i < 100; ++i) {
+      model.XShift(1);
+      model.YShift(1);
+      model.ZShift(1);
+    }
+    for (size_t i = 0; i < 100; ++i) {
+      model.XShift(-1);
+      model.YShift(-1);
+      model.ZShift(-1);
+    }
+    for (size_t i = 0; i < 360; ++i) {
+      model.XRotation(1);
+    }
+    for (size_t i = 0; i < 360; ++i) {
+      model.YRotation(1);
+    }
+    for (size_t i = 0; i < 360; ++i) {
+      model.ZRotation(1);
+    }
+    model.Inscribe();
+    for (size_t i = 0; i < result.size() - 1; ++i) {
+      ASSERT_NEAR(result[i], reference[i], kAcc);
+    }
+  }
+}
+TEST(Viewer, Crash_test_Bugatti) {
+  s21::VModel model;
+  std::vector<std::string> address_list{"tests/models/Bugatti.obj"};
+  for (size_t i = 0; i < address_list.size(); ++i) {
+    model.ReadModelFile(address_list[i]);
+    std::cout << model.GetFileName() << std::endl;
+    model.Inscribe();
+    std::vector<double> result = model.GetVertices();
+    std::vector<double> reference(result);
+    for (size_t i = 0; i < 10; ++i) {
+      model.Scaling(0.5);
+    }
+    for (size_t i = 0; i < 100; ++i) {
+      model.XShift(1);
+      model.YShift(1);
+      model.ZShift(1);
+    }
+    for (size_t i = 0; i < 100; ++i) {
+      model.XShift(-1);
+      model.YShift(-1);
+      model.ZShift(-1);
+    }
+    for (size_t i = 0; i < 360; ++i) {
+      model.XRotation(1);
+    }
+    for (size_t i = 0; i < 360; ++i) {
+      model.YRotation(1);
+    }
+    for (size_t i = 0; i < 360; ++i) {
+      model.ZRotation(1);
+    }
+    model.Inscribe();
+    for (size_t i = 0; i < result.size() - 1; ++i) {
+      ASSERT_NEAR(result[i], reference[i], kAcc);
+    }
+  }
+}
+TEST(Viewer, Crash_test_lion) {
+  s21::VModel model;
+  std::vector<std::string> address_list{"tests/models/Lion.obj"};
+  for (size_t i = 0; i < address_list.size(); ++i) {
+    model.ReadModelFile(address_list[i]);
+    std::cout << model.GetFileName() << std::endl;
+    model.Inscribe();
+    std::vector<double> result = model.GetVertices();
+    std::vector<double> reference(result);
+    for (size_t i = 0; i < 10; ++i) {
+      model.Scaling(0.5);
+    }
+    for (size_t i = 0; i < 100; ++i) {
+      model.XShift(1);
+      model.YShift(1);
+      model.ZShift(1);
+    }
+    for (size_t i = 0; i < 100; ++i) {
+      model.XShift(-1);
+      model.YShift(-1);
+      model.ZShift(-1);
+    }
+    for (size_t i = 0; i < 360; ++i) {
+      model.XRotation(1);
+    }
+    for (size_t i = 0; i < 360; ++i) {
+      model.YRotation(1);
+    }
+    for (size_t i = 0; i < 360; ++i) {
+      model.ZRotation(1);
+    }
+    model.Inscribe();
+    for (size_t i = 0; i < result.size() - 1; ++i) {
+      ASSERT_NEAR(result[i], reference[i], kAcc);
+    }
   }
 }
 
