@@ -6,7 +6,8 @@ namespace s21 {
 void VModel::ReadModelFile(std::string file_name) {
   ModelClean();
   std::ifstream file(file_name);
-  if (!file.is_open()) throw std::invalid_argument("No such file");
+  if (!file.is_open())
+    throw std::invalid_argument("File read error. The file is missing.");
   file_name_ =
       file_name.substr(file_name.find_last_of("/") + 1, std::string::npos);
   std::string line;
@@ -226,7 +227,8 @@ void VModel::VertexAdd(std::string line) {
   for (size_t i = 1; i < line.size() && vertex_count < 3;) {
     size_t num_size = 0;
     if (line.at(i) != ' ') {
-      throw std::invalid_argument("IV");
+      throw std::invalid_argument(
+          "Error reading vertex coordinates. Wrong data.");
     }
     double d = std::stod(&line.at(i), &num_size);
     vertex_.push_back(d);
@@ -234,16 +236,21 @@ void VModel::VertexAdd(std::string line) {
     ++vertex_count;
     i += num_size;
   }
-  if (vertex_count < 3) throw std::invalid_argument("I");
+  if (vertex_count < 3)
+    throw std::invalid_argument(
+        "Error reading vertex coordinates. Less than three vertex "
+        "coordinates.");
 }
 
 void VModel::EdgesAdd(std::string line) {
   std::vector<int> temp;
   for (size_t i = 2; i < line.size();) {
-    if (line.at(i - 1) != ' ') throw std::invalid_argument("III");
+    if (line.at(i - 1) != ' ')
+      throw std::invalid_argument("Failed to read facet data. Wrong data.");
     int d = std::stoi(&line.at(i));
     if (d < 1 || d > vertex_num_)
-      throw std::invalid_argument("Ne vernaya vershina");
+      throw std::invalid_argument(
+          "Failed to read facet data. The vertex number is out of range.");
     temp.push_back(d);
     temp.push_back(d);
     if (line.find(" ", i) != line.npos) {
