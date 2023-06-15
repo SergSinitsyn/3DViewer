@@ -58,7 +58,7 @@ void Widget::PaintImage() {
     return;
   }
 
-  glVertexPointer(3, GL_DOUBLE, 0, model_data_.vertices.data() - 3);
+  glVertexPointer(3, GL_DOUBLE, 0, model_data_.vertices.data() - 3);  //!
   if (settings.line == DASHED) {
     glEnable(GL_LINE_STIPPLE);
     glLineStipple(1, 0x00F0);

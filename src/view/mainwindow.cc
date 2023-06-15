@@ -35,6 +35,12 @@ MainWindow::MainWindow(QWidget *parent)
   DefaultControls();
   EnableControls(false);
   setWindowTitle(window_title_);
+
+  // // Set up recent files menu
+  // QMenu *recent_files_menu = ui_->menuRecent_Files;
+  // QAction *recent_files_action = recent_files_menu->menuAction();
+  // recent_files_menu->clear();
+  // recent_files_menu->addAction(recent_files_action);
 }
 
 MainWindow::~MainWindow() {
@@ -61,19 +67,25 @@ void MainWindow::SetModelInformation(const ModelInformation &information) {
   ShowInformation();
 }
 
+void MainWindow::UpdateWidget() { ui_->widget->update(); }
+
 void MainWindow::DefaultControls() {
+  const int angle = 0;
+  const double size = 0.05;
+  const double scale = 100;
+
   ui_->centralwidget->blockSignals(true);
 
-  ui_->dial_x->setValue(0);
-  ui_->dial_y->setValue(0);
-  ui_->dial_z->setValue(0);
-  ui_->spinBox_x->setValue(0);
-  ui_->spinBox_y->setValue(0);
-  ui_->spinBox_z->setValue(0);
-  ui_->doubleSpinBox_move_x->setValue(0.05);
-  ui_->doubleSpinBox_move_y->setValue(0.05);
-  ui_->doubleSpinBox_move_z->setValue(0.05);
-  ui_->doubleSpinBox_scale->setValue(100);
+  ui_->dial_x->setValue(angle);
+  ui_->dial_y->setValue(angle);
+  ui_->dial_z->setValue(angle);
+  ui_->spinBox_x->setValue(angle);
+  ui_->spinBox_y->setValue(angle);
+  ui_->spinBox_z->setValue(angle);
+  ui_->doubleSpinBox_move_x->setValue(size);
+  ui_->doubleSpinBox_move_y->setValue(size);
+  ui_->doubleSpinBox_move_z->setValue(size);
+  ui_->doubleSpinBox_scale->setValue(scale);
 
   ui_->widget->height();
   ui_->widget->width();
@@ -100,7 +112,8 @@ void MainWindow::LoadFile() {
     controller_->LoadFile(new_filename.toStdString());
     DefaultControls();
     EnableControls(true);
-    SetNewWindowTitle();
+    setWindowTitle(QString::fromStdString(model_information_.file_name) +
+                   " @ " + window_title_);
   } catch (const std::exception &e) {
     QMessageBox::critical(this, "Warning", e.what());
     ui_->statusbar->showMessage("Error loading file: '" + new_filename + "'" +
@@ -121,11 +134,6 @@ void MainWindow::SetupControls() {
   scaling_control_.SetupScalingControl(
       ui_->statusbar, ui_->doubleSpinBox_scale, ui_->pushButton_scale,
       ui_->toolButton_scaleL, ui_->toolButton_scaleH);
-}
-
-void MainWindow::SetNewWindowTitle() {
-  QString filename = QString::fromStdString(model_information_.file_name);
-  setWindowTitle(filename + " @ " + window_title_);
 }
 
 void MainWindow::ShowInformation() {
@@ -189,7 +197,7 @@ void MainWindow::setupRadiobuttons() {
       break;
   }
 }
-
+// TODO переделать в сигнал?
 void MainWindow::on_actionOpen_OBJ_file_triggered() { LoadFile(); }
 
 void MainWindow::on_actionModel_information_triggered() {
@@ -214,5 +222,33 @@ void MainWindow::on_actionOpen_documentation_triggered() {
     ui_->statusbar->showMessage("Documentation file not found");
   }
 }
+
+// std::deque<QString> MainWindow::GetRecentFiles() const { return
+// recent_files_; }
+
+// void MainWindow::on_actionOpen_OBJ_file_triggered() {
+//   QString file_name = QFileDialog::getOpenFileName(
+//       this, tr("Open OBJ File"), *getAppPath(), tr("OBJ Files (*.obj)"));
+//   if (!file_name.isEmpty()) {
+//     LoadFile(file_name);
+
+//     // Add the opened file to the list of recent files
+//     recent_files_.push_front(file_name);
+//     if (recent_files_.size() > kMaxRecentFiles) {
+//       recent_files_.pop_back();
+//     }
+
+//     // Update recent files menu
+//     QMenu *recent_files_menu = ui_->menuRecent_Files;
+//     recent_files_menu->clear();
+//     QAction *recent_files_action = recent_files_menu->menuAction();
+//     recent_files_menu->addAction(recent_files_action);
+//     for (const auto &recent_file : recent_files_) {
+//       QAction *action = new QAction(recent_file, this);
+//       connect(action, &QAction::triggered, [this, recent_file]() {
+//       LoadFile(recent_file); }); recent_files_menu->addAction(action);
+//     }
+//   }
+// }
 
 };  // namespace s21

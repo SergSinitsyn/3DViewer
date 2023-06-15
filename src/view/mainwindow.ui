@@ -9,8 +9,8 @@
    <rect>
     <x>0</x>
     <y>0</y>
-    <width>1160</width>
-    <height>750</height>
+    <width>856</width>
+    <height>738</height>
    </rect>
   </property>
   <property name="sizePolicy">
@@ -150,6 +150,12 @@
              <layout class="QHBoxLayout" name="horizontalLayout_xrot2">
               <item>
                <widget class="QSpinBox" name="spinBox_x">
+                <property name="sizePolicy">
+                 <sizepolicy hsizetype="Preferred" vsizetype="Preferred">
+                  <horstretch>0</horstretch>
+                  <verstretch>0</verstretch>
+                 </sizepolicy>
+                </property>
                 <property name="minimumSize">
                  <size>
                   <width>50</width>
@@ -271,6 +277,12 @@
              <layout class="QHBoxLayout" name="horizontalLayout_yrot2">
               <item>
                <widget class="QSpinBox" name="spinBox_y">
+                <property name="sizePolicy">
+                 <sizepolicy hsizetype="Preferred" vsizetype="Preferred">
+                  <horstretch>0</horstretch>
+                  <verstretch>0</verstretch>
+                 </sizepolicy>
+                </property>
                 <property name="minimumSize">
                  <size>
                   <width>50</width>
@@ -374,6 +386,12 @@
            <layout class="QVBoxLayout" name="verticalLayout_zrot1">
             <item alignment="Qt::AlignHCenter|Qt::AlignBottom">
              <widget class="QLabel" name="label_z">
+              <property name="sizePolicy">
+               <sizepolicy hsizetype="Preferred" vsizetype="Preferred">
+                <horstretch>0</horstretch>
+                <verstretch>0</verstretch>
+               </sizepolicy>
+              </property>
               <property name="text">
                <string>Z axis</string>
               </property>
@@ -383,6 +401,12 @@
              <layout class="QHBoxLayout" name="horizontalLayout_zrot2">
               <item>
                <widget class="QSpinBox" name="spinBox_z">
+                <property name="sizePolicy">
+                 <sizepolicy hsizetype="Preferred" vsizetype="Preferred">
+                  <horstretch>0</horstretch>
+                  <verstretch>0</verstretch>
+                 </sizepolicy>
+                </property>
                 <property name="minimumSize">
                  <size>
                   <width>50</width>
@@ -536,6 +560,12 @@
           </item>
           <item alignment="Qt::AlignLeft">
            <widget class="QDoubleSpinBox" name="doubleSpinBox_move_x">
+            <property name="sizePolicy">
+             <sizepolicy hsizetype="Preferred" vsizetype="Preferred">
+              <horstretch>0</horstretch>
+              <verstretch>0</verstretch>
+             </sizepolicy>
+            </property>
             <property name="minimumSize">
              <size>
               <width>50</width>
@@ -659,6 +689,12 @@
           </item>
           <item alignment="Qt::AlignLeft">
            <widget class="QDoubleSpinBox" name="doubleSpinBox_move_y">
+            <property name="sizePolicy">
+             <sizepolicy hsizetype="Preferred" vsizetype="Preferred">
+              <horstretch>0</horstretch>
+              <verstretch>0</verstretch>
+             </sizepolicy>
+            </property>
             <property name="minimumSize">
              <size>
               <width>50</width>
@@ -773,6 +809,12 @@
           </item>
           <item alignment="Qt::AlignLeft">
            <widget class="QDoubleSpinBox" name="doubleSpinBox_move_z">
+            <property name="sizePolicy">
+             <sizepolicy hsizetype="Preferred" vsizetype="Preferred">
+              <horstretch>0</horstretch>
+              <verstretch>0</verstretch>
+             </sizepolicy>
+            </property>
             <property name="minimumSize">
              <size>
               <width>50</width>
@@ -923,6 +965,12 @@
               <property name="enabled">
                <bool>true</bool>
               </property>
+              <property name="sizePolicy">
+               <sizepolicy hsizetype="Preferred" vsizetype="Preferred">
+                <horstretch>0</horstretch>
+                <verstretch>0</verstretch>
+               </sizepolicy>
+              </property>
               <property name="minimumSize">
                <size>
                 <width>50</width>
@@ -986,9 +1034,102 @@
               </property>
              </widget>
             </item>
+            <item alignment="Qt::AlignRight">
+             <widget class="QToolButton" name="toolButton_scaleL">
+              <property name="minimumSize">
+               <size>
+                <width>30</width>
+                <height>30</height>
+               </size>
+              </property>
+              <property name="maximumSize">
+               <size>
+                <width>30</width>
+                <height>30</height>
+               </size>
+              </property>
+              <property name="font">
+               <font>
+                <pointsize>16</pointsize>
+               </font>
+              </property>
+              <property name="cursor">
+               <cursorShape>PointingHandCursor</cursorShape>
+              </property>
+              <property name="focusPolicy">
+               <enum>Qt::StrongFocus</enum>
+              </property>
+              <property name="layoutDirection">
+               <enum>Qt::LeftToRight</enum>
+              </property>
+              <property name="autoFillBackground">
+               <bool>false</bool>
+              </property>
+              <property name="text">
+               <string>-</string>
+              </property>
+              <property name="autoRepeat">
+               <bool>true</bool>
+              </property>
+              <property name="autoRepeatInterval">
+               <number>50</number>
+              </property>
+             </widget>
+            </item>
+            <item alignment="Qt::AlignRight">
+             <widget class="QToolButton" name="toolButton_scaleH">
+              <property name="minimumSize">
+               <size>
+                <width>30</width>
+                <height>30</height>
+               </size>
+              </property>
+              <property name="maximumSize">
+               <size>
+                <width>30</width>
+                <height>30</height>
+               </size>
+              </property>
+              <property name="font">
+               <font>
+                <pointsize>16</pointsize>
+                <italic>false</italic>
+                <bold>false</bold>
+               </font>
+              </property>
+              <property name="cursor">
+               <cursorShape>PointingHandCursor</cursorShape>
+              </property>
+              <property name="focusPolicy">
+               <enum>Qt::StrongFocus</enum>
+              </property>
+              <property name="layoutDirection">
+               <enum>Qt::LeftToRight</enum>
+              </property>
+              <property name="text">
+               <string>+</string>
+              </property>
+              <property name="autoRepeat">
+               <bool>true</bool>
+              </property>
+              <property name="autoRepeatInterval">
+               <number>50</number>
+              </property>
+              <property name="popupMode">
+               <enum>QToolButton::DelayedPopup</enum>
+              </property>
+              <property name="arrowType">
+               <enum>Qt::NoArrow</enum>
+              </property>
+             </widget>
+            </item>
            </layout>
           </item>
-          <item>
+         </layout>
+        </item>
+        <item>
+         <layout class="QHBoxLayout" name="horizontalLayout_scale2" stretch="0">
+          <item alignment="Qt::AlignLeft">
            <widget class="QPushButton" name="pushButton_scale">
             <property name="enabled">
              <bool>true</bool>
@@ -1030,115 +1171,6 @@
             </property>
             <property name="flat">
              <bool>false</bool>
-            </property>
-           </widget>
-          </item>
-         </layout>
-        </item>
-        <item>
-         <layout class="QHBoxLayout" name="horizontalLayout_scale2" stretch="0,0,0">
-          <item>
-           <spacer name="horizontalSpacer">
-            <property name="orientation">
-             <enum>Qt::Horizontal</enum>
-            </property>
-            <property name="sizeType">
-             <enum>QSizePolicy::Ignored</enum>
-            </property>
-            <property name="sizeHint" stdset="0">
-             <size>
-              <width>10</width>
-              <height>1</height>
-             </size>
-            </property>
-           </spacer>
-          </item>
-          <item alignment="Qt::AlignRight">
-           <widget class="QToolButton" name="toolButton_scaleL">
-            <property name="minimumSize">
-             <size>
-              <width>30</width>
-              <height>30</height>
-             </size>
-            </property>
-            <property name="maximumSize">
-             <size>
-              <width>30</width>
-              <height>30</height>
-             </size>
-            </property>
-            <property name="font">
-             <font>
-              <pointsize>16</pointsize>
-             </font>
-            </property>
-            <property name="cursor">
-             <cursorShape>PointingHandCursor</cursorShape>
-            </property>
-            <property name="focusPolicy">
-             <enum>Qt::StrongFocus</enum>
-            </property>
-            <property name="layoutDirection">
-             <enum>Qt::LeftToRight</enum>
-            </property>
-            <property name="autoFillBackground">
-             <bool>false</bool>
-            </property>
-            <property name="text">
-             <string>-</string>
-            </property>
-            <property name="autoRepeat">
-             <bool>true</bool>
-            </property>
-            <property name="autoRepeatInterval">
-             <number>50</number>
-            </property>
-           </widget>
-          </item>
-          <item alignment="Qt::AlignRight">
-           <widget class="QToolButton" name="toolButton_scaleH">
-            <property name="minimumSize">
-             <size>
-              <width>30</width>
-              <height>30</height>
-             </size>
-            </property>
-            <property name="maximumSize">
-             <size>
-              <width>30</width>
-              <height>30</height>
-             </size>
-            </property>
-            <property name="font">
-             <font>
-              <pointsize>16</pointsize>
-              <italic>false</italic>
-              <bold>false</bold>
-             </font>
-            </property>
-            <property name="cursor">
-             <cursorShape>PointingHandCursor</cursorShape>
-            </property>
-            <property name="focusPolicy">
-             <enum>Qt::StrongFocus</enum>
-            </property>
-            <property name="layoutDirection">
-             <enum>Qt::LeftToRight</enum>
-            </property>
-            <property name="text">
-             <string>+</string>
-            </property>
-            <property name="autoRepeat">
-             <bool>true</bool>
-            </property>
-            <property name="autoRepeatInterval">
-             <number>50</number>
-            </property>
-            <property name="popupMode">
-             <enum>QToolButton::DelayedPopup</enum>
-            </property>
-            <property name="arrowType">
-             <enum>Qt::NoArrow</enum>
             </property>
            </widget>
           </item>
@@ -1237,7 +1269,7 @@
     <rect>
      <x>0</x>
      <y>0</y>
-     <width>1160</width>
+     <width>856</width>
      <height>24</height>
     </rect>
    </property>
@@ -1332,6 +1364,7 @@
      <bool>false</bool>
     </property>
     <addaction name="actionOpen_OBJ_file"/>
+    <addaction name="actionRecent_files"/>
     <addaction name="actionModel_information"/>
     <addaction name="actionSave_OBJ_to_Image"/>
     <addaction name="actionOpen_documentation"/>
@@ -1468,6 +1501,11 @@
     <string>Open documentation</string>
    </property>
   </action>
+  <action name="actionRecent_files">
+   <property name="text">
+    <string>Recent files</string>
+   </property>
+  </action>
  </widget>
  <customwidgets>
   <customwidget>
@@ -1497,9 +1535,6 @@
   <tabstop>toolButton_zNeg</tabstop>
   <tabstop>toolButton_zPos</tabstop>
   <tabstop>doubleSpinBox_scale</tabstop>
-  <tabstop>pushButton_scale</tabstop>
-  <tabstop>toolButton_scaleL</tabstop>
-  <tabstop>toolButton_scaleH</tabstop>
   <tabstop>pushButton_image</tabstop>
   <tabstop>pushButton_record</tabstop>
  </tabstops>

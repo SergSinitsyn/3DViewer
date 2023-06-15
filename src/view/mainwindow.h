@@ -30,6 +30,7 @@ class MainWindow : public QMainWindow {
   void SetModelData(const std::vector<double> &vertices,
                     const std::vector<int> &edges);
   void SetModelInformation(const ModelInformation &information);
+  void UpdateWidget();
 
   //! private?
   void setAppPath(QString path) { appPath = path; };  // to google-style
@@ -71,7 +72,6 @@ class MainWindow : public QMainWindow {
   void EnableControls(bool enable);
   void LoadFile();
   void SetupControls();
-  void SetNewWindowTitle();
   void ShowInformation();
 
   Ui::MainWindow *ui_;

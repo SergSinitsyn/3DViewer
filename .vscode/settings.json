@@ -24,5 +24,6 @@
         "memory": "cpp",
         "array": "cpp",
         "utility": "cpp"
-    }
+    },
+    "cmake.sourceDirectory": "/Users/bernarda/Projects_s21/cpp/CPP4_3DViewer_v2.0-1/src"
 }

@@ -13,43 +13,49 @@ Controller::Controller(s21::VModel &model, s21::MainWindow &view)
 void Controller::LoadFile(std::string file_name) {
   model_.ReadModelFile(file_name);
   model_.Inscribe();
-  view_.SetModelData(model_.GetVertices(), model_.GetEdges());
   view_.SetModelInformation(model_.GetInformation());
+  view_.SetModelData(model_.GetVertices(), model_.GetEdges());
+  view_.UpdateWidget();
 }
 
 void Controller::RotateAroundXAxis(int angle) {
-  model_.XRotation((double)angle);
-  view_.SetModelData(model_.GetVertices(), model_.GetEdges());
+  model_.XRotation(static_cast<double>(angle));
+  UpdateView();
 }
 
 void Controller::RotateAroundYAxis(int angle) {
-  model_.YRotation((double)angle);
-  view_.SetModelData(model_.GetVertices(), model_.GetEdges());
+  model_.YRotation(static_cast<double>(angle));
+  UpdateView();
 }
 
 void Controller::RotateAroundZAxis(int angle) {
-  model_.ZRotation((double)angle);
-  view_.SetModelData(model_.GetVertices(), model_.GetEdges());
+  model_.ZRotation(static_cast<double>(angle));
+  UpdateView();
 }
 
 void Controller::ShiftOnXAxis(double length) {
   model_.XShift(length);
-  view_.SetModelData(model_.GetVertices(), model_.GetEdges());
+  UpdateView();
 }
 
 void Controller::ShiftOnYAxis(double length) {
   model_.YShift(length);
-  view_.SetModelData(model_.GetVertices(), model_.GetEdges());
+  UpdateView();
 }
 
 void Controller::ShiftOnZAxis(double length) {
   model_.ZShift(length);
-  view_.SetModelData(model_.GetVertices(), model_.GetEdges());
+  UpdateView();
 }
 
 void Controller::Scaling(double scale) {
   model_.Scaling(scale);
+  UpdateView();
+}
+
+void Controller::UpdateView() {
   view_.SetModelData(model_.GetVertices(), model_.GetEdges());
+  view_.UpdateWidget();
 }
 
 };  // namespace s21

@@ -50,10 +50,9 @@ void ScalingControl::ApplyScale(double new_scale) {
   currect_scale_ = new_scale;
 
   controller_->Scaling(scale_factor);
-  // widget_->update();
 
   scale_box_->setValue(currect_scale_);
-  status_bar_->showMessage(QString("scale on: %1").arg(scale_factor));
+  status_bar_->showMessage(QString("scale factor: %1").arg(scale_factor));
   scale_box_->blockSignals(false);
 }
 

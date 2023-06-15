@@ -26,6 +26,7 @@ class Controller : public QObject {
   void Scaling(double scale);
 
  private:
+  void UpdateView();
   s21::VModel& model_;
   s21::MainWindow& view_;
 };
