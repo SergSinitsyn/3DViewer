@@ -23,7 +23,7 @@ class VModel {
 
   // int GetEdgesNum() const { return edges_num_; }
   // int GetFacetesNum() const { return facetes_num_; }
-  std::string GetFileName() const { return file_name_; }
+  // std::string GetFileName() const { return file_name_; }
   // int GetVertexNum() const { return vertex_num_; }
   ModelInformation GetInformation() const {
     ModelInformation info;

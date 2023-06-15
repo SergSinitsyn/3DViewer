@@ -77,35 +77,35 @@ TEST(Viewer, ReadModelFile_0) {
   model.Inscribe();
 }
 
-// TEST(Viewer, ReadModelFile_1) {
-//   s21::VModel model;
-//   model.ReadModelFile("tests/models/12140_Skull_v3_L2.obj");
-//   ModelInformation info = model.GetInformation();
-//   ASSERT_EQ(info.file_name, "12140_Skull_v3_L2.obj");
-//   ASSERT_EQ(info.vertices_number, 40062);
-//   ASSERT_EQ(info.facetes_number, 40728);
-//   ASSERT_EQ(info.edges_number, 80736);
-// }
+TEST(Viewer, ReadModelFile_1) {
+  s21::VModel model;
+  model.ReadModelFile("tests/models/12140_Skull_v3_L2.obj");
+  ModelInformation info = model.GetInformation();
+  ASSERT_EQ(info.file_name, "12140_Skull_v3_L2.obj");
+  ASSERT_EQ(info.vertices_number, 40062);
+  ASSERT_EQ(info.facetes_number, 40728);
+  ASSERT_EQ(info.edges_number, 80736);
+}
 
-// TEST(Viewer, ReadModelFile_2) {
-//   s21::VModel model;
-//   model.ReadModelFile("tests/models/tree.obj");
-//   ModelInformation info = model.GetInformation();
-//   ASSERT_EQ(info.file_name, "tree.obj");
-//   ASSERT_EQ(info.vertices_number, 1109209);
-//   ASSERT_EQ(info.facetes_number, 1885436);
-//   ASSERT_EQ(info.edges_number, 1885436);
-// }
+TEST(Viewer, ReadModelFile_2) {
+  s21::VModel model;
+  model.ReadModelFile("tests/models/tree.obj");
+  ModelInformation info = model.GetInformation();
+  ASSERT_EQ(info.file_name, "tree.obj");
+  ASSERT_EQ(info.vertices_number, 1109209);
+  ASSERT_EQ(info.facetes_number, 1885436);
+  ASSERT_EQ(info.edges_number, 1885436);
+}
 
-// TEST(Viewer, ReadModelFile_3) {
-//   s21::VModel model;
-//   model.ReadModelFile("tests/models/Lion.obj");
-//   ModelInformation info = model.GetInformation();
-//   ASSERT_EQ(info.file_name, "Lion.obj");
-//   ASSERT_EQ(info.vertices_number, 2499994);
-//   ASSERT_EQ(info.facetes_number, 5000000);
-//   ASSERT_EQ(info.edges_number, 7500000);
-// }
+TEST(Viewer, ReadModelFile_3) {
+  s21::VModel model;
+  model.ReadModelFile("tests/models/Lion.obj");
+  ModelInformation info = model.GetInformation();
+  ASSERT_EQ(info.file_name, "Lion.obj");
+  ASSERT_EQ(info.vertices_number, 2499994);
+  ASSERT_EQ(info.facetes_number, 5000000);
+  ASSERT_EQ(info.edges_number, 7500000);
+}
 
 TEST(Viewer, ReadModelFile_vertices) {
   s21::VModel model;
@@ -122,27 +122,30 @@ TEST(Viewer, ReadModelFile_vertices) {
 TEST(Viewer, Crash_test) {
   s21::VModel model;
   std::vector<std::string> address_list{
-      "tests/models/bat_copy.obj"
-      // ,
-      // "tests/models/12140_Skull_v3_L2.obj", "tests/models/bat.obj",
-      // "tests/models/bench.obj", "tests/models/City.obj",
-      // "tests/models/coub.obj", "tests/models/cube.obj",
-      // "tests/models/detail_copy.obj"
-
-      // ,
-      // "tests/models/detail.obj"
-      // ,
-      // "tests/models/dragon.obj",
-      // "tests/models/Earth.obj", "tests/models/Gun.obj",
-      // "tests/models/Kalashnikov.obj", "tests/models/lamp.obj",
-      // "tests/models/Mercedes_Benz_GLS_580.obj", "tests/models/moon.obj",
-      // "tests/models/moto_simple_1.obj", "tests/models/plant.obj",
-      // "tests/models/sofa.obj", "tests/models/tree.obj",
-      // "tests/models/Bugatti.obj", "tests/models/Lion.obj"
-  };
+      "tests/models/bat_copy.obj",
+      "tests/models/12140_Skull_v3_L2.obj",
+      "tests/models/bat.obj",
+      "tests/models/bench.obj",
+      "tests/models/City.obj",
+      "tests/models/coub.obj",
+      "tests/models/cube.obj",
+      "tests/models/detail_copy.obj",
+      "tests/models/detail.obj",
+      "tests/models/dragon.obj",
+      "tests/models/Earth.obj",
+      "tests/models/Gun.obj",
+      "tests/models/Kalashnikov.obj",
+      "tests/models/lamp.obj",
+      "tests/models/Mercedes_Benz_GLS_580.obj",
+      "tests/models/moon.obj",
+      "tests/models/moto_simple_1.obj",
+      "tests/models/plant.obj",
+      "tests/models/sofa.obj",
+      "tests/models/tree.obj",
+      "tests/models/Bugatti.obj",
+      "tests/models/Lion.obj"};
   for (size_t i = 0; i < address_list.size(); ++i) {
     model.ReadModelFile(address_list[i]);
-    std::cout << model.GetFileName() << std::endl;
     model.Inscribe();
     std::vector<double> result = model.GetVertices();
     std::vector<double> reference(result);
