@@ -23,8 +23,7 @@ void VModel::ReadModelFile(std::string file_name) {
       EdgesAdd(line);
     }
   }
-  UniquelizationEdges();
-  // Inscribe();
+  if (!edges_.empty()) UniquelizationEdges();
 }
 
 void VModel::Inscribe() {
@@ -51,10 +50,10 @@ void VModel::XRotation(double x_rot) {
   double y, z;
   double sin_rot_x = sin(InRadian(x_rot)), cos_rot_x = cos(InRadian(x_rot));
   for (size_t i = 0; i < vertex_.size(); i += 3) {
-    y = vertex_[i + 1];
-    z = vertex_[i + 2];
-    vertex_[i + 1] = y * cos_rot_x + z * sin_rot_x;
-    vertex_[i + 2] = z * cos_rot_x - y * sin_rot_x;
+    y = vertex_.at(i + 1);
+    z = vertex_.at(i + 2);
+    vertex_.at(i + 1) = y * cos_rot_x + z * sin_rot_x;
+    vertex_.at(i + 2) = z * cos_rot_x - y * sin_rot_x;
   }
 }
 
@@ -62,10 +61,10 @@ void VModel::YRotation(double y_rot) {
   double x, z;
   double sin_rot_y = sin(InRadian(y_rot)), cos_rot_y = cos(InRadian(y_rot));
   for (size_t i = 1; i < vertex_.size(); i += 3) {
-    x = vertex_[i - 1];
-    z = vertex_[i + 1];
-    vertex_[i - 1] = x * cos_rot_y + z * sin_rot_y;
-    vertex_[i + 1] = z * cos_rot_y - x * sin_rot_y;
+    x = vertex_.at(i - 1);
+    z = vertex_.at(i + 1);
+    vertex_.at(i - 1) = x * cos_rot_y + z * sin_rot_y;
+    vertex_.at(i + 1) = z * cos_rot_y - x * sin_rot_y;
   }
 }
 
@@ -73,10 +72,10 @@ void VModel::ZRotation(double z_rot) {
   double x, y;
   double sin_rot_z = sin(InRadian(z_rot)), cos_rot_z = cos(InRadian(z_rot));
   for (size_t i = 2; i < vertex_.size(); i += 3) {
-    x = vertex_[i - 2];
-    y = vertex_[i - 1];
-    vertex_[i - 1] = y * cos_rot_z + x * sin_rot_z;
-    vertex_[i - 2] = x * cos_rot_z - y * sin_rot_z;
+    x = vertex_.at(i - 2);
+    y = vertex_.at(i - 1);
+    vertex_.at(i - 1) = y * cos_rot_z + x * sin_rot_z;
+    vertex_.at(i - 2) = x * cos_rot_z - y * sin_rot_z;
   }
 }
 
@@ -89,20 +88,21 @@ void VModel::UniquelizationEdges() {
 
 void VModel::EdgeVertexSort() {
   for (size_t i = 0; i < edges_.size(); i += 2) {
-    if (edges_[i] < edges_[i + 1]) std::swap(edges_[i], edges_[i + 1]);
+    if (edges_.at(i) < edges_.at(i + 1))
+      std::swap(edges_.at(i), edges_.at(i + 1));
   }
 }
 
 void VModel::EdgeDuplicateDel() {
   std::vector<int> temp;
-  temp.push_back(edges_[0]);
-  temp.push_back(edges_[1]);
+  temp.push_back(edges_.at(0));
+  temp.push_back(edges_.at(1));
   for (size_t i = 2; i < edges_.size() - 2; i += 2) {
-    if ((temp[temp.size() - 1] != edges_[i + 1]) ||
-        (temp[temp.size() - 1] == edges_[i + 1] &&
-         temp[temp.size() - 2] != edges_[i])) {
-      temp.push_back(edges_[i]);
-      temp.push_back(edges_[i + 1]);
+    if ((temp.at(temp.size() - 1) != edges_.at(i + 1)) ||
+        (temp.at(temp.size() - 1) == edges_.at(i + 1) &&
+         temp.at(temp.size() - 2) != edges_.at(i))) {
+      temp.push_back(edges_.at(i));
+      temp.push_back(edges_.at(i + 1));
     }
   }
   edges_ = temp;
@@ -113,20 +113,20 @@ void VModel::EdgeSort() { QuickSort(0, edges_.size() - 2); }
 void VModel::QuickSort(int first, int last) {
   int count = 0;
   if (first < last) {
-    int left = (int)first, right = (int)last,
-        middle = edges_[(left / 2 + right / 2) / 2 * 2],
-        middle_1 = edges_[(left / 2 + right / 2) / 2 * 2 + 1];
+    int left = first, right = last,
+        middle = edges_.at((left / 2 + right / 2) / 2 * 2),
+        middle_1 = edges_.at((left / 2 + right / 2) / 2 * 2 + 1);
     do {
       count++;
-      while (edges_[left] > middle ||
-             (edges_[left] == middle && edges_[left + 1] > middle_1))
+      while (edges_.at(left) > middle ||
+             (edges_.at(left) == middle && edges_.at(left + 1) > middle_1))
         left += 2;
-      while (edges_[right] < middle ||
-             (edges_[right] == middle && edges_[right + 1] < middle_1))
+      while (edges_.at(right) < middle ||
+             (edges_.at(right) == middle && edges_.at(right + 1) < middle_1))
         right -= 2;
       if (left <= right) {
-        std::swap(edges_[left], edges_[right]);
-        std::swap(edges_[left + 1], edges_[right + 1]);
+        std::swap(edges_.at(left), edges_.at(right));
+        std::swap(edges_.at(left + 1), edges_.at(right + 1));
         left += 2;
         right -= 2;
       }
@@ -138,66 +138,66 @@ void VModel::QuickSort(int first, int last) {
 
 void VModel::ExtremesSearch() {
   if (vertex_.size() >= 3) {
-    x_max_ = x_min_ = vertex_[0];
-    y_max_ = y_min_ = vertex_[1];
-    z_max_ = z_min_ = vertex_[2];
+    x_max_ = x_min_ = vertex_.at(0);
+    y_max_ = y_min_ = vertex_.at(1);
+    z_max_ = z_min_ = vertex_.at(2);
   }
   for (size_t i = 3; i < vertex_.size(); i += 3) {
-    if (vertex_[i] > x_max_) {
-      x_max_ = vertex_[i];
-    } else if (vertex_[i] < x_min_) {
-      x_min_ = vertex_[i];
+    if (vertex_.at(i) > x_max_) {
+      x_max_ = vertex_.at(i);
+    } else if (vertex_.at(i) < x_min_) {
+      x_min_ = vertex_.at(i);
     }
   }
   for (size_t i = 4; i < vertex_.size(); i += 3) {
-    if (vertex_[i] > y_max_) {
-      y_max_ = vertex_[i];
-    } else if (vertex_[i] < y_min_) {
-      y_min_ = vertex_[i];
+    if (vertex_.at(i) > y_max_) {
+      y_max_ = vertex_.at(i);
+    } else if (vertex_.at(i) < y_min_) {
+      y_min_ = vertex_.at(i);
     }
   }
   for (size_t i = 5; i < vertex_.size(); i += 3) {
-    if (vertex_[i] > z_max_) {
-      z_max_ = vertex_[i];
-    } else if (vertex_[i] < z_min_) {
-      z_min_ = vertex_[i];
+    if (vertex_.at(i) > z_max_) {
+      z_max_ = vertex_.at(i);
+    } else if (vertex_.at(i) < z_min_) {
+      z_min_ = vertex_.at(i);
     }
   }
 }
 
 void VModel::XShift(double x_shift) {
   for (size_t i = 0; i < vertex_.size(); i += 3) {
-    vertex_[i] += x_shift;
+    vertex_.at(i) += x_shift;
   }
 }
 
 void VModel::YShift(double y_shift) {
   for (size_t i = 1; i < vertex_.size(); i += 3) {
-    vertex_[i] += y_shift;
+    vertex_.at(i) += y_shift;
   }
 }
 
 void VModel::ZShift(double z_shift) {
   for (size_t i = 2; i < vertex_.size(); i += 3) {
-    vertex_[i] += z_shift;
+    vertex_.at(i) += z_shift;
   }
 }
 
 void VModel::XScaling(double zoom_index) {
   for (size_t i = 0; i < vertex_.size(); i += 3) {
-    vertex_[i] *= zoom_index;
+    vertex_.at(i) *= zoom_index;
   }
 }
 
 void VModel::YScaling(double zoom_index) {
   for (size_t i = 1; i < vertex_.size(); i += 3) {
-    vertex_[i] *= zoom_index;
+    vertex_.at(i) *= zoom_index;
   }
 }
 
 void VModel::ZScaling(double zoom_index) {
   for (size_t i = 2; i < vertex_.size(); i += 3) {
-    vertex_[i] *= zoom_index;
+    vertex_.at(i) *= zoom_index;
   }
 }
 
@@ -209,13 +209,13 @@ double VModel::MaxSize() {
 }
 
 double VModel::InRadian(double angle_of_rotation) {
-  return angle_of_rotation * kMy_pi / 180;
+  return angle_of_rotation * M_PI / 180;
 }
 
 int VModel::EdgesCount(std::string line) {
   int count = 0;
   for (size_t i = 1; i < line.size(); i++) {
-    if (IsDigit(line[i]) && line[i - 1] == ' ') count++;
+    if (IsDigit(line.at(i)) && line.at(i - 1) == ' ') count++;
   }
   if (count == 2) count--;
   return count;
@@ -225,10 +225,10 @@ void VModel::VertexAdd(std::string line) {
   size_t vertex_count = 0;
   for (size_t i = 1; i < line.size() && vertex_count < 3;) {
     size_t num_size = 0;
-    if (line[i] != ' ') {
+    if (line.at(i) != ' ') {
       throw std::invalid_argument("IV");
     }
-    double d = std::stod(&line[i], &num_size);
+    double d = std::stod(&line.at(i), &num_size);
     vertex_.push_back(d);
 
     ++vertex_count;
@@ -240,15 +240,15 @@ void VModel::VertexAdd(std::string line) {
 void VModel::EdgesAdd(std::string line) {
   std::vector<int> temp;
   for (size_t i = 2; i < line.size();) {
-    if (line[i - 1] != ' ') throw std::invalid_argument("III");
-    int d = std::stoi(&line[i]);
+    if (line.at(i - 1) != ' ') throw std::invalid_argument("III");
+    int d = std::stoi(&line.at(i));
     if (d < 1 || d > vertex_num_)
       throw std::invalid_argument("Ne vernaya vershina");
     temp.push_back(d);
     temp.push_back(d);
     if (line.find(" ", i) != line.npos) {
       i = line.find(" ", i + 1) + 1;
-      for (; i < line.size() && !IsDigit(line[i]);) {
+      for (; i < line.size() && !IsDigit(line.at(i));) {
         ++i;
       }
     } else {

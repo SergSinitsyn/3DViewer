@@ -1,6 +1,6 @@
 #ifndef VIEWER_2_MODEL_VMODEL_H_
 #define VIEWER_2_MODEL_VMODEL_H_
-#include <float.h>  // для DBL_MAX? надо поменять на с++ библтотеку
+// #include <float.h>  // для DBL_MAX? надо поменять на с++ библтотеку
 
 #include <cmath>
 #include <fstream>
@@ -10,7 +10,7 @@
 
 #include "../other/structs.h"
 
-const double kMy_pi = 3.14159265358979323846;  // TODO сделать полем класса
+#define _USE_MATH_DEFINES  // for M_PI
 
 namespace s21 {
 class VModel {
@@ -21,10 +21,10 @@ class VModel {
   std::vector<int>& GetEdges() { return edges_; }
   std::vector<double>& GetVertices() { return vertex_; }
 
-  int GetEdgesNum() const { return edges_num_; }
-  int GetFacetesNum() const { return facetes_num_; }
+  // int GetEdgesNum() const { return edges_num_; }
+  // int GetFacetesNum() const { return facetes_num_; }
   std::string GetFileName() const { return file_name_; }
-  int GetVertexNum() const { return vertex_num_; }
+  // int GetVertexNum() const { return vertex_num_; }
   ModelInformation GetInformation() const {
     ModelInformation info;
     info.edges_number = edges_num_;
