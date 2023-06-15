@@ -113,7 +113,7 @@ void VModel::EdgeSort() { QuickSort(0, edges_.size() - 2); }
 void VModel::QuickSort(int first, int last) {
   int count = 0;
   if (first < last) {
-    int left = (int)first, right = (int)last,
+    int left = first, right = last,
         middle = edges_.at((left / 2 + right / 2) / 2 * 2),
         middle_1 = edges_.at((left / 2 + right / 2) / 2 * 2 + 1);
     do {
