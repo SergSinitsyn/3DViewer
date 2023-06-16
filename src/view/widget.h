@@ -10,25 +10,6 @@
 #include "../other/structs.h"
 #include "widgetsettings.h"
 
-// typedef enum { LINE, VERTEX } Element;
-
-// typedef enum { SOLID, DASHED } Line_type;
-
-// typedef enum { PARALLEL, CENTRAL } Projection_type;
-
-// typedef enum { NONE, CIRCLE, SQUARE } Display_method;
-
-// typedef struct {
-//   QColor vertexColor;
-//   QColor edgeColor;
-//   QColor backgroundColor;
-//   int edgeThickness;
-//   int vertexSize;
-//   Display_method displayVertexes;
-//   Projection_type projection;
-//   Line_type line;
-// } widgetSettings;
-
 // namespace s21 {
 
 class Widget : public QOpenGLWidget, protected QOpenGLFunctions {
@@ -40,7 +21,7 @@ class Widget : public QOpenGLWidget, protected QOpenGLFunctions {
   void SetModelData(const ModelData &model_data);
 
  private slots:
-  void getSettings(WidgetSettings *sptr);
+  void GetSettings(WidgetSettings *sptr);
 
  protected:
   void initializeGL();
@@ -54,7 +35,7 @@ class Widget : public QOpenGLWidget, protected QOpenGLFunctions {
  private:
   ModelData model_data_;
   bool model_is_load_ = false;
-  WidgetSettings settings;
+  WidgetSettings settings_;
 };
 
 // };  // namespace s21

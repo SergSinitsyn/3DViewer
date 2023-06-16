@@ -15,6 +15,7 @@ typedef enum { kNone, kCircle, kSquare } DisplayMethod;
 class WidgetSettings {
  public:
   static const int kMaxRecentFiles = 5;
+
   // Getters&setters
   QColor& vertexColor() { return vertex_color_; };
   QColor& edgeColor() { return edge_color_; };
@@ -24,10 +25,12 @@ class WidgetSettings {
   DisplayMethod& displayVertexes() { return display_vertexes_; };
   ProjectionType& projection() { return projection_; };
   LineType& lineType() { return line_type_; };
-  void loadSettingsFromFile();
-  void saveSettingsToFile();
-  void rememberRecentFile(QString);
-  const QVector<QString>* const getRecentFiles() const {
+
+  // Other methods
+  void LoadSettingsFromFile();
+  void SaveSettingsToFile();
+  void RememberRecentFile(QString);
+  const QVector<QString>* const GetRecentFiles() const {
     return &recent_files_;
   };
 
@@ -52,8 +55,8 @@ class Memento {
   Memento(const T& s) { state_ = s; };
   Memento(const T* s) { state_ = *s; };
   T const* GetState() const { return &state_; };
-  void SetState(T* s) {
-    if (s != &state_) state_ = *s;
+  void SetState(T* new_state) {
+    if (new_state != nullptr && &state_ != new_state) state_ = *new_state;
   };
 
  protected:

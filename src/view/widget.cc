@@ -37,7 +37,7 @@ void Widget::paintGL() {
   glClear(GL_COLOR_BUFFER_BIT | GL_DEPTH_BUFFER_BIT);
   glLoadIdentity();
 
-  if (settings.projection() == kCentral)
+  if (settings_.projection() == kCentral)
     glFrustum(-width, width, -height, height, 3, 10);
   else
     glOrtho(-width, width, -height, height, 3, 10);
@@ -59,7 +59,7 @@ void Widget::PaintImage() {
   }
 
   glVertexPointer(3, GL_DOUBLE, 0, model_data_.vertices.data() - 3);  //!
-  if (settings.lineType() == kDashed) {
+  if (settings_.lineType() == kDashed) {
     glEnable(GL_LINE_STIPPLE);
     glLineStipple(1, 0x00F0);
   }
@@ -70,8 +70,8 @@ void Widget::PaintImage() {
                  model_data_.edges.data());
   glDisable(GL_LINE_STIPPLE);
 
-  if (settings.displayVertexes() != kNone) {
-    if (settings.displayVertexes() == kCircle) {
+  if (settings_.displayVertexes() != kNone) {
+    if (settings_.displayVertexes() == kCircle) {
       glEnable(GL_POINT_SMOOTH);
       //  glEnable(GL_BLEND);
       //  glBlendFunc(GL_SRC_ALPHA, GL_ONE_MINUS_SRC_ALPHA);
@@ -90,7 +90,7 @@ void Widget::setBgColor() {
 #else
   float r, g, b, f;
 #endif
-  settings.backgroundColor().getRgbF(&r, &g, &b, &f);
+  settings_.backgroundColor().getRgbF(&r, &g, &b, &f);
   glClearColor(r, g, b, f);
 }
 
@@ -102,10 +102,10 @@ void Widget::setDrawColor(Element e) {
 #endif
   switch (e) {
     case kLine:
-      settings.edgeColor().getRgbF(&r, &g, &b, &f);
+      settings_.edgeColor().getRgbF(&r, &g, &b, &f);
       break;
     case kVertex:
-      settings.vertexColor().getRgbF(&r, &g, &b, &f);
+      settings_.vertexColor().getRgbF(&r, &g, &b, &f);
       break;
   }
   glColor3d(r, g, b);
@@ -114,16 +114,16 @@ void Widget::setDrawColor(Element e) {
 void Widget::setDrawSize(Element e) {
   switch (e) {
     case kLine:
-      glLineWidth(settings.edgeThickness());
+      glLineWidth(settings_.edgeThickness());
       break;
     case kVertex:
-      glPointSize(settings.vertexSize());
+      glPointSize(settings_.vertexSize());
       break;
   }
 }
 
-void Widget::getSettings(WidgetSettings *sptr) {
-  settings = *sptr;
+void Widget::GetSettings(WidgetSettings *sptr) {
+  settings_ = *sptr;
   update();
 }
 

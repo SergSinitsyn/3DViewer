@@ -32,10 +32,6 @@ class MainWindow : public QMainWindow {
   void SetModelInformation(const ModelInformation &information);
   void UpdateWidget();
 
-  // //! private?
-  // void setAppPath(QString path) { appPath = path; };  // to google-style
-  // const QString *getAppPath() { return &appPath; };   // to google-style
-
  private slots:
   void on_actionOpen_OBJ_file_triggered();
   void on_actionModel_information_triggered();
@@ -54,21 +50,24 @@ class MainWindow : public QMainWindow {
   void on_actionDashed_triggered(bool checked);
   void on_actionParallel_triggered(bool checked);
   void on_actionCentral_triggered(bool checked);
-  void load_setting_from_file();  // to google-style
-  void save_setting_to_file();    // to google-style
-  void setupRadiobuttons();       // to google-style
-  void createRecentFilesMenu();
-  void removeRecentFilesMenu();
-  int loadRecentFile();
   void on_actionRestore_settings_triggered();
-  int fileNameErrorDialog(const char *msg);  // to google-style
+  void LoadSettingFromFile();
+  void SaveSettingToFile();
+  void SetupRadioButtons();
+  void CreateRecentFilesMenu();
+  void RemoveRecentFilesMenu();
+  int LoadRecentFile();
+  int FileNameErrorDialog(const char *msg);
 
   // screenshot
   void on_actionSave_OBJ_to_Image_triggered();
   void on_pushButton_image_clicked();
   void on_pushButton_record_clicked();
-  void saveImageAs();       //!
-  void recordTimerAlarm();  //!
+  void SaveImageAs();       //!
+  void RecordTimerAlarm();  //!
+
+ signals:
+  void SettingsChanged(WidgetSettings *);
 
  private:
   void DefaultControls();
@@ -86,22 +85,18 @@ class MainWindow : public QMainWindow {
   Controller *controller_;
   const QString window_title_ = "3D Viewer v2.0 - Old Perrers Team";
 
-  // Settings
+  // Settings variables
   QMenu *recent_files_menu_ = nullptr;
-  WidgetSettings settings;
+  WidgetSettings settings_;
   Memento<WidgetSettings> *start_settindgs_;
 
   // video recording variables
-  bool record = false;  //!
-  QTimer recordTimer;   //!
-  int frames;           //!
-  QString gifFileName;  //!
-  GifAnim ganim;        //!
-  GifWriter gwriter;    //!
-  QString appPath;      //!
-
- signals:
-  void settingsChanged(WidgetSettings *);  // to google-style
+  bool record_ = false;
+  QTimer record_timer_;
+  int frames_;
+  QString gif_file_name_;
+  GifAnim ganim_;
+  GifWriter gwriter_;
 };
 
 }  // namespace s21

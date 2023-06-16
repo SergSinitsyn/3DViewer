@@ -1518,7 +1518,7 @@
    <header>widget.h</header>
    <container>1</container>
    <slots>
-    <slot>getSettings(WidgetSettings*)</slot>
+    <slot>GetSettings(WidgetSettings*)</slot>
    </slots>
   </customwidget>
  </customwidgets>
@@ -1546,9 +1546,9 @@
  <connections>
   <connection>
    <sender>MainWindow</sender>
-   <signal>settingsChanged(WidgetSettings*)</signal>
+   <signal>SettingsChanged(WidgetSettings*)</signal>
    <receiver>widget</receiver>
-   <slot>getSettings(WidgetSettings*)</slot>
+   <slot>GetSettings(WidgetSettings*)</slot>
    <hints>
     <hint type="sourcelabel">
      <x>511</x>
@@ -1562,6 +1562,6 @@
   </connection>
  </connections>
  <slots>
-  <signal>settingsChanged(WidgetSettings*)</signal>
+  <signal>SettingsChanged(WidgetSettings*)</signal>
  </slots>
 </ui>

@@ -29,12 +29,12 @@ MainWindow::MainWindow(QWidget *parent)
       model_data_() {
   ui_->setupUi(this);
   SetupControls();
-  // setAppPath(QCoreApplication::applicationDirPath());
 
-  load_setting_from_file();
-  start_settindgs_ = new Memento<WidgetSettings>(settings);
-  setupRadiobuttons();
-  createRecentFilesMenu();
+  // Settings
+  LoadSettingFromFile();
+  start_settindgs_ = new Memento<WidgetSettings>(settings_);
+  SetupRadioButtons();
+  CreateRecentFilesMenu();
 
   DefaultControls();
   EnableControls(false);
@@ -42,12 +42,12 @@ MainWindow::MainWindow(QWidget *parent)
 }
 
 MainWindow::~MainWindow() {
-  save_setting_to_file();
+  SaveSettingToFile();
   delete start_settindgs_;
   delete ui_;
 }
 
-int MainWindow::loadRecentFile() {
+int MainWindow::LoadRecentFile() {
   QAction *action = qobject_cast<QAction *>(QObject::sender());
   try {
     controller_->LoadFile(action->text().toStdString());
@@ -58,18 +58,18 @@ int MainWindow::loadRecentFile() {
   return 0;
 }
 
-void MainWindow::createRecentFilesMenu() {
-  const QVector<QString> *files = settings.getRecentFiles();
-  if (files->size() > 0) {
+void MainWindow::CreateRecentFilesMenu() {
+  const auto recent_files = settings_.GetRecentFiles();
+  if (!recent_files->empty()) {
     recent_files_menu_ = ui_->menuFile->addMenu("Recent files");
-    for (int i = 0; i < files->size(); i++) {
-      QAction *action = recent_files_menu_->addAction(files->at(i));
-      connect(action, SIGNAL(triggered()), this, SLOT(loadRecentFile()));
+    for (const auto &file : *recent_files) {
+      auto action = recent_files_menu_->addAction(file);
+      connect(action, SIGNAL(triggered()), this, SLOT(LoadRecentFile()));
     }
   }
 }
 
-void MainWindow::removeRecentFilesMenu() {
+void MainWindow::RemoveRecentFilesMenu() {
   if (recent_files_menu_)
     ui_->menuFile->removeAction(recent_files_menu_->menuAction());
 }
@@ -136,9 +136,9 @@ void MainWindow::LoadFile() {
   }
   try {
     controller_->LoadFile(new_filename.toStdString());
-    settings.rememberRecentFile(new_filename);
-    removeRecentFilesMenu();
-    createRecentFilesMenu();
+    settings_.RememberRecentFile(new_filename);
+    RemoveRecentFilesMenu();
+    CreateRecentFilesMenu();
 
     DefaultControls();
     EnableControls(true);
@@ -179,7 +179,7 @@ void MainWindow::ShowInformation() {
       ", Faces: " + number_of_faces);
 }
 
-void MainWindow::setupRadiobuttons() {
+void MainWindow::SetupRadioButtons() {
   QActionGroup *typeGroup = new QActionGroup(this);
   QActionGroup *display_methodGroup = new QActionGroup(this);
   QActionGroup *projectionGroup = new QActionGroup(this);
@@ -190,7 +190,7 @@ void MainWindow::setupRadiobuttons() {
   display_methodGroup->addAction(ui_->actionNone);
   display_methodGroup->addAction(ui_->actionCircle);
   display_methodGroup->addAction(ui_->actionSquare);
-  switch (settings.projection()) {
+  switch (settings_.projection()) {
     case kParallel:
       ui_->actionParallel->setChecked(true);
       break;
@@ -201,7 +201,7 @@ void MainWindow::setupRadiobuttons() {
       ui_->actionCentral->setChecked(true);
       break;
   }
-  switch (settings.lineType()) {
+  switch (settings_.lineType()) {
     case kSolid:
       ui_->actionSolid->setChecked(true);
       break;
@@ -212,7 +212,7 @@ void MainWindow::setupRadiobuttons() {
       ui_->actionDashed->setChecked(true);
       break;
   }
-  switch (settings.displayVertexes()) {
+  switch (settings_.displayVertexes()) {
     case kNone:
       ui_->actionNone->setChecked(true);
       break;
