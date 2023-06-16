@@ -88,6 +88,7 @@
         <property name="font">
          <font>
           <pointsize>18</pointsize>
+          <weight>75</weight>
           <bold>true</bold>
          </font>
         </property>
@@ -606,6 +607,7 @@
             <property name="font">
              <font>
               <pointsize>16</pointsize>
+              <weight>50</weight>
               <bold>false</bold>
              </font>
             </property>
@@ -646,6 +648,7 @@
             <property name="font">
              <font>
               <pointsize>16</pointsize>
+              <weight>50</weight>
               <italic>false</italic>
               <bold>false</bold>
              </font>
@@ -1093,6 +1096,7 @@
               <property name="font">
                <font>
                 <pointsize>16</pointsize>
+                <weight>50</weight>
                 <italic>false</italic>
                 <bold>false</bold>
                </font>
@@ -1270,7 +1274,7 @@
      <x>0</x>
      <y>0</y>
      <width>856</width>
-     <height>24</height>
+     <height>22</height>
     </rect>
    </property>
    <property name="cursor">
@@ -1349,6 +1353,7 @@
     <addaction name="menuEdges"/>
     <addaction name="menuVertices"/>
     <addaction name="actionBackground_color"/>
+    <addaction name="actionRestore_settings"/>
    </widget>
    <widget class="QMenu" name="menuFile">
     <property name="focusPolicy">
@@ -1364,7 +1369,6 @@
      <bool>false</bool>
     </property>
     <addaction name="actionOpen_OBJ_file"/>
-    <addaction name="actionRecent_files"/>
     <addaction name="actionModel_information"/>
     <addaction name="actionSave_OBJ_to_Image"/>
     <addaction name="actionOpen_documentation"/>
@@ -1501,9 +1505,9 @@
     <string>Open documentation</string>
    </property>
   </action>
-  <action name="actionRecent_files">
+  <action name="actionRestore_settings">
    <property name="text">
-    <string>Recent files</string>
+    <string>Restore settings</string>
    </property>
   </action>
  </widget>
@@ -1514,7 +1518,7 @@
    <header>widget.h</header>
    <container>1</container>
    <slots>
-    <slot>getSettings(widgetSettings*)</slot>
+    <slot>getSettings(WidgetSettings*)</slot>
    </slots>
   </customwidget>
  </customwidgets>
@@ -1542,9 +1546,9 @@
  <connections>
   <connection>
    <sender>MainWindow</sender>
-   <signal>settingsChanged(widgetSettings*)</signal>
+   <signal>settingsChanged(WidgetSettings*)</signal>
    <receiver>widget</receiver>
-   <slot>getSettings(widgetSettings*)</slot>
+   <slot>getSettings(WidgetSettings*)</slot>
    <hints>
     <hint type="sourcelabel">
      <x>511</x>
@@ -1558,6 +1562,6 @@
   </connection>
  </connections>
  <slots>
-  <signal>settingsChanged(widgetSettings*)</signal>
+  <signal>settingsChanged(WidgetSettings*)</signal>
  </slots>
 </ui>

@@ -29,23 +29,49 @@ MainWindow::MainWindow(QWidget *parent)
       model_data_() {
   ui_->setupUi(this);
   SetupControls();
-  setAppPath(QCoreApplication::applicationDirPath());
+  // setAppPath(QCoreApplication::applicationDirPath());
+
   load_setting_from_file();
+  start_settindgs_ = new Memento<WidgetSettings>(settings);
   setupRadiobuttons();
+  createRecentFilesMenu();
+
   DefaultControls();
   EnableControls(false);
   setWindowTitle(window_title_);
-
-  // // Set up recent files menu
-  // QMenu *recent_files_menu = ui_->menuRecent_Files;
-  // QAction *recent_files_action = recent_files_menu->menuAction();
-  // recent_files_menu->clear();
-  // recent_files_menu->addAction(recent_files_action);
 }
 
 MainWindow::~MainWindow() {
   save_setting_to_file();
+  delete start_settindgs_;
   delete ui_;
+}
+
+int MainWindow::loadRecentFile() {
+  QAction *action = qobject_cast<QAction *>(QObject::sender());
+  try {
+    controller_->LoadFile(action->text().toStdString());
+    EnableControls(true);
+  } catch (std::exception &e) {
+    QMessageBox::warning(this, "Error loading file" + action->text(), e.what());
+  }
+  return 0;
+}
+
+void MainWindow::createRecentFilesMenu() {
+  const QVector<QString> *files = settings.getRecentFiles();
+  if (files->size() > 0) {
+    recent_files_menu_ = ui_->menuFile->addMenu("Recent files");
+    for (int i = 0; i < files->size(); i++) {
+      QAction *action = recent_files_menu_->addAction(files->at(i));
+      connect(action, SIGNAL(triggered()), this, SLOT(loadRecentFile()));
+    }
+  }
+}
+
+void MainWindow::removeRecentFilesMenu() {
+  if (recent_files_menu_)
+    ui_->menuFile->removeAction(recent_files_menu_->menuAction());
 }
 
 void MainWindow::SetController(Controller &controller) {
@@ -110,6 +136,10 @@ void MainWindow::LoadFile() {
   }
   try {
     controller_->LoadFile(new_filename.toStdString());
+    settings.rememberRecentFile(new_filename);
+    removeRecentFilesMenu();
+    createRecentFilesMenu();
+
     DefaultControls();
     EnableControls(true);
     setWindowTitle(QString::fromStdString(model_information_.file_name) +
@@ -160,36 +190,36 @@ void MainWindow::setupRadiobuttons() {
   display_methodGroup->addAction(ui_->actionNone);
   display_methodGroup->addAction(ui_->actionCircle);
   display_methodGroup->addAction(ui_->actionSquare);
-  switch (settings.projection) {
-    case PARALLEL:
+  switch (settings.projection()) {
+    case kParallel:
       ui_->actionParallel->setChecked(true);
       break;
-    case CENTRAL:
+    case kCentral:
       ui_->actionCentral->setChecked(true);
       break;
     default:
       ui_->actionCentral->setChecked(true);
       break;
   }
-  switch (settings.line) {
-    case SOLID:
+  switch (settings.lineType()) {
+    case kSolid:
       ui_->actionSolid->setChecked(true);
       break;
-    case DASHED:
+    case kDashed:
       ui_->actionDashed->setChecked(true);
       break;
     default:
       ui_->actionDashed->setChecked(true);
       break;
   }
-  switch (settings.displayVertexes) {
-    case NONE:
+  switch (settings.displayVertexes()) {
+    case kNone:
       ui_->actionNone->setChecked(true);
       break;
-    case CIRCLE:
+    case kCircle:
       ui_->actionCircle->setChecked(true);
       break;
-    case SQUARE:
+    case kSquare:
       ui_->actionSquare->setChecked(true);
       break;
     default:

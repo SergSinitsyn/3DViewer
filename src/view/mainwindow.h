@@ -32,9 +32,9 @@ class MainWindow : public QMainWindow {
   void SetModelInformation(const ModelInformation &information);
   void UpdateWidget();
 
-  //! private?
-  void setAppPath(QString path) { appPath = path; };  // to google-style
-  const QString *getAppPath() { return &appPath; };   // to google-style
+  // //! private?
+  // void setAppPath(QString path) { appPath = path; };  // to google-style
+  // const QString *getAppPath() { return &appPath; };   // to google-style
 
  private slots:
   void on_actionOpen_OBJ_file_triggered();
@@ -54,10 +54,13 @@ class MainWindow : public QMainWindow {
   void on_actionDashed_triggered(bool checked);
   void on_actionParallel_triggered(bool checked);
   void on_actionCentral_triggered(bool checked);
-
-  void load_setting_from_file();             // to google-style
-  void save_setting_to_file();               // to google-style
-  void setupRadiobuttons();                  // to google-style
+  void load_setting_from_file();  // to google-style
+  void save_setting_to_file();    // to google-style
+  void setupRadiobuttons();       // to google-style
+  void createRecentFilesMenu();
+  void removeRecentFilesMenu();
+  int loadRecentFile();
+  void on_actionRestore_settings_triggered();
   int fileNameErrorDialog(const char *msg);  // to google-style
 
   // screenshot
@@ -83,7 +86,10 @@ class MainWindow : public QMainWindow {
   Controller *controller_;
   const QString window_title_ = "3D Viewer v2.0 - Old Perrers Team";
 
-  widgetSettings settings;  //!
+  // Settings
+  QMenu *recent_files_menu_ = nullptr;
+  WidgetSettings settings;
+  Memento<WidgetSettings> *start_settindgs_;
 
   // video recording variables
   bool record = false;  //!
@@ -95,7 +101,7 @@ class MainWindow : public QMainWindow {
   QString appPath;      //!
 
  signals:
-  void settingsChanged(widgetSettings *);  // to google-style
+  void settingsChanged(WidgetSettings *);  // to google-style
 };
 
 }  // namespace s21

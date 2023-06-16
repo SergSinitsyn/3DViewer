@@ -37,7 +37,7 @@ void Widget::paintGL() {
   glClear(GL_COLOR_BUFFER_BIT | GL_DEPTH_BUFFER_BIT);
   glLoadIdentity();
 
-  if (settings.projection == CENTRAL)
+  if (settings.projection() == kCentral)
     glFrustum(-width, width, -height, height, 3, 10);
   else
     glOrtho(-width, width, -height, height, 3, 10);
@@ -59,25 +59,25 @@ void Widget::PaintImage() {
   }
 
   glVertexPointer(3, GL_DOUBLE, 0, model_data_.vertices.data() - 3);  //!
-  if (settings.line == DASHED) {
+  if (settings.lineType() == kDashed) {
     glEnable(GL_LINE_STIPPLE);
     glLineStipple(1, 0x00F0);
   }
-  setDrawColor(LINE);
-  setDrawSize(LINE);
+  setDrawColor(kLine);
+  setDrawSize(kLine);
 
   glDrawElements(GL_LINES, model_data_.edges.size(), GL_UNSIGNED_INT,
                  model_data_.edges.data());
   glDisable(GL_LINE_STIPPLE);
 
-  if (settings.displayVertexes != NONE) {
-    if (settings.displayVertexes == CIRCLE) {
+  if (settings.displayVertexes() != kNone) {
+    if (settings.displayVertexes() == kCircle) {
       glEnable(GL_POINT_SMOOTH);
       //  glEnable(GL_BLEND);
       //  glBlendFunc(GL_SRC_ALPHA, GL_ONE_MINUS_SRC_ALPHA);
     }
-    setDrawColor(VERTEX);
-    setDrawSize(VERTEX);
+    setDrawColor(kVertex);
+    setDrawSize(kVertex);
     glDrawArrays(GL_POINTS, 0, model_data_.vertices.size() / 3);  //!
     glDisable(GL_POINT_SMOOTH);
     // glDisable(GL_BLEND);
@@ -90,39 +90,39 @@ void Widget::setBgColor() {
 #else
   float r, g, b, f;
 #endif
-  settings.backgroundColor.getRgbF(&r, &g, &b, &f);
+  settings.backgroundColor().getRgbF(&r, &g, &b, &f);
   glClearColor(r, g, b, f);
 }
 
-void Widget::setDrawColor(element e) {
+void Widget::setDrawColor(Element e) {
 #ifdef Q_OS_LINUX
   qreal r, g, b, f;
 #else
   float r, g, b, f;
 #endif
   switch (e) {
-    case LINE:
-      settings.edgeColor.getRgbF(&r, &g, &b, &f);
+    case kLine:
+      settings.edgeColor().getRgbF(&r, &g, &b, &f);
       break;
-    case VERTEX:
-      settings.vertexColor.getRgbF(&r, &g, &b, &f);
+    case kVertex:
+      settings.vertexColor().getRgbF(&r, &g, &b, &f);
       break;
   }
   glColor3d(r, g, b);
 }
 
-void Widget::setDrawSize(element e) {
+void Widget::setDrawSize(Element e) {
   switch (e) {
-    case LINE:
-      glLineWidth(settings.edgeThickness);
+    case kLine:
+      glLineWidth(settings.edgeThickness());
       break;
-    case VERTEX:
-      glPointSize(settings.vertexSize);
+    case kVertex:
+      glPointSize(settings.vertexSize());
       break;
   }
 }
 
-void Widget::getSettings(widgetSettings *sptr) {
+void Widget::getSettings(WidgetSettings *sptr) {
   settings = *sptr;
   update();
 }
