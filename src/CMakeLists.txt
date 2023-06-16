@@ -34,6 +34,7 @@ set(PROJECT_SOURCES
     view/scaling_control.cc view/scaling_control.h
 
     view/mainwindow_settings.cc
+    view/widgetsettings.cc view/widgetsettings.h
     view/mainwindow_screenshots.cc
 
     view/info/info.cc view/info/info.h view/info/info.ui
