@@ -78,7 +78,7 @@ void Widget::PaintImage() {
     }
     setDrawColor(VERTEX);
     setDrawSize(VERTEX);
-    glDrawArrays(GL_POINTS, 0, model_data_.vertices.size() / 3 + 1);  //!
+    glDrawArrays(GL_POINTS, 0, model_data_.vertices.size() / 3);  //!
     glDisable(GL_POINT_SMOOTH);
     // glDisable(GL_BLEND);
   }

@@ -55,7 +55,9 @@ void MainWindow::SetController(Controller &controller) {
   rotation_control_x_.SetController(*controller_);
   rotation_control_y_.SetController(*controller_);
   rotation_control_z_.SetController(*controller_);
-  movement_control_.SetController(*controller_);
+  movement_control_x_.SetController(*controller_);
+  movement_control_y_.SetController(*controller_);
+  movement_control_z_.SetController(*controller_);
   scaling_control_.SetController(*controller_);
 }
 
@@ -74,6 +76,7 @@ void MainWindow::SetModelInformation(const ModelInformation &information) {
 void MainWindow::UpdateWidget() { ui_->widget->update(); }
 
 void MainWindow::DefaultControls() {
+  // TODO сделать снутри соответствующих классов
   const int angle = 0;
   const double size = 0.05;
   const double scale = 100;
@@ -128,20 +131,23 @@ void MainWindow::LoadFile() {
 void my_func(int a) { qDebug() << a; }
 
 void MainWindow::SetupControls() {
-  rotation_control_x_.SetupRotationControl(my_func, ui_->spinBox_x,
-                                           ui_->dial_x);
-  rotation_control_y_.SetupRotationControl(my_func, ui_->spinBox_y,
-                                           ui_->dial_y);
-  rotation_control_z_.SetupRotationControl(my_func, ui_->spinBox_z,
-                                           ui_->dial_z);
-
-  movement_control_.SetupMovementControl(
-      ui_->statusbar, ui_->doubleSpinBox_move_x, ui_->doubleSpinBox_move_y,
-      ui_->doubleSpinBox_move_z, ui_->toolButton_xPos, ui_->toolButton_xNeg,
-      ui_->toolButton_yPos, ui_->toolButton_yNeg, ui_->toolButton_zPos,
-      ui_->toolButton_zNeg);
+  rotation_control_x_.SetupRotationControl(&Controller::RotateAroundXAxis,
+                                           ui_->spinBox_x, ui_->dial_x);
+  rotation_control_y_.SetupRotationControl(&Controller::RotateAroundYAxis,
+                                           ui_->spinBox_y, ui_->dial_y);
+  rotation_control_z_.SetupRotationControl(&Controller::RotateAroundZAxis,
+                                           ui_->spinBox_z, ui_->dial_z);
+  movement_control_x_.SetupMovementControl(
+      &Controller::ShiftOnXAxis, ui_->doubleSpinBox_move_x,
+      ui_->toolButton_xPos, ui_->toolButton_xNeg);
+  movement_control_y_.SetupMovementControl(
+      &Controller::ShiftOnYAxis, ui_->doubleSpinBox_move_y,
+      ui_->toolButton_yPos, ui_->toolButton_yNeg);
+  movement_control_z_.SetupMovementControl(
+      &Controller::ShiftOnZAxis, ui_->doubleSpinBox_move_z,
+      ui_->toolButton_zPos, ui_->toolButton_zNeg);
   scaling_control_.SetupScalingControl(
-      ui_->statusbar, ui_->doubleSpinBox_scale, ui_->pushButton_scale,
+      &Controller::Scaling, ui_->doubleSpinBox_scale, ui_->pushButton_scale,
       ui_->toolButton_scaleL, ui_->toolButton_scaleH);
 }
 

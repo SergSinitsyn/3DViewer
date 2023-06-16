@@ -77,7 +77,9 @@ class MainWindow : public QMainWindow {
   Ui::MainWindow *ui_;
   ModelData model_data_;
   ModelInformation model_information_;
-  MovementControl movement_control_;
+  MovementControl movement_control_x_;
+  MovementControl movement_control_y_;
+  MovementControl movement_control_z_;
   RotationControl rotation_control_x_;
   RotationControl rotation_control_y_;
   RotationControl rotation_control_z_;
