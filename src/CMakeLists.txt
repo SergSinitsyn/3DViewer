@@ -11,14 +11,14 @@ set(CMAKE_AUTORCC ON)
 set(CMAKE_CXX_STANDARD 17)
 set(CMAKE_CXX_STANDARD_REQUIRED ON)
 
-if(LINUX)
+IF(${CMAKE_SYSTEM_NAME} MATCHES "Linux")
     find_package(OpenGL REQUIRED)
     find_package(QT NAMES Qt6 Qt5 REQUIRED COMPONENTS Widgets OpenGL)
     find_package(Qt${QT_VERSION_MAJOR} REQUIRED COMPONENTS Widgets OpenGL)
 else()
     find_package(QT NAMES Qt6 Qt5 REQUIRED COMPONENTS Widgets OpenGLWidgets OpenGL)
     find_package(Qt${QT_VERSION_MAJOR} REQUIRED COMPONENTS Widgets OpenGLWidgets OpenGL)
-endif(LINUX)
+endif()
 
 include_directories(view)
 
@@ -70,11 +70,11 @@ else()
     endif()
 endif()
 
-if(LINUX)
+IF(${CMAKE_SYSTEM_NAME} MATCHES "Linux")
     target_link_libraries(3D_Viewer_2 PRIVATE Qt${QT_VERSION_MAJOR}::Widgets Qt${QT_VERSION_MAJOR}::OpenGL ${OPENGL_LIBRARIES} ${GLUT_LIBRARY})
 else()
     target_link_libraries(3D_Viewer_2 PRIVATE Qt${QT_VERSION_MAJOR}::Widgets Qt${QT_VERSION_MAJOR}::OpenGLWidgets Qt${QT_VERSION_MAJOR}::OpenGL)
-endif(LINUX)
+endif()
 
 set_target_properties(3D_Viewer_2 PROPERTIES
     MACOSX_BUNDLE_GUI_IDENTIFIER my.example.com
