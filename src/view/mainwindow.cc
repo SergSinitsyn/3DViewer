@@ -13,6 +13,8 @@
 #include <QMessageBox>
 #include <QUrl>
 #include <QWindow>
+#include <algorithm>
+#include <functional>
 
 #include "../controller/controller.h"
 #include "info/info.h"
@@ -50,7 +52,9 @@ MainWindow::~MainWindow() {
 
 void MainWindow::SetController(Controller &controller) {
   controller_ = &controller;
-  rotation_control_.SetController(*controller_);
+  rotation_control_x_.SetController(*controller_);
+  rotation_control_y_.SetController(*controller_);
+  rotation_control_z_.SetController(*controller_);
   movement_control_.SetController(*controller_);
   scaling_control_.SetController(*controller_);
 }
@@ -118,14 +122,19 @@ void MainWindow::LoadFile() {
     QMessageBox::critical(this, "Warning", e.what());
     ui_->statusbar->showMessage("Error loading file: '" + new_filename + "'" +
                                 ", error:" + e.what());
-    EnableControls(false);
   }
 }
 
+void my_func(int a) { qDebug() << a; }
+
 void MainWindow::SetupControls() {
-  rotation_control_.SetupRotationControl(ui_->statusbar, ui_->spinBox_x,
-                                         ui_->spinBox_y, ui_->spinBox_z,
-                                         ui_->dial_x, ui_->dial_y, ui_->dial_z);
+  rotation_control_x_.SetupRotationControl(my_func, ui_->spinBox_x,
+                                           ui_->dial_x);
+  rotation_control_y_.SetupRotationControl(my_func, ui_->spinBox_y,
+                                           ui_->dial_y);
+  rotation_control_z_.SetupRotationControl(my_func, ui_->spinBox_z,
+                                           ui_->dial_z);
+
   movement_control_.SetupMovementControl(
       ui_->statusbar, ui_->doubleSpinBox_move_x, ui_->doubleSpinBox_move_y,
       ui_->doubleSpinBox_move_z, ui_->toolButton_xPos, ui_->toolButton_xNeg,
