@@ -86,6 +86,12 @@ class MainWindow : public QMainWindow {
   const QString window_title_ = "3D Viewer v2.0 - Old Perrers Team";
 
   // Settings variables
+  const QString kSettingsTitle = "Settings";
+  const QString kVertexSizeMessage = "Size of the vertices";
+  const QString kEdgeThicknessMessage = "Thickness of the edges";
+  const int kMinDrawingSize = 1;
+  const int kMaxDrawingSize = 10;
+  const int kDrawingSizeStep = 1;
   QMenu *recent_files_menu_ = nullptr;
   WidgetSettings settings_;
   Memento<WidgetSettings> *start_settindgs_;

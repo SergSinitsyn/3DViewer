@@ -12,48 +12,53 @@
 namespace s21 {
 
 void MainWindow::on_actionColor_edges_triggered() {
-  QColor c = QColorDialog::getColor(settings_.edgeColor(), this,
-                                    "Choose color for edges");
-  if (c.isValid()) {
-    settings_.edgeColor() = c;
+  QColor color = QColorDialog::getColor(settings_.edgeColor(), this,
+                                        "Choose color for edges");
+  if (color.isValid()) {
+    settings_.setEdgeColor(color);
     emit SettingsChanged(&settings_);
   }
 }
 
 void MainWindow::on_actionColor_vertices_triggered() {
-  QColor c = QColorDialog::getColor(settings_.vertexColor(), this,
-                                    "Choose color for vertices");
-  if (c.isValid()) {
-    settings_.vertexColor() = c;
+  QColor vertex_color = QColorDialog::getColor(settings_.vertexColor(), this,
+                                               "Choose color for vertices");
+  if (vertex_color.isValid()) {
+    settings_.setVertexColor(vertex_color);
     emit SettingsChanged(&settings_);
   }
 }
 
 void MainWindow::on_actionBackground_color_triggered() {
-  QColor c = QColorDialog::getColor(settings_.backgroundColor(), this,
-                                    "Choose background color");
-  if (c.isValid()) {
-    settings_.backgroundColor() = c;
+  QColor color = QColorDialog::getColor(settings_.backgroundColor(), this,
+                                        "Choose background color");
+  if (color.isValid()) {
+    settings_.setBackgroundColor(color);
     emit SettingsChanged(&settings_);
   }
 }
 
 void MainWindow::on_actionThickness_triggered() {
-  bool ok;
-  int i = QInputDialog::getInt(this, "Settings", "Thickness of the edges",
-                               settings_.edgeThickness(), 1, 10, 1, &ok);
-  if (ok) {
-    settings_.edgeThickness() = i;
+  bool is_ok;
+  const int default_edge_thickness = settings_.edgeThickness();
+
+  int edge_thickness = QInputDialog::getInt(
+      this, kSettingsTitle, kEdgeThicknessMessage, default_edge_thickness,
+      kMinDrawingSize, kMaxDrawingSize, kDrawingSizeStep, &is_ok);
+  if (is_ok) {
+    settings_.setEdgeThickness(edge_thickness);
     emit SettingsChanged(&settings_);
   }
 }
 
 void MainWindow::on_actionSize_triggered() {
+  const int currentVertexSize = settings_.vertexSize();
   bool ok;
-  int i = QInputDialog::getInt(this, "Settings", "Size of the vertices",
-                               settings_.vertexSize(), 1, 10, 1, &ok);
+  const int newVertexSize = QInputDialog::getInt(
+      this, kSettingsTitle, kVertexSizeMessage, currentVertexSize,
+      kMinDrawingSize, kMaxDrawingSize, kDrawingSizeStep, &ok);
   if (ok) {
-    settings_.vertexSize() = i;
+    settings_.setVertexSize(newVertexSize);
     emit SettingsChanged(&settings_);
   }
 }
@@ -67,45 +72,45 @@ void MainWindow::SaveSettingToFile() { settings_.SaveSettingsToFile(); }
 
 void MainWindow::on_actionNone_triggered(bool checked) {
   if (checked) {
-    settings_.displayVertexes() = kNone;
+    settings_.setDisplayVertexes(kNone);
+    emit SettingsChanged(&settings_);
   }
-  emit SettingsChanged(&settings_);
 }
 void MainWindow::on_actionCircle_triggered(bool checked) {
   if (checked) {
-    settings_.displayVertexes() = kCircle;
+    settings_.setDisplayVertexes(kCircle);
+    emit SettingsChanged(&settings_);
   }
-  emit SettingsChanged(&settings_);
 }
 void MainWindow::on_actionSquare_triggered(bool checked) {
   if (checked) {
-    settings_.displayVertexes() = kSquare;
+    settings_.setDisplayVertexes(kSquare);
+    emit SettingsChanged(&settings_);
   }
-  emit SettingsChanged(&settings_);
 }
 void MainWindow::on_actionSolid_triggered(bool checked) {
   if (checked) {
-    settings_.lineType() = kSolid;
+    settings_.setLineType(kSolid);
+    emit SettingsChanged(&settings_);
   }
-  emit SettingsChanged(&settings_);
 }
 void MainWindow::on_actionDashed_triggered(bool checked) {
   if (checked) {
-    settings_.lineType() = kDashed;
+    settings_.setLineType(kDashed);
+    emit SettingsChanged(&settings_);
   }
-  emit SettingsChanged(&settings_);
 }
 void MainWindow::on_actionParallel_triggered(bool checked) {
   if (checked) {
-    settings_.projection() = kParallel;
+    settings_.setProjection(kParallel);
+    emit SettingsChanged(&settings_);
   }
-  emit SettingsChanged(&settings_);
 }
 void MainWindow::on_actionCentral_triggered(bool checked) {
   if (checked) {
-    settings_.projection() = kCentral;
+    settings_.setProjection(kCentral);
+    emit SettingsChanged(&settings_);
   }
-  emit SettingsChanged(&settings_);
 }
 
 void MainWindow::on_actionRestore_settings_triggered() {

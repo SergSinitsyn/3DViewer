@@ -13,19 +13,19 @@ void WidgetSettings::LoadSettingsFromFile() {
                           QCoreApplication::applicationName() + ".conf";
   QSettings settings_file(settings_path, QSettings::IniFormat);
   settings_file.beginGroup("WidgetParameters");
-  edgeThickness() = settings_file.value("edgeThickness", 1).toInt();
-  vertexSize() = settings_file.value("vertexSize", 1).toInt();
-  displayVertexes() =
-      settings_file.value("displayMethod", kCircle).value<DisplayMethod>();
-  projection() =
-      settings_file.value("projectionType", kCentral).value<ProjectionType>();
-  lineType() = settings_file.value("lineType", kSolid).value<LineType>();
-  backgroundColor() = settings_file.value("backgroundColor", QColor(Qt::yellow))
-                          .value<QColor>();
-  vertexColor() =
-      settings_file.value("vertexColor", QColor(Qt::black)).value<QColor>();
-  edgeColor() =
-      settings_file.value("edgeColor", QColor(Qt::red)).value<QColor>();
+  setEdgeThickness(settings_file.value("edgeThickness", 1).toInt());
+  setVertexSize(settings_file.value("vertexSize", 1).toInt());
+  setDisplayVertexes(
+      settings_file.value("displayMethod", kCircle).value<DisplayMethod>());
+  setProjection(
+      settings_file.value("projectionType", kCentral).value<ProjectionType>());
+  setLineType(settings_file.value("lineType", kSolid).value<LineType>());
+  setBackgroundColor(settings_file.value("backgroundColor", QColor(Qt::yellow))
+                         .value<QColor>());
+  setVertexColor(
+      settings_file.value("vertexColor", QColor(Qt::black)).value<QColor>());
+  setEdgeColor(
+      settings_file.value("edgeColor", QColor(Qt::red)).value<QColor>());
   int size = settings_file.beginReadArray("Recent");
   for (int i = 0; i < size; i++) {
     settings_file.setArrayIndex(i);

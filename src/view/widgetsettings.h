@@ -16,15 +16,30 @@ class WidgetSettings {
  public:
   static const int kMaxRecentFiles = 5;
 
-  // Getters&setters
-  QColor& vertexColor() { return vertex_color_; };
-  QColor& edgeColor() { return edge_color_; };
-  QColor& backgroundColor() { return background_color_; };
-  int& edgeThickness() { return edge_thickness_; };
-  int& vertexSize() { return vertex_size_; };
-  DisplayMethod& displayVertexes() { return display_vertexes_; };
-  ProjectionType& projection() { return projection_; };
-  LineType& lineType() { return line_type_; };
+  // Getters
+  const QColor& vertexColor() const { return vertex_color_; };
+  const QColor& edgeColor() const { return edge_color_; };
+  const QColor& backgroundColor() const { return background_color_; };
+  const int& edgeThickness() const { return edge_thickness_; };
+  const int& vertexSize() const { return vertex_size_; };
+  const DisplayMethod& displayVertexes() const { return display_vertexes_; };
+  const ProjectionType& projection() const { return projection_; };
+  const LineType& lineType() const { return line_type_; };
+  // Setters
+  void setVertexColor(const QColor& new_value) { vertex_color_ = new_value; };
+  void setEdgeColor(const QColor& new_value) { edge_color_ = new_value; };
+  void setBackgroundColor(const QColor& new_value) {
+    background_color_ = new_value;
+  };
+  void setEdgeThickness(const int& new_value) { edge_thickness_ = new_value; };
+  void setVertexSize(const int& new_value) { vertex_size_ = new_value; };
+  void setDisplayVertexes(const DisplayMethod& new_value) {
+    display_vertexes_ = new_value;
+  };
+  void setProjection(const ProjectionType& new_value) {
+    projection_ = new_value;
+  };
+  void setLineType(const LineType& new_value) { line_type_ = new_value; };
 
   // Other methods
   void LoadSettingsFromFile();
