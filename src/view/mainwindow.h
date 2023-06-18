@@ -81,7 +81,6 @@ class MainWindow : public QMainWindow {
 
   Ui::MainWindow *ui_;
   ModelData model_data_;
-  Memento<ModelData> *loaded_model_ = nullptr;
   ModelInformation model_information_;
   MovementControl movement_control_;
   RotationControl rotation_control_;

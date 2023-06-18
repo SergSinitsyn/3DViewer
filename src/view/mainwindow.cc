@@ -33,7 +33,6 @@ MainWindow::MainWindow(QWidget *parent)
   // Settings
   LoadSettingFromFile();
   start_settindgs_ = new Memento<WidgetSettings>(settings_);
-  loaded_model_ = new Memento<ModelData>();
   SetupRadioButtons();
   CreateRecentFilesMenu();
 
@@ -45,7 +44,6 @@ MainWindow::MainWindow(QWidget *parent)
 MainWindow::~MainWindow() {
   SaveSettingToFile();
   delete start_settindgs_;
-  delete loaded_model_;
   delete ui_;
 }
 
@@ -53,7 +51,6 @@ int MainWindow::LoadRecentFile() {
   QAction *action = qobject_cast<QAction *>(QObject::sender());
   try {
     controller_->LoadFile(action->text().toStdString());
-    loaded_model_->SetState(&model_data_);
     EnableControls(true);
   } catch (std::exception &e) {
     QMessageBox::warning(this, "Error loading file" + action->text(), e.what());
@@ -146,7 +143,6 @@ void MainWindow::LoadFile() {
     controller_->LoadFile(new_filename.toStdString());
     settings_.RememberRecentFile(new_filename);
     UpdateRecentFilesMenu();
-    loaded_model_->SetState(&model_data_);
     DefaultControls();
     EnableControls(true);
     setWindowTitle(QString::fromStdString(model_information_.file_name) +
@@ -260,7 +256,10 @@ void MainWindow::on_actionOpen_documentation_triggered() {
   }
 }
 
-void MainWindow::on_undoButton_clicked() { controller_->RestoreModel(); }
+void MainWindow::on_undoButton_clicked() {
+  DefaultControls();
+  controller_->RestoreModel();
+}
 
 // std::deque<QString> MainWindow::GetRecentFiles() const { return
 // recent_files_; }
