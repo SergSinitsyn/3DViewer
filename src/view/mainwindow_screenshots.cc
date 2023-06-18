@@ -13,23 +13,23 @@
 namespace s21 {
 
 int MainWindow::FileNameErrorDialog(const char *msg) {
-  QMessageBox msgBox(this);
-  msgBox.setText(msg);
-  msgBox.setInformativeText("OK - try again \nCancel - return to viewer");
-  msgBox.setStandardButtons(QMessageBox::Ok | QMessageBox::Cancel);
-  msgBox.setIcon(QMessageBox::Critical);
-  msgBox.setDefaultButton(QMessageBox::Ok);
-  return msgBox.exec();
+  QMessageBox msg_box(this);
+  msg_box.setText(msg);
+  msg_box.setInformativeText("OK - try again \nCancel - return to viewer");
+  msg_box.setStandardButtons(QMessageBox::Ok | QMessageBox::Cancel);
+  msg_box.setIcon(QMessageBox::Critical);
+  msg_box.setDefaultButton(QMessageBox::Ok);
+  return msg_box.exec();
 }
 
 void MainWindow::SaveImageAs() {
-  QString fileName = QFileDialog::getSaveFileName(this, tr("Save File"), "./",
-                                                  tr("Images ( *.bmp *.jpg)"));
-  if (!fileName.isEmpty()) {
-    if (fileName.right(4) == ".bmp" || fileName.right(4) == ".jpg" ||
-        fileName.right(5) == ".jpeg") {
+  QString file_name = QFileDialog::getSaveFileName(this, tr("Save File"), "./",
+                                                   tr("Images ( *.bmp *.jpg)"));
+  if (!file_name.isEmpty()) {
+    if (file_name.right(4) == ".bmp" || file_name.right(4) == ".jpg" ||
+        file_name.right(5) == ".jpeg") {
       QImage img = ui_->widget->grabFramebuffer();
-      img.save(fileName);
+      img.save(file_name);
     } else {
       int res = FileNameErrorDialog(
           "To save screenshot use filename with .bmp or .jpg extension");
@@ -42,9 +42,6 @@ void MainWindow::on_actionSave_OBJ_to_Image_triggered() { SaveImageAs(); }
 
 void MainWindow::on_pushButton_image_clicked() { SaveImageAs(); }
 
-#define CANCEL_SCREENCAST -1
-#define RETRY_SCREENCAST 0
-#define MAX_FRAMES 50
 void MainWindow::on_pushButton_record_clicked() {
   record_ = !record_;
   if (record_) {
@@ -56,20 +53,20 @@ void MainWindow::on_pushButton_record_clicked() {
           this, "Record GIF animation file", "./", ".gif (*.gif)");
       if (!gif_file_name_.isEmpty()) {
         if (gif_file_name_.right(4) == ".gif") {
-          frames_ = MAX_FRAMES;
+          frames_ = kMaxFrames;
         } else {
           // Warning wrong file name selected
           int res = FileNameErrorDialog(
               "To record video use filename with .gif extension");
           if (res == QMessageBox::Ok)
-            frames_ = RETRY_SCREENCAST;
+            frames_ = kRetryScreenCast;
           else
-            frames_ = CANCEL_SCREENCAST;
+            frames_ = kCancelScreenCast;
         }
       } else {
-        frames_ = CANCEL_SCREENCAST;
+        frames_ = kCancelScreenCast;
       }
-    } while (frames_ != MAX_FRAMES && frames_ != CANCEL_SCREENCAST);
+    } while (frames_ != kMaxFrames && frames_ != kCancelScreenCast);
     connect(&record_timer_, SIGNAL(timeout()), this, SLOT(RecordTimerAlarm()));
     record_timer_.start(100);
   } else {
@@ -81,11 +78,11 @@ void MainWindow::on_pushButton_record_clicked() {
 }
 
 void MainWindow::RecordTimerAlarm() {
-  int width = 640;
-  int height = 480;
-  int delay = 10;
+  const int width = 640;
+  const int height = 480;
+  const int delay = 10;
 
-  if (frames_ == 50) {
+  if (frames_ == kMaxFrames) {
     ganim_.GifBegin(&gwriter_, gif_file_name_.toLocal8Bit().data(), width,
                     height, delay);
   }
@@ -94,17 +91,17 @@ void MainWindow::RecordTimerAlarm() {
         ui_->widget->grabFramebuffer()
             .scaled(width, height, Qt::KeepAspectRatioByExpanding)
             .convertToFormat(QImage::Format_RGBA8888);
-    QRect gifSize(0, 0, width, height);
-    gifSize.moveCenter(frame_scaled.rect().center());
-    QImage frame = frame_scaled.copy(gifSize);
+    QRect gif_size(0, 0, width, height);
+    gif_size.moveCenter(frame_scaled.rect().center());
+    QImage frame = frame_scaled.copy(gif_size);
 
     ganim_.GifWriteFrame(&gwriter_, frame.constBits(), width, height, delay);
     --frames_;
-    QString frNum;
+    QString frame_number;
     ui_->pushButton_record->setText(
-        QString("Frame ").append(frNum.setNum(50 - frames_)));
+        QString("Frame ").append(frame_number.setNum(kMaxFrames - frames_)));
   } else {
-    if (frames_ == 0) ganim_.GifEnd(&gwriter_);
+    if (frames_ == kEndScreenCast) ganim_.GifEnd(&gwriter_);
     on_pushButton_record_clicked();
   }
 }

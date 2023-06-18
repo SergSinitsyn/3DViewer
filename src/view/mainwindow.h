@@ -56,6 +56,7 @@ class MainWindow : public QMainWindow {
   void SetupRadioButtons();
   void CreateRecentFilesMenu();
   void RemoveRecentFilesMenu();
+  void UpdateRecentFilesMenu();
   int LoadRecentFile();
   int FileNameErrorDialog(const char *msg);
 
@@ -63,8 +64,10 @@ class MainWindow : public QMainWindow {
   void on_actionSave_OBJ_to_Image_triggered();
   void on_pushButton_image_clicked();
   void on_pushButton_record_clicked();
-  void SaveImageAs();       //!
-  void RecordTimerAlarm();  //!
+  void SaveImageAs();
+  void RecordTimerAlarm();
+
+  void on_undoButton_clicked();
 
  signals:
   void SettingsChanged(WidgetSettings *);
@@ -78,6 +81,7 @@ class MainWindow : public QMainWindow {
 
   Ui::MainWindow *ui_;
   ModelData model_data_;
+  Memento<ModelData> *loaded_model_ = nullptr;
   ModelInformation model_information_;
   MovementControl movement_control_;
   RotationControl rotation_control_;
@@ -86,6 +90,8 @@ class MainWindow : public QMainWindow {
   const QString window_title_ = "3D Viewer v2.0 - Old Perrers Team";
 
   // Settings variables
+  template <class T>
+  void SetSetting(void (WidgetSettings::*SetMetod)(const T &), const T &value);
   const QString kSettingsTitle = "Settings";
   const QString kVertexSizeMessage = "Size of the vertices";
   const QString kEdgeThicknessMessage = "Thickness of the edges";
@@ -94,9 +100,13 @@ class MainWindow : public QMainWindow {
   const int kDrawingSizeStep = 1;
   QMenu *recent_files_menu_ = nullptr;
   WidgetSettings settings_;
-  Memento<WidgetSettings> *start_settindgs_;
+  Memento<WidgetSettings> *start_settindgs_ = nullptr;
 
   // video recording variables
+  const int kCancelScreenCast = -1;
+  const int kRetryScreenCast = 0;
+  const int kEndScreenCast = 0;
+  const int kMaxFrames = 50;
   bool record_ = false;
   QTimer record_timer_;
   int frames_;

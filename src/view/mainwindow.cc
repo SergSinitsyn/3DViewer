@@ -33,6 +33,7 @@ MainWindow::MainWindow(QWidget *parent)
   // Settings
   LoadSettingFromFile();
   start_settindgs_ = new Memento<WidgetSettings>(settings_);
+  loaded_model_ = new Memento<ModelData>();
   SetupRadioButtons();
   CreateRecentFilesMenu();
 
@@ -44,6 +45,7 @@ MainWindow::MainWindow(QWidget *parent)
 MainWindow::~MainWindow() {
   SaveSettingToFile();
   delete start_settindgs_;
+  delete loaded_model_;
   delete ui_;
 }
 
@@ -51,6 +53,7 @@ int MainWindow::LoadRecentFile() {
   QAction *action = qobject_cast<QAction *>(QObject::sender());
   try {
     controller_->LoadFile(action->text().toStdString());
+    loaded_model_->SetState(&model_data_);
     EnableControls(true);
   } catch (std::exception &e) {
     QMessageBox::warning(this, "Error loading file" + action->text(), e.what());
@@ -72,6 +75,11 @@ void MainWindow::CreateRecentFilesMenu() {
 void MainWindow::RemoveRecentFilesMenu() {
   if (recent_files_menu_)
     ui_->menuFile->removeAction(recent_files_menu_->menuAction());
+}
+
+void MainWindow::UpdateRecentFilesMenu() {
+  RemoveRecentFilesMenu();
+  CreateRecentFilesMenu();
 }
 
 void MainWindow::SetController(Controller &controller) {
@@ -132,14 +140,13 @@ void MainWindow::LoadFile() {
   QString new_filename = QFileDialog::getOpenFileName(0, "Open", "", "*.obj");
   if (new_filename.isEmpty()) {
     ui_->statusbar->showMessage("File not selected");
-    return;
+    return;  //!!! return
   }
   try {
     controller_->LoadFile(new_filename.toStdString());
     settings_.RememberRecentFile(new_filename);
-    RemoveRecentFilesMenu();
-    CreateRecentFilesMenu();
-
+    UpdateRecentFilesMenu();
+    loaded_model_->SetState(&model_data_);
     DefaultControls();
     EnableControls(true);
     setWindowTitle(QString::fromStdString(model_information_.file_name) +
@@ -148,7 +155,7 @@ void MainWindow::LoadFile() {
     QMessageBox::critical(this, "Warning", e.what());
     ui_->statusbar->showMessage("Error loading file: '" + new_filename + "'" +
                                 ", error:" + e.what());
-    EnableControls(false);
+    // EnableControls(false);
   }
 }
 
@@ -251,6 +258,12 @@ void MainWindow::on_actionOpen_documentation_triggered() {
   } else {
     ui_->statusbar->showMessage("Documentation file not found");
   }
+}
+
+void MainWindow::on_undoButton_clicked() {
+  model_data_ = *loaded_model_->GetState();
+  ui_->widget->SetModelData(model_data_);
+  ui_->widget->update();
 }
 
 // std::deque<QString> MainWindow::GetRecentFiles() const { return

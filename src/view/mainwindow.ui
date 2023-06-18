@@ -1183,6 +1183,13 @@
        </layout>
       </item>
       <item>
+       <widget class="QPushButton" name="undoButton">
+        <property name="text">
+         <string>Show original</string>
+        </property>
+       </widget>
+      </item>
+      <item>
        <layout class="QVBoxLayout" name="verticalLayout_record">
         <item>
          <layout class="QHBoxLayout" name="horizontalLayout_recordLabel">

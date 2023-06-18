@@ -26,6 +26,7 @@ class WidgetSettings {
   const ProjectionType& projection() const { return projection_; };
   const LineType& lineType() const { return line_type_; };
   // Setters
+  // void SetMethod(QVariant data);
   void setVertexColor(const QColor& new_value) { vertex_color_ = new_value; };
   void setEdgeColor(const QColor& new_value) { edge_color_ = new_value; };
   void setBackgroundColor(const QColor& new_value) {
@@ -67,15 +68,28 @@ class WidgetSettings {
 template <class T>
 class Memento {
  public:
-  Memento(const T& s) { state_ = s; };
-  Memento(const T* s) { state_ = *s; };
-  T const* GetState() const { return &state_; };
+  Memento(){};
+  Memento(const T& s) : is_valid_{true} { state_ = s; };
+  Memento(const T* s) : is_valid_{true} {
+    if (s != nullptr)
+      state_ = *s;
+    else
+      is_valid_ = false;
+  };
+  T const* GetState() const {
+    if (!is_valid_) throw std::runtime_error("Invalid state!");
+    return &state_;
+  };
   void SetState(T* new_state) {
-    if (new_state != nullptr && &state_ != new_state) state_ = *new_state;
+    if (new_state != nullptr && &state_ != new_state) {
+      state_ = *new_state;
+      is_valid_ = true;
+    }
   };
 
  protected:
   T state_;
+  bool is_valid_ = false;
 };
 
 #endif  // WIDGETSETTINGS_H
