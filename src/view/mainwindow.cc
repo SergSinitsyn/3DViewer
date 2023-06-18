@@ -260,11 +260,7 @@ void MainWindow::on_actionOpen_documentation_triggered() {
   }
 }
 
-void MainWindow::on_undoButton_clicked() {
-  model_data_ = *loaded_model_->GetState();
-  ui_->widget->SetModelData(model_data_);
-  ui_->widget->update();
-}
+void MainWindow::on_undoButton_clicked() { controller_->RestoreModel(); }
 
 // std::deque<QString> MainWindow::GetRecentFiles() const { return
 // recent_files_; }

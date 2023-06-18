@@ -13,6 +13,7 @@ class Controller : public QObject {
   Controller(s21::VModel& model, s21::MainWindow& view);
 
   void LoadFile(std::string file_name);
+  void RestoreModel();
 
  public slots:
   void RotateAroundXAxis(int angle);
@@ -27,6 +28,7 @@ class Controller : public QObject {
 
  private:
   void UpdateView();
+  Memento<s21::VModel> just_loaded_model_;
   s21::VModel& model_;
   s21::MainWindow& view_;
 };
