@@ -139,26 +139,22 @@ void VModel::QuickSort(int first, int last) {
 
 void VModel::ExtremesSearch() {
   if (vertex_.size() >= 3) {
-    x_max_ = x_min_ = vertex_.at(0);
-    y_max_ = y_min_ = vertex_.at(1);
-    z_max_ = z_min_ = vertex_.at(2);
+    x_max_ = x_min_ = vertex_.at(kX);
+    y_max_ = y_min_ = vertex_.at(kY);
+    z_max_ = z_min_ = vertex_.at(kZ);
   }
   for (size_t i = 3; i < vertex_.size(); i += 3) {
-    if (vertex_.at(i) > x_max_) {
+    if (vertex_.at(i + kX) > x_max_) {
       x_max_ = vertex_.at(i);
     } else if (vertex_.at(i) < x_min_) {
       x_min_ = vertex_.at(i);
     }
-  }
-  for (size_t i = 4; i < vertex_.size(); i += 3) {
-    if (vertex_.at(i) > y_max_) {
+    if (vertex_.at(i + kY) > y_max_) {
       y_max_ = vertex_.at(i);
     } else if (vertex_.at(i) < y_min_) {
       y_min_ = vertex_.at(i);
     }
-  }
-  for (size_t i = 5; i < vertex_.size(); i += 3) {
-    if (vertex_.at(i) > z_max_) {
+    if (vertex_.at(i + kZ) > z_max_) {
       z_max_ = vertex_.at(i);
     } else if (vertex_.at(i) < z_min_) {
       z_min_ = vertex_.at(i);
@@ -239,11 +235,6 @@ void VModel::EdgesAdd(std::string line) {
   edges_.insert(edges_.end(), (++temp.begin()), temp.end());
   edges_.emplace(edges_.end(), *temp.begin());
 }
-
-// bool VModel::IsDigit(const char &element) {
-//   std::string digits = "0123456789";
-//   return digits.find(element) != digits.npos;
-// }
 
 void VModel::ModelClean() {
   file_name_ = "";
