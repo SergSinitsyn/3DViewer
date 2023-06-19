@@ -46,9 +46,13 @@ clean:
 	$(CLEAN) ../documentation
 	$(CLEAN) report*
 
-test:
+$(TEST_FILE):
 	$(CLEAN) $(TEST_FILE)
 	$(CC) $(WFLAGS) $(SOURCE) $(TEST) -o $(TEST_FILE) $(CHECKFLAGS)
+
+test: $(TEST_FILE)
+	# $(CLEAN) $(TEST_FILE)
+	# $(CC) $(WFLAGS) $(SOURCE) $(TEST) -o $(TEST_FILE) $(CHECKFLAGS)
 	./$(TEST_FILE)
 
 rebuild: clean all
@@ -93,13 +97,9 @@ dist:
 check: leaks cppcheck linter
 
 linter:
-	@cp ../materials/linters/.clang-format ./
-# @clang-format -n $(TEST)
-# @clang-format -n $(SOURCE)
-	clang-format -n view/*/*.cc view/*/*.h
-	clang-format -n controller/*.cc controller/*.h
-	clang-format -n main.cc
-	@rm -f .clang-format
+	clang-format -n -style=google -verbose view/*/*.cc view/*/*.h
+	clang-format -n -style=google -verbose controller/*.cc controller/*.h
+	clang-format -n -style=google -verbose main.cc
 
 run_linter:
 	@cp ../materials/linters/.clang-format ./

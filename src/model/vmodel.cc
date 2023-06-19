@@ -139,7 +139,7 @@ void VModel::ExtremesSearch() {
     y_max_ = y_min_ = vertex_.at(kY);
     z_max_ = z_min_ = vertex_.at(kZ);
   }
-  for (size_t i = 3; i < vertex_.size(); i += 3) {
+  for (size_t i = 0; i < vertex_.size(); i += 3) {
     if (vertex_.at(i + kX) > x_max_) {
       x_max_ = vertex_.at(i + kX);
     } else if (vertex_.at(i + kX) < x_min_) {
@@ -214,7 +214,7 @@ void VModel::EdgesAdd(std::string line) {
     if (line.at(i - 1) != ' ')
       throw std::invalid_argument("Failed to read facet data. Wrong data.");
     int d = std::stoi(&line.at(i)) - 1;
-    if (d < 0 || d > vertex_num_ - 1)
+    if (d < 0 || d >= vertex_num_)
       throw std::invalid_argument(
           "Failed to read facet data. The vertex number is out of range.");
     temp.push_back(d);
