@@ -10,7 +10,7 @@ Controller::Controller(s21::VModel &model, s21::MainWindow &view)
   view_.SetController(*this);
 }
 
-void Controller::LoadFile(std::string file_name) {
+void Controller::LoadFile(const std::string &file_name) {
   model_.ReadModelFile(file_name);
   model_.Inscribe();
   just_loaded_model_.SetState(&model_);

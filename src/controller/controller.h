@@ -12,7 +12,7 @@ class Controller : public QObject {
  public:
   Controller(s21::VModel& model, s21::MainWindow& view);
 
-  void LoadFile(std::string file_name);
+  void LoadFile(const std::string& file_name);
   void RestoreModel();
 
  public slots:

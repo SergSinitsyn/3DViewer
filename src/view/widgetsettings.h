@@ -69,8 +69,8 @@ template <class T>
 class Memento {
  public:
   Memento(){};
-  Memento(const T& s) : is_valid_{true} { state_ = s; };
-  Memento(const T* s) : is_valid_{true} {
+  explicit Memento(const T& s) : is_valid_{true}, state_{s} {/*state_ = s;*/};
+  explicit Memento(const T* s) : is_valid_{true} {
     if (s != nullptr)
       state_ = *s;
     else
@@ -80,7 +80,7 @@ class Memento {
     if (!is_valid_) throw std::runtime_error("Invalid state!");
     return &state_;
   };
-  void SetState(T* new_state) {
+  void SetState(const T* new_state) {
     if (new_state != nullptr && &state_ != new_state) {
       state_ = *new_state;
       is_valid_ = true;
