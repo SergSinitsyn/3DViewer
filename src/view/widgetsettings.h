@@ -14,7 +14,7 @@ typedef enum { kNone, kCircle, kSquare } DisplayMethod;
 
 class WidgetSettings {
  public:
-  static const int kMaxRecentFiles = 5;
+  static const int kMaxRecentFiles = 10;
 
   // Getters
   const QColor& vertexColor() const { return vertex_color_; };

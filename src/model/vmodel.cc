@@ -213,8 +213,8 @@ void VModel::EdgesAdd(std::string line) {
   for (size_t i = 2; i < line.size();) {
     if (line.at(i - 1) != ' ')
       throw std::invalid_argument("Failed to read facet data. Wrong data.");
-    int d = std::stoi(&line.at(i));
-    if (d < 1 || d > vertex_num_)
+    int d = std::stoi(&line.at(i)) - 1;
+    if (d < 0 || d > vertex_num_ - 1)
       throw std::invalid_argument(
           "Failed to read facet data. The vertex number is out of range.");
     temp.push_back(d);
