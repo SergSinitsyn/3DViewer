@@ -26,7 +26,6 @@ class WidgetSettings {
   const ProjectionType& projection() const { return projection_; };
   const LineType& lineType() const { return line_type_; };
   // Setters
-  // void SetMethod(QVariant data);
   void setVertexColor(const QColor& new_value) { vertex_color_ = new_value; };
   void setEdgeColor(const QColor& new_value) { edge_color_ = new_value; };
   void setBackgroundColor(const QColor& new_value) {
@@ -69,7 +68,7 @@ template <class T>
 class Memento {
  public:
   Memento(){};
-  explicit Memento(const T& s) : is_valid_{true}, state_{s} {/*state_ = s;*/};
+  explicit Memento(const T& s) : is_valid_{true}, state_{s} {};
   explicit Memento(const T* s) : is_valid_{true} {
     if (s != nullptr)
       state_ = *s;
