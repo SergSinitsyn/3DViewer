@@ -23,6 +23,8 @@ SRC_DIR					= ./model
 SOURCE_FILES			= *.cc
 
 TEST_FILE				= $(NAME)_test
+TEST_FILE_COV			= $(NAME)_test_coverage
+TEST_FILE_FOR_LEAKS		= $(NAME)_test_for_leaks
 
 TEST_DIR				= ./tests
 TEST_SOURCE_FILE		= $(TEST_FILE).cc
