@@ -73,7 +73,7 @@ uninstall:
 	$(CLEAN) $(BUILD_DIR)	
 
 dvi:
-	makeinfo -o $(DOCUMENT_DIR) --html --no-warn --no-validate --force $(DOCUMENT).texi
+	makeinfo -o $(DOCUMENT_DIR) --html --no-warn --no-validate --force $(DOCUMENT_DIR)/$(DOCUMENT).texi
 	make open_dvi
 
 open_report:
