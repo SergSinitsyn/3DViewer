@@ -1,6 +1,5 @@
 #include "vmodel.h"
 
-// #include <QDebug>
 namespace s21 {
 
 void VModel::ReadModelFile(std::string file_name) {
@@ -48,33 +47,30 @@ void VModel::Scaling(double zoom_index) {
 }
 
 void VModel::XRotation(double x_rot) {
-  double y, z;
   double sin_rot_x = sin(InRadian(x_rot)), cos_rot_x = cos(InRadian(x_rot));
   for (size_t i = 0; i < vertex_.size(); i += 3) {
-    y = vertex_.at(i + 1);
-    z = vertex_.at(i + 2);
+    double y = vertex_.at(i + 1);
+    double z = vertex_.at(i + 2);
     vertex_.at(i + 1) = y * cos_rot_x + z * sin_rot_x;
     vertex_.at(i + 2) = z * cos_rot_x - y * sin_rot_x;
   }
 }
 
 void VModel::YRotation(double y_rot) {
-  double x, z;
   double sin_rot_y = sin(InRadian(y_rot)), cos_rot_y = cos(InRadian(y_rot));
   for (size_t i = 1; i < vertex_.size(); i += 3) {
-    x = vertex_.at(i - 1);
-    z = vertex_.at(i + 1);
+    double x = vertex_.at(i - 1);
+    double z = vertex_.at(i + 1);
     vertex_.at(i - 1) = x * cos_rot_y + z * sin_rot_y;
     vertex_.at(i + 1) = z * cos_rot_y - x * sin_rot_y;
   }
 }
 
 void VModel::ZRotation(double z_rot) {
-  double x, y;
   double sin_rot_z = sin(InRadian(z_rot)), cos_rot_z = cos(InRadian(z_rot));
   for (size_t i = 2; i < vertex_.size(); i += 3) {
-    x = vertex_.at(i - 2);
-    y = vertex_.at(i - 1);
+    double x = vertex_.at(i - 2);
+    double y = vertex_.at(i - 1);
     vertex_.at(i - 1) = y * cos_rot_z + x * sin_rot_z;
     vertex_.at(i - 2) = x * cos_rot_z - y * sin_rot_z;
   }
@@ -112,8 +108,8 @@ void VModel::EdgeDuplicateDel() {
 void VModel::EdgeSort() { QuickSort(0, edges_.size() - 2); }
 
 void VModel::QuickSort(int first, int last) {
-  int count = 0;
   if (first < last) {
+    int count = 0;
     int left = first, right = last,
         middle = edges_.at((left / 2 + right / 2) / 2 * 2),
         middle_1 = edges_.at((left / 2 + right / 2) / 2 * 2 + 1);

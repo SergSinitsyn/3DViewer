@@ -44,11 +44,6 @@ clean:
 	$(CLEAN) ../documentation
 	$(CLEAN) report*
 
-
-# $(TEST_FILE):
-# 	$(CLEAN) $(TEST_FILE)
-# 	$(CC) $(WFLAGS) $(SOURCE) $(TEST) -o $(TEST_FILE) $(CHECKFLAGS)
-
 test:
 	$(CLEAN) $(TEST_FILE)
 	$(CC) $(WFLAGS) $(SOURCE) $(TEST) -o $(TEST_FILE) $(CHECKFLAGS)
@@ -71,16 +66,6 @@ install:
 	make -C  $(BUILD_DIR)
 	cd $(BUILD_DIR) && rm -rf CMakeFiles cmake_install.cmake CMakeCache.txt Makefile $(NAME)_autogen
 	open  $(BUILD_DIR)
-
-
-# install: uninstall dvi 
-# 	qmake CONFIG+=release -o $(BUILD_DIR)/Makefile $(NAME).pro
-# 	-cd $(BUILD_DIR); make
-# 	-cd $(BUILD_DIR); make clean
-# 	$(CLEAN) $(BUILD_DIR)/Makefile
-# 	$(CLEAN) $(BUILD_DIR)/.qmake.stash
-# 	$(CLEAN) $(BUILD_DIR)/qmake_qmake_qm_files.qrc
-# 	$(CLEAN) $(BUILD_DIR)/.qm
 
 uninstall:
 	$(CLEAN) $(BUILD_DIR)	
@@ -106,16 +91,16 @@ dist:
 check: leaks cppcheck linter
 
 linter:
-	@cp ../linters/.clang-format ./
+	@cp ../materials/linters/.clang-format ./
 # @clang-format -n $(TEST)
 # @clang-format -n $(SOURCE)
-	@clang-format -n view/*/*.cc view/*/*.h
-	@clang-format -n controller/*.cc controller/*.h
-	@clang-format -n main.cc
+	clang-format -n view/*/*.cc view/*/*.h
+	clang-format -n controller/*.cc controller/*.h
+	clang-format -n main.cc
 	@rm -f .clang-format
 
 run_linter:
-	@cp ../linters/.clang-format ./
+	@cp ../materials/linters/.clang-format ./
 # @clang-format -i $(TEST)
 # @clang-format -i $(SOURCE)
 	@clang-format -i view/*/*.cc view/*/*.h

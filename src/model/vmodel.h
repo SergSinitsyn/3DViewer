@@ -2,6 +2,7 @@
 #define VIEWER_2_MODEL_VMODEL_H_
 // #include <float.h>  // для DBL_MAX? надо поменять на с++ библтотеку
 
+#include <cfloat>
 #include <cmath>
 #include <fstream>
 #include <iostream>
@@ -15,16 +16,21 @@
 namespace s21 {
 class VModel {
  public:
-  VModel() : edges_num_(0), facetes_num_(0), file_name_(""), vertex_num_(0) {}
+  VModel()
+      : edges_num_(0),
+        facetes_num_(0),
+        file_name_(""),
+        vertex_num_(0),
+        x_min_(-DBL_MAX),
+        x_max_(DBL_MAX),
+        y_min_(-DBL_MAX),
+        y_max_(DBL_MAX),
+        z_min_(-DBL_MAX),
+        z_max_(DBL_MAX) {}
   ~VModel() {}
 
   std::vector<int>& GetEdges() { return edges_; }
   std::vector<double>& GetVertices() { return vertex_; }
-
-  // int GetEdgesNum() const { return edges_num_; }
-  // int GetFacetesNum() const { return facetes_num_; }
-  // std::string GetFileName() const { return file_name_; }
-  // int GetVertexNum() const { return vertex_num_; }
   ModelInformation GetInformation() const {
     ModelInformation info;
     info.edges_number = edges_num_;
