@@ -141,19 +141,19 @@ void VModel::ExtremesSearch() {
   }
   for (size_t i = 3; i < vertex_.size(); i += 3) {
     if (vertex_.at(i + kX) > x_max_) {
-      x_max_ = vertex_.at(i);
-    } else if (vertex_.at(i) < x_min_) {
-      x_min_ = vertex_.at(i);
+      x_max_ = vertex_.at(i + kX);
+    } else if (vertex_.at(i + kX) < x_min_) {
+      x_min_ = vertex_.at(i + kX);
     }
     if (vertex_.at(i + kY) > y_max_) {
-      y_max_ = vertex_.at(i);
-    } else if (vertex_.at(i) < y_min_) {
-      y_min_ = vertex_.at(i);
+      y_max_ = vertex_.at(i + kY);
+    } else if (vertex_.at(i + kY) < y_min_) {
+      y_min_ = vertex_.at(i + kY);
     }
     if (vertex_.at(i + kZ) > z_max_) {
-      z_max_ = vertex_.at(i);
-    } else if (vertex_.at(i) < z_min_) {
-      z_min_ = vertex_.at(i);
+      z_max_ = vertex_.at(i + kZ);
+    } else if (vertex_.at(i + kZ) < z_min_) {
+      z_min_ = vertex_.at(i + kZ);
     }
   }
 }
