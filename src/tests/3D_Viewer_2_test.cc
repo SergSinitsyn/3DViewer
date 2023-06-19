@@ -231,7 +231,6 @@ TEST(Viewer, Crash_test_0) {
                                         "tests/models/dragon.obj"};
   for (size_t i = 0; i < address_list.size(); ++i) {
     model.ReadModelFile(address_list[i]);
-    std::cout << model.GetFileName() << std::endl;
     model.Inscribe();
     std::vector<double> result = model.GetVertices();
     std::vector<double> reference(result);
@@ -269,7 +268,6 @@ TEST(Viewer, Crash_test_City) {
   std::vector<std::string> address_list{"tests/models/City.obj"};
   for (size_t i = 0; i < address_list.size(); ++i) {
     model.ReadModelFile(address_list[i]);
-    std::cout << model.GetFileName() << std::endl;
     model.Inscribe();
     std::vector<double> result = model.GetVertices();
     std::vector<double> reference(result);
@@ -307,7 +305,6 @@ TEST(Viewer, Crash_test_Kalashnikov) {
   std::vector<std::string> address_list{"tests/models/Kalashnikov.obj"};
   for (size_t i = 0; i < address_list.size(); ++i) {
     model.ReadModelFile(address_list[i]);
-    std::cout << model.GetFileName() << std::endl;
     model.Inscribe();
     std::vector<double> result = model.GetVertices();
     std::vector<double> reference(result);
@@ -349,7 +346,6 @@ TEST(Viewer, Crash_test_1) {
       "tests/models/sofa.obj"};
   for (size_t i = 0; i < address_list.size(); ++i) {
     model.ReadModelFile(address_list[i]);
-    std::cout << model.GetFileName() << std::endl;
     model.Inscribe();
     std::vector<double> result = model.GetVertices();
     std::vector<double> reference(result);
@@ -388,7 +384,6 @@ TEST(Viewer, Crash_test_Mercedes) {
       "tests/models/Mercedes_Benz_GLS_580.obj"};
   for (size_t i = 0; i < address_list.size(); ++i) {
     model.ReadModelFile(address_list[i]);
-    std::cout << model.GetFileName() << std::endl;
     model.Inscribe();
     std::vector<double> result = model.GetVertices();
     std::vector<double> reference(result);
@@ -426,7 +421,6 @@ TEST(Viewer, Crash_test_tree) {
   std::vector<std::string> address_list{"tests/models/tree.obj"};
   for (size_t i = 0; i < address_list.size(); ++i) {
     model.ReadModelFile(address_list[i]);
-    std::cout << model.GetFileName() << std::endl;
     model.Inscribe();
     std::vector<double> result = model.GetVertices();
     std::vector<double> reference(result);
@@ -463,7 +457,6 @@ TEST(Viewer, Crash_test_Bugatti) {
   std::vector<std::string> address_list{"tests/models/Bugatti.obj"};
   for (size_t i = 0; i < address_list.size(); ++i) {
     model.ReadModelFile(address_list[i]);
-    std::cout << model.GetFileName() << std::endl;
     model.Inscribe();
     std::vector<double> result = model.GetVertices();
     std::vector<double> reference(result);
@@ -500,7 +493,6 @@ TEST(Viewer, Crash_test_lion) {
   std::vector<std::string> address_list{"tests/models/Lion.obj"};
   for (size_t i = 0; i < address_list.size(); ++i) {
     model.ReadModelFile(address_list[i]);
-    std::cout << model.GetFileName() << std::endl;
     model.Inscribe();
     std::vector<double> result = model.GetVertices();
     std::vector<double> reference(result);

@@ -41,9 +41,9 @@ void VModel::Centering() {
 
 void VModel::Scaling(double zoom_index) {
   if (zoom_index != 1 && zoom_index != 0) {
-    XScaling(zoom_index);
-    YScaling(zoom_index);
-    ZScaling(zoom_index);
+    for (size_t i = 0; i < vertex_.size(); ++i) {
+      vertex_.at(i) *= zoom_index;
+    }
   }
 }
 
@@ -175,24 +175,6 @@ void VModel::Shift(double shift, CoordinateAxis ca) {
 void VModel::XShift(double x_shift) { Shift(x_shift, kX); }
 void VModel::YShift(double y_shift) { Shift(y_shift, kY); }
 void VModel::ZShift(double z_shift) { Shift(z_shift, kZ); }
-
-void VModel::XScaling(double zoom_index) {
-  for (size_t i = 0; i < vertex_.size(); i += 3) {
-    vertex_.at(i) *= zoom_index;
-  }
-}
-
-void VModel::YScaling(double zoom_index) {
-  for (size_t i = 1; i < vertex_.size(); i += 3) {
-    vertex_.at(i) *= zoom_index;
-  }
-}
-
-void VModel::ZScaling(double zoom_index) {
-  for (size_t i = 2; i < vertex_.size(); i += 3) {
-    vertex_.at(i) *= zoom_index;
-  }
-}
 
 double VModel::MaxSize() {
   double max_size = x_max_ - x_min_;

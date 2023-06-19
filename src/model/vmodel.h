@@ -23,7 +23,7 @@ class VModel {
 
   // int GetEdgesNum() const { return edges_num_; }
   // int GetFacetesNum() const { return facetes_num_; }
-  std::string GetFileName() const { return file_name_; }
+  // std::string GetFileName() const { return file_name_; }
   // int GetVertexNum() const { return vertex_num_; }
   ModelInformation GetInformation() const {
     ModelInformation info;
@@ -34,8 +34,6 @@ class VModel {
     return info;
   }
 
-  enum CoordinateAxis { kX, kY, kZ };
-
   void Inscribe();
   void ReadModelFile(std::string file_name);
   void Scaling(double scale);
@@ -45,9 +43,9 @@ class VModel {
   void YShift(double y_shift);
   void ZRotation(double z_rot);
   void ZShift(double z_shift);
-  void Shift(double shift, CoordinateAxis ca);
 
  private:
+  enum CoordinateAxis { kX, kY, kZ };
   std::vector<int> edges_;
   int edges_num_;
   int facetes_num_;
@@ -73,11 +71,9 @@ class VModel {
   double MaxSize();
   void ModelClean();
   void QuickSort(int first, int last);
+  void Shift(double shift, CoordinateAxis ca);
   void UniquelizationEdges();
   void VertexAdd(std::string line);
-  void XScaling(double scale);
-  void YScaling(double scale);
-  void ZScaling(double scale);
 };
 }  // namespace s21
 
