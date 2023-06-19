@@ -105,8 +105,6 @@ void MainWindow::DefaultControls() {
   const double size = 0.05;
   const double scale = 100;
 
-  ui_->centralwidget->blockSignals(true);
-
   ui_->dial_x->setValue(angle);
   ui_->dial_y->setValue(angle);
   ui_->dial_z->setValue(angle);
@@ -118,11 +116,8 @@ void MainWindow::DefaultControls() {
   ui_->doubleSpinBox_move_z->setValue(size);
   ui_->doubleSpinBox_scale->setValue(scale);
 
-  ui_->widget->height();
-  ui_->widget->width();
-  ui_->actionModel_information->setEnabled(false);
-
-  ui_->centralwidget->blockSignals(false);
+  // ui_->widget->height();
+  // ui_->widget->width();
 }
 
 void MainWindow::EnableControls(bool enable) {
@@ -151,7 +146,7 @@ void MainWindow::LoadFile() {
     QMessageBox::critical(this, "Warning", e.what());
     ui_->statusbar->showMessage("Error loading file: '" + new_filename + "'" +
                                 ", error:" + e.what());
-    // EnableControls(false);
+    EnableControls(false);
   }
 }
 
