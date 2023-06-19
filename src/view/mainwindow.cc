@@ -76,29 +76,13 @@ void MainWindow::SetModelInformation(const ModelInformation &information) {
 void MainWindow::UpdateWidget() { ui_->widget->update(); }
 
 void MainWindow::DefaultControls() {
-  // TODO сделать снутри соответствующих классов
-  const int angle = 0;
-  const double size = 0.05;
-  const double scale = 100;
-
-  ui_->centralwidget->blockSignals(true);
-
-  ui_->dial_x->setValue(angle);
-  ui_->dial_y->setValue(angle);
-  ui_->dial_z->setValue(angle);
-  ui_->spinBox_x->setValue(angle);
-  ui_->spinBox_y->setValue(angle);
-  ui_->spinBox_z->setValue(angle);
-  ui_->doubleSpinBox_move_x->setValue(size);
-  ui_->doubleSpinBox_move_y->setValue(size);
-  ui_->doubleSpinBox_move_z->setValue(size);
-  ui_->doubleSpinBox_scale->setValue(scale);
-
-  ui_->widget->height();
-  ui_->widget->width();
-  ui_->actionModel_information->setEnabled(false);
-
-  ui_->centralwidget->blockSignals(false);
+  rotation_control_x_.Default();
+  rotation_control_y_.Default();
+  rotation_control_z_.Default();
+  movement_control_x_.Default();
+  movement_control_y_.Default();
+  movement_control_z_.Default();
+  scaling_control_.Default();
 }
 
 void MainWindow::EnableControls(bool enable) {

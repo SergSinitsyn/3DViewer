@@ -18,13 +18,12 @@ class MovementControl : public QObject {
     kNegative = -1,
     kPositive = 1,
   };
-  MovementControl();
-  MovementControl(QDoubleSpinBox* box, QToolButton* positive,
-                  QToolButton* negative);
+  MovementControl() = default;
   void SetupMovementControl(void (Controller::*method)(double),
                             QDoubleSpinBox* box, QToolButton* positive,
                             QToolButton* negative);
   void SetController(Controller& controller);
+  void Default();
 
  private slots:
   void MoveOnAxisPositive();

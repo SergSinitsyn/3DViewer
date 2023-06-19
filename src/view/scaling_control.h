@@ -17,20 +17,12 @@ class ScalingControl : public QObject {
   Q_OBJECT
  public:
   ScalingControl() = default;
-  ScalingControl(QDoubleSpinBox* scale_box, QPushButton* scale_button,
-                 QToolButton* scale_down_button, QToolButton* scale_up_button)
-      : scale_button_(scale_button),
-        scale_box_(scale_box),
-        scale_down_button_(scale_down_button),
-        scale_up_button_(scale_up_button),
-        currect_scale_(100.0) {
-    SetupConnections();
-  }
   void SetupScalingControl(void (Controller::*method)(double),
                            QDoubleSpinBox* scale_box, QPushButton* scale_button,
                            QToolButton* scale_down_button,
                            QToolButton* scale_up_button);
   void SetController(Controller& controller);
+  void Default();
 
  private slots:
   void UpdateScale();

@@ -6,14 +6,6 @@
 
 namespace s21 {
 
-MovementControl::MovementControl(){};
-
-MovementControl::MovementControl(QDoubleSpinBox* z_box, QToolButton* z_positive,
-                                 QToolButton* z_negative)
-    : box_(z_box), positive_(z_positive), negative_(z_negative) {
-  SetupConnections();
-}
-
 void MovementControl::SetupMovementControl(void (Controller::*method)(double),
                                            QDoubleSpinBox* box,
                                            QToolButton* positive,
@@ -32,6 +24,12 @@ void MovementControl::SetupConnections() {
 
 void MovementControl::SetController(Controller& controller) {
   controller_ = &controller;
+}
+
+void MovementControl::Default() {
+  box_->blockSignals(true);
+  box_->setValue(0.05);
+  box_->blockSignals(false);
 }
 
 void MovementControl::MoveOnAxisPositive() {

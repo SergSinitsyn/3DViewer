@@ -16,11 +16,11 @@ class RotationControl : public QObject {
   Q_OBJECT
 
  public:
-  RotationControl();
-  RotationControl(QSpinBox *box, QDial *dial);
+  RotationControl() = default;
   void SetupRotationControl(void (Controller::*method)(int), QSpinBox *box,
                             QDial *dial);
   void SetController(Controller &controller);
+  void Default();
 
  private slots:
   void RotateAroundAxis(int new_angle);

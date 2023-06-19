@@ -6,13 +6,6 @@
 
 namespace s21 {
 
-RotationControl::RotationControl(){};
-
-RotationControl::RotationControl(QSpinBox* box, QDial* dial)
-    : box_(box), dial_(dial) {
-  SetupConnections();
-}
-
 void RotationControl::SetupRotationControl(void (Controller::*method)(int),
                                            QSpinBox* box, QDial* dial) {
   method_ = method;
@@ -30,6 +23,18 @@ void RotationControl::SetupConnections() {
 
 void RotationControl::SetController(Controller& controller) {
   controller_ = &controller;
+}
+
+void RotationControl::Default() {
+  box_->blockSignals(true);
+  dial_->blockSignals(true);
+
+  box_->setValue(0);
+  dial_->setValue(0);
+  current_angle_ = 0;
+
+  box_->blockSignals(false);
+  dial_->blockSignals(false);
 }
 
 void RotationControl::RotateAroundAxis(int new_angle) {

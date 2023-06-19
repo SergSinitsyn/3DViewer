@@ -28,6 +28,13 @@ void ScalingControl::SetController(Controller& controller) {
   controller_ = &controller;
 }
 
+void ScalingControl::Default() {
+  scale_box_->blockSignals(true);
+  scale_box_->setValue(100.0);
+  currect_scale_ = 100.0;
+  scale_box_->blockSignals(false);
+}
+
 void ScalingControl::UpdateScale() { ApplyScale(scale_box_->value()); }
 
 void ScalingControl::ScaleDown() {
