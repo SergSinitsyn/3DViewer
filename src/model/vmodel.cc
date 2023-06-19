@@ -139,7 +139,7 @@ void VModel::ExtremesSearch() {
     y_max_ = y_min_ = vertex_.at(kY);
     z_max_ = z_min_ = vertex_.at(kZ);
   }
-  for (size_t i = 0; i < vertex_.size(); i += 3) {
+  for (size_t i = 3; i < vertex_.size(); i += 3) {
     if (vertex_.at(i + kX) > x_max_) {
       x_max_ = vertex_.at(i + kX);
     } else if (vertex_.at(i + kX) < x_min_) {
