@@ -51,8 +51,6 @@ $(TEST_FILE):
 	$(CC) $(WFLAGS) $(SOURCE) $(TEST) -o $(TEST_FILE) $(CHECKFLAGS)
 
 test: $(TEST_FILE)
-	# $(CLEAN) $(TEST_FILE)
-	# $(CC) $(WFLAGS) $(SOURCE) $(TEST) -o $(TEST_FILE) $(CHECKFLAGS)
 	./$(TEST_FILE)
 
 rebuild: clean all
