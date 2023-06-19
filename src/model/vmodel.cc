@@ -216,7 +216,7 @@ double VModel::InRadian(double angle_of_rotation) {
 int VModel::EdgesCount(std::string line) {
   int count = 0;
   for (size_t i = 1; i < line.size(); i++) {
-    if (IsDigit(line.at(i)) && line.at(i - 1) == ' ') count++;
+    if (isdigit(line.at(i)) && line.at(i - 1) == ' ') count++;
   }
   if (count == 2) count--;
   return count;
@@ -255,7 +255,7 @@ void VModel::EdgesAdd(std::string line) {
     temp.push_back(d);
     if (line.find(" ", i) != line.npos) {
       i = line.find(" ", i + 1) + 1;
-      for (; i < line.size() && !IsDigit(line.at(i));) {
+      for (; i < line.size() && !isdigit(line.at(i));) {
         ++i;
       }
     } else {
@@ -266,10 +266,10 @@ void VModel::EdgesAdd(std::string line) {
   edges_.emplace(edges_.end(), *temp.begin());
 }
 
-bool VModel::IsDigit(const char &element) {
-  std::string digits = "0123456789";
-  return digits.find(element) != digits.npos;
-}
+// bool VModel::IsDigit(const char &element) {
+//   std::string digits = "0123456789";
+//   return digits.find(element) != digits.npos;
+// }
 
 void VModel::ModelClean() {
   file_name_ = "";

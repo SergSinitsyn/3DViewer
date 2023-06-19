@@ -34,8 +34,6 @@ class VModel {
     return info;
   }
 
-  // const data& GetData() const { return data_{edges_, vertex_}; }
-
   void Inscribe();
   void ReadModelFile(std::string file_name);
   void Scaling(double scale);
@@ -69,7 +67,6 @@ class VModel {
   void EdgeVertexSort();
   void ExtremesSearch();
   double InRadian(double angle_of_rotation);
-  bool IsDigit(const char& element);
   double MaxSize();
   void ModelClean();
   void QuickSort(int first, int last);
