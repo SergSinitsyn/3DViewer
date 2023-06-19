@@ -1,8 +1,6 @@
 #ifndef VIEWER_2_MODEL_VMODEL_H_
 #define VIEWER_2_MODEL_VMODEL_H_
-// #include <float.h>  // для DBL_MAX? надо поменять на с++ библтотеку
 
-#include <cfloat>
 #include <cmath>
 #include <fstream>
 #include <iostream>
@@ -21,12 +19,12 @@ class VModel {
         facetes_num_(0),
         file_name_(""),
         vertex_num_(0),
-        x_min_(-DBL_MAX),
-        x_max_(DBL_MAX),
-        y_min_(-DBL_MAX),
-        y_max_(DBL_MAX),
-        z_min_(-DBL_MAX),
-        z_max_(DBL_MAX) {}
+        x_min_(0),
+        x_max_(0),
+        y_min_(0),
+        y_max_(0),
+        z_min_(0),
+        z_max_(0) {}
   ~VModel() {}
 
   std::vector<int>& GetEdges() { return edges_; }
