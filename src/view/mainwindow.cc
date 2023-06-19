@@ -37,12 +37,6 @@ MainWindow::MainWindow(QWidget *parent)
   DefaultControls();
   EnableControls(false);
   setWindowTitle(window_title_);
-
-  // // Set up recent files menu
-  // QMenu *recent_files_menu = ui_->menuRecent_Files;
-  // QAction *recent_files_action = recent_files_menu->menuAction();
-  // recent_files_menu->clear();
-  // recent_files_menu->addAction(recent_files_action);
 }
 
 MainWindow::~MainWindow() {
@@ -221,33 +215,5 @@ void MainWindow::on_actionOpen_documentation_triggered() {
     ui_->statusbar->showMessage("Documentation file not found");
   }
 }
-
-// std::deque<QString> MainWindow::GetRecentFiles() const { return
-// recent_files_; }
-
-// void MainWindow::on_actionOpen_OBJ_file_triggered() {
-//   QString file_name = QFileDialog::getOpenFileName(
-//       this, tr("Open OBJ File"), *getAppPath(), tr("OBJ Files (*.obj)"));
-//   if (!file_name.isEmpty()) {
-//     LoadFile(file_name);
-
-//     // Add the opened file to the list of recent files
-//     recent_files_.push_front(file_name);
-//     if (recent_files_.size() > kMaxRecentFiles) {
-//       recent_files_.pop_back();
-//     }
-
-//     // Update recent files menu
-//     QMenu *recent_files_menu = ui_->menuRecent_Files;
-//     recent_files_menu->clear();
-//     QAction *recent_files_action = recent_files_menu->menuAction();
-//     recent_files_menu->addAction(recent_files_action);
-//     for (const auto &recent_file : recent_files_) {
-//       QAction *action = new QAction(recent_file, this);
-//       connect(action, &QAction::triggered, [this, recent_file]() {
-//       LoadFile(recent_file); }); recent_files_menu->addAction(action);
-//     }
-//   }
-// }
 
 };  // namespace s21

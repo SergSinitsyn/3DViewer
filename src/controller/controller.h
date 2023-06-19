@@ -10,9 +10,11 @@ class Controller : public QObject {
   Q_OBJECT
 
  public:
-  Controller(s21::VModel& model, s21::MainWindow& view);
+  Controller();
 
   void LoadFile(std::string file_name);
+  void SetModel(s21::VModel& model);
+  void SetView(s21::MainWindow& view);
 
  public slots:
   void RotateAroundXAxis(int angle);
@@ -27,8 +29,8 @@ class Controller : public QObject {
 
  private:
   void UpdateView();
-  s21::VModel& model_;
-  s21::MainWindow& view_;
+  s21::VModel* model_;
+  s21::MainWindow* view_;
 };
 
 };  // namespace s21

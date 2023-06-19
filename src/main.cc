@@ -11,7 +11,9 @@ int main(int argc, char* argv[]) {
   const char* loc = setlocale(LC_ALL, "en_US.UTF-8");
   s21::MainWindow view;
   s21::VModel model;
-  s21::Controller controller(model, view);
+  s21::Controller controller;
+  controller.SetModel(model);
+  controller.SetView(view);
   view.show();
   int result = application.exec();
   // Restore the previous locale.
