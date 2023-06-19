@@ -166,23 +166,15 @@ void VModel::ExtremesSearch() {
   }
 }
 
-void VModel::XShift(double x_shift) {
-  for (size_t i = 0; i < vertex_.size(); i += 3) {
-    vertex_.at(i) += x_shift;
+void VModel::Shift(double shift, CoordinateAxis ca) {
+  for (size_t i = ca; i < vertex_.size(); i += 3) {
+    vertex_.at(i) += shift;
   }
 }
 
-void VModel::YShift(double y_shift) {
-  for (size_t i = 1; i < vertex_.size(); i += 3) {
-    vertex_.at(i) += y_shift;
-  }
-}
-
-void VModel::ZShift(double z_shift) {
-  for (size_t i = 2; i < vertex_.size(); i += 3) {
-    vertex_.at(i) += z_shift;
-  }
-}
+void VModel::XShift(double x_shift) { Shift(x_shift, kX); }
+void VModel::YShift(double y_shift) { Shift(y_shift, kY); }
+void VModel::ZShift(double z_shift) { Shift(z_shift, kZ); }
 
 void VModel::XScaling(double zoom_index) {
   for (size_t i = 0; i < vertex_.size(); i += 3) {

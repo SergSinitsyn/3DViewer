@@ -34,6 +34,8 @@ class VModel {
     return info;
   }
 
+  enum CoordinateAxis { kX, kY, kZ };
+
   void Inscribe();
   void ReadModelFile(std::string file_name);
   void Scaling(double scale);
@@ -43,6 +45,7 @@ class VModel {
   void YShift(double y_shift);
   void ZRotation(double z_rot);
   void ZShift(double z_shift);
+  void Shift(double shift, CoordinateAxis ca);
 
  private:
   std::vector<int> edges_;
