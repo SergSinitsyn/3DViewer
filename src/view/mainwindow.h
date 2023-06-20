@@ -66,7 +66,7 @@ class MainWindow : public QMainWindow {
   void SaveImageAs();
   void RecordTimerAlarm();
 
-  void on_undoButton_clicked();
+  //  void on_undoButton_clicked();
 
  signals:
   void SettingsChanged(WidgetSettings *);

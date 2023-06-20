@@ -145,8 +145,6 @@ void MainWindow::LoadFile() {
   }
 }
 
-void my_func(int a) { qDebug() << a; }
-
 void MainWindow::SetupControls() {
   rotation_control_x_.SetupRotationControl(&Controller::RotateAroundXAxis,
                                            ui_->spinBox_x, ui_->dial_x);

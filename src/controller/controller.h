@@ -48,7 +48,7 @@ class Controller : public QObject, public Singleton<Controller> {
  private:
   Controller() = default;
   void UpdateView();
-  Memento<s21::VModel> just_loaded_model_;
+  // Memento<s21::VModel> just_loaded_model_;   // ! fix
   s21::VModel* model_{nullptr};
   s21::MainWindow* view_{nullptr};
 };
