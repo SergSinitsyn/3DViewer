@@ -7,7 +7,8 @@ TEXI2DVI 				= makeinfo --html
 OC := $(shell uname)
 ifeq ($(OC),Darwin)
 	LEAKS 				= CK_FORK=no leaks --atExit --
-	CHECKFLAGS 			= -lgtest -lgtest_main -lm -lstdc++ $(shell pkg-config --cflags gtest)
+	CFLACS 				= $(shell pkg-config --cflags gtest)
+	CHECKFLAGS 			= -lgtest -lgtest_main -lm -lstdc++ $(shell pkg-config --libs gtest)
 	OPEN 				= open
 	APP					= $(NAME).app
 else
@@ -48,7 +49,7 @@ clean:
 
 $(TEST_FILE):
 	$(CLEAN) $(TEST_FILE)
-	$(CC) $(WFLAGS) $(SOURCE) $(TEST) -o $(TEST_FILE) $(CHECKFLAGS)
+	$(CC) $(WFLAGS) $(CFLACS) $(SOURCE) $(TEST) -o $(TEST_FILE) $(CHECKFLAGS)
 
 test: $(TEST_FILE)
 	./$(TEST_FILE)
@@ -56,7 +57,7 @@ test: $(TEST_FILE)
 rebuild: clean all
 
 report/index.html: $(SOURCE) $(TEST)
-	$(CC) $(WFLAGS) $(GCOVFLAGS) $(SOURCE) $(TEST) -o $(TEST_FILE_COV) $(CHECKFLAGS)
+	$(CC) $(WFLAGS) $(GCOVFLAGS) $(CFLACS) $(SOURCE) $(TEST) -o $(TEST_FILE_COV) $(CHECKFLAGS)
 	./$(TEST_FILE_COV)
 	lcov -t "$(TEST_FILE_COV)" -o $(TEST_FILE_COV).info -c -d . --no-external
 	genhtml -o report $(TEST_FILE_COV).info
