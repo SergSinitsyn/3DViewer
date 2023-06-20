@@ -5,8 +5,6 @@
 
 namespace s21 {
 
-Controller::Controller() {}
-
 void Controller::SetModel(s21::VModel& model) { model_ = &model; }
 
 void Controller::SetView(s21::MainWindow& view) {

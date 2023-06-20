@@ -11,7 +11,7 @@ int main(int argc, char* argv[]) {
   const char* loc = setlocale(LC_ALL, "en_US.UTF-8");
   s21::MainWindow view;
   s21::VModel model;
-  s21::Controller controller;
+  s21::Controller& controller = s21::Controller::GetInstance();
   controller.SetModel(model);
   controller.SetView(view);
   view.show();

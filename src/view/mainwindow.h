@@ -18,7 +18,6 @@ class MainWindow;
 QT_END_NAMESPACE
 
 namespace s21 {
-class Controller;
 
 class MainWindow : public QMainWindow {
   Q_OBJECT

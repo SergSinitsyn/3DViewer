@@ -6,11 +6,28 @@
 
 namespace s21 {
 
-class Controller : public QObject {
+template <typename T>
+class Singleton {
+ public:
+  static T& GetInstance() {
+    static T instance;
+    return instance;
+  }
+
+ protected:
+  Singleton() = default;
+  virtual ~Singleton() = default;
+
+ private:
+  Singleton(const Singleton&) = delete;
+  Singleton& operator=(const Singleton&) = delete;
+};
+
+class Controller : public QObject, public Singleton<Controller> {
   Q_OBJECT
 
  public:
-  Controller();
+  friend class Singleton<Controller>;
 
   void LoadFile(std::string file_name);
   void SetModel(s21::VModel& model);
@@ -28,11 +45,12 @@ class Controller : public QObject {
   void Scaling(double scale);
 
  private:
+  Controller() = default;
   void UpdateView();
-  s21::VModel* model_;
-  s21::MainWindow* view_;
+  s21::VModel* model_{nullptr};
+  s21::MainWindow* view_{nullptr};
 };
 
 };  // namespace s21
 
-#endif  // CPP4_3DVIEWER2_CONTROLLER_CONTROLLER_H
+#endif  // VIEWER_2_CONTROLLER_CONTROLLER_H
