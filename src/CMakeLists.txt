@@ -28,6 +28,9 @@ set(PROJECT_SOURCES
     other/structs.h
 
     view/mainwindow.cc view/mainwindow.h view/mainwindow.ui
+    view/mainwindow_settings.cc
+    view/mainwindow_screenshots.cc
+
     view/widget.cc view/widget.h
     view/rotation_control.cc view/rotation_control.h
     view/movement_control.cc view/movement_control.h

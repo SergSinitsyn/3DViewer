@@ -13,6 +13,8 @@
 #include <QMessageBox>
 #include <QUrl>
 #include <QWindow>
+#include <algorithm>
+#include <functional>
 
 #include "../controller/controller.h"
 #include "info/info.h"
@@ -81,8 +83,12 @@ void MainWindow::UpdateRecentFilesMenu() {
 
 void MainWindow::SetController(Controller &controller) {
   controller_ = &controller;
-  rotation_control_.SetController(*controller_);
-  movement_control_.SetController(*controller_);
+  rotation_control_x_.SetController(*controller_);
+  rotation_control_y_.SetController(*controller_);
+  rotation_control_z_.SetController(*controller_);
+  movement_control_x_.SetController(*controller_);
+  movement_control_y_.SetController(*controller_);
+  movement_control_z_.SetController(*controller_);
   scaling_control_.SetController(*controller_);
 }
 
@@ -101,23 +107,13 @@ void MainWindow::SetModelInformation(const ModelInformation &information) {
 void MainWindow::UpdateWidget() { ui_->widget->update(); }
 
 void MainWindow::DefaultControls() {
-  const int angle = 0;
-  const double size = 0.05;
-  const double scale = 100;
-
-  ui_->dial_x->setValue(angle);
-  ui_->dial_y->setValue(angle);
-  ui_->dial_z->setValue(angle);
-  ui_->spinBox_x->setValue(angle);
-  ui_->spinBox_y->setValue(angle);
-  ui_->spinBox_z->setValue(angle);
-  ui_->doubleSpinBox_move_x->setValue(size);
-  ui_->doubleSpinBox_move_y->setValue(size);
-  ui_->doubleSpinBox_move_z->setValue(size);
-  ui_->doubleSpinBox_scale->setValue(scale);
-
-  // ui_->widget->height();
-  // ui_->widget->width();
+  rotation_control_x_.Default();
+  rotation_control_y_.Default();
+  rotation_control_z_.Default();
+  movement_control_x_.Default();
+  movement_control_y_.Default();
+  movement_control_z_.Default();
+  scaling_control_.Default();
 }
 
 void MainWindow::EnableControls(bool enable) {
@@ -146,21 +142,29 @@ void MainWindow::LoadFile() {
     QMessageBox::critical(this, "Warning", e.what());
     ui_->statusbar->showMessage("Error loading file: '" + new_filename + "'" +
                                 ", error:" + e.what());
-    EnableControls(false);
   }
 }
 
+void my_func(int a) { qDebug() << a; }
+
 void MainWindow::SetupControls() {
-  rotation_control_.SetupRotationControl(ui_->statusbar, ui_->spinBox_x,
-                                         ui_->spinBox_y, ui_->spinBox_z,
-                                         ui_->dial_x, ui_->dial_y, ui_->dial_z);
-  movement_control_.SetupMovementControl(
-      ui_->statusbar, ui_->doubleSpinBox_move_x, ui_->doubleSpinBox_move_y,
-      ui_->doubleSpinBox_move_z, ui_->toolButton_xPos, ui_->toolButton_xNeg,
-      ui_->toolButton_yPos, ui_->toolButton_yNeg, ui_->toolButton_zPos,
-      ui_->toolButton_zNeg);
+  rotation_control_x_.SetupRotationControl(&Controller::RotateAroundXAxis,
+                                           ui_->spinBox_x, ui_->dial_x);
+  rotation_control_y_.SetupRotationControl(&Controller::RotateAroundYAxis,
+                                           ui_->spinBox_y, ui_->dial_y);
+  rotation_control_z_.SetupRotationControl(&Controller::RotateAroundZAxis,
+                                           ui_->spinBox_z, ui_->dial_z);
+  movement_control_x_.SetupMovementControl(
+      &Controller::ShiftOnXAxis, ui_->doubleSpinBox_move_x,
+      ui_->toolButton_xPos, ui_->toolButton_xNeg);
+  movement_control_y_.SetupMovementControl(
+      &Controller::ShiftOnYAxis, ui_->doubleSpinBox_move_y,
+      ui_->toolButton_yPos, ui_->toolButton_yNeg);
+  movement_control_z_.SetupMovementControl(
+      &Controller::ShiftOnZAxis, ui_->doubleSpinBox_move_z,
+      ui_->toolButton_zPos, ui_->toolButton_zNeg);
   scaling_control_.SetupScalingControl(
-      ui_->statusbar, ui_->doubleSpinBox_scale, ui_->pushButton_scale,
+      &Controller::Scaling, ui_->doubleSpinBox_scale, ui_->pushButton_scale,
       ui_->toolButton_scaleL, ui_->toolButton_scaleH);
 }
 
@@ -250,38 +254,5 @@ void MainWindow::on_actionOpen_documentation_triggered() {
     ui_->statusbar->showMessage("Documentation file not found");
   }
 }
-
-void MainWindow::on_undoButton_clicked() {
-  DefaultControls();
-  controller_->RestoreModel();
-}
-
-// std::deque<QString> MainWindow::GetRecentFiles() const { return
-// recent_files_; }
-
-// void MainWindow::on_actionOpen_OBJ_file_triggered() {
-//   QString file_name = QFileDialog::getOpenFileName(
-//       this, tr("Open OBJ File"), *getAppPath(), tr("OBJ Files (*.obj)"));
-//   if (!file_name.isEmpty()) {
-//     LoadFile(file_name);
-
-//     // Add the opened file to the list of recent files
-//     recent_files_.push_front(file_name);
-//     if (recent_files_.size() > kMaxRecentFiles) {
-//       recent_files_.pop_back();
-//     }
-
-//     // Update recent files menu
-//     QMenu *recent_files_menu = ui_->menuRecent_Files;
-//     recent_files_menu->clear();
-//     QAction *recent_files_action = recent_files_menu->menuAction();
-//     recent_files_menu->addAction(recent_files_action);
-//     for (const auto &recent_file : recent_files_) {
-//       QAction *action = new QAction(recent_file, this);
-//       connect(action, &QAction::triggered, [this, recent_file]() {
-//       LoadFile(recent_file); }); recent_files_menu->addAction(action);
-//     }
-//   }
-// }
 
 };  // namespace s21

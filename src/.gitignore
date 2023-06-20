@@ -1,6 +1,9 @@
 # This file is used to ignore files which are generated
 # ----------------------------------------------------------------------------
 
+.DS_Store
+.vscode
+.vscode/settings.json
 *~
 *.autosave
 *.a
@@ -36,6 +39,8 @@ Thumbs.db
 *.rc
 /.qmake.cache
 /.qmake.stash
+
+CMakeLists.txt.user
 
 # qtcreator generated files
 *.pro.user*

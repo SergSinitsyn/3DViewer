@@ -17,39 +17,28 @@ class ScalingControl : public QObject {
   Q_OBJECT
  public:
   ScalingControl() = default;
-  ScalingControl(QStatusBar* status_bar, QDoubleSpinBox* scale_box,
-                 QPushButton* scale_button, QToolButton* scale_down_button,
-                 QToolButton* scale_up_button)
-      : status_bar_(status_bar),
-        scale_button_(scale_button),
-        scale_box_(scale_box),
-        scale_down_button_(scale_down_button),
-        scale_up_button_(scale_up_button),
-        currect_scale_(100.0) {
-    SetupConnections();
-  }
-  void SetupScalingControl(QStatusBar* status_bar, QDoubleSpinBox* scale_box,
-                           QPushButton* scale_button,
+  void SetupScalingControl(void (Controller::*method)(double),
+                           QDoubleSpinBox* scale_box, QPushButton* scale_button,
                            QToolButton* scale_down_button,
                            QToolButton* scale_up_button);
   void SetController(Controller& controller);
-
- private:
-  void ApplyScale(double new_scale);
-  void SetupConnections();
-
-  Controller* controller_;
-  QStatusBar* status_bar_;
-  QDoubleSpinBox* scale_box_;
-  QPushButton* scale_button_;
-  QToolButton* scale_down_button_;
-  QToolButton* scale_up_button_;
-  double currect_scale_{100.0};
+  void Default();
 
  private slots:
   void UpdateScale();
   void ScaleDown();
   void ScaleUp();
+
+ private:
+  void ApplyScale(double new_scale);
+  void SetupConnections();
+  Controller* controller_;
+  void (Controller::*method_)(double);
+  QDoubleSpinBox* scale_box_;
+  QPushButton* scale_button_;
+  QToolButton* scale_down_button_;
+  QToolButton* scale_up_button_;
+  double currect_scale_{100.0};
 };
 
 };  // namespace s21

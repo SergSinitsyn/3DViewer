@@ -4,12 +4,12 @@
 
 namespace s21 {
 
-void ScalingControl::SetupScalingControl(QStatusBar* status_bar,
+void ScalingControl::SetupScalingControl(void (Controller::*method)(double),
                                          QDoubleSpinBox* scale_box,
                                          QPushButton* scale_button,
                                          QToolButton* scale_down_button,
                                          QToolButton* scale_up_button) {
-  status_bar_ = status_bar;
+  method_ = method;
   scale_box_ = scale_box;
   scale_button_ = scale_button;
   scale_down_button_ = scale_down_button;
@@ -26,6 +26,13 @@ void ScalingControl::SetupConnections() {
 
 void ScalingControl::SetController(Controller& controller) {
   controller_ = &controller;
+}
+
+void ScalingControl::Default() {
+  scale_box_->blockSignals(true);
+  scale_box_->setValue(100.0);
+  currect_scale_ = 100.0;
+  scale_box_->blockSignals(false);
 }
 
 void ScalingControl::UpdateScale() { ApplyScale(scale_box_->value()); }
@@ -46,13 +53,9 @@ void ScalingControl::ScaleUp() {
 
 void ScalingControl::ApplyScale(double new_scale) {
   scale_box_->blockSignals(true);
-  double scale_factor = new_scale / currect_scale_;
+  (controller_->*method_)(new_scale / currect_scale_);
   currect_scale_ = new_scale;
-
-  controller_->Scaling(scale_factor);
-
   scale_box_->setValue(currect_scale_);
-  status_bar_->showMessage(QString("scale factor: %1").arg(scale_factor));
   scale_box_->blockSignals(false);
 }
 
