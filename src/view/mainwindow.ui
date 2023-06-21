@@ -10,7 +10,7 @@
     <x>0</x>
     <y>0</y>
     <width>856</width>
-    <height>778</height>
+    <height>791</height>
    </rect>
   </property>
   <property name="sizePolicy">
@@ -40,7 +40,7 @@
   <widget class="QWidget" name="centralwidget">
    <layout class="QHBoxLayout" name="horizontalLayout">
     <item>
-     <widget class="Widget" name="widget" native="true">
+     <widget class="s21::Widget" name="widget" native="true">
       <property name="sizePolicy">
        <sizepolicy hsizetype="Expanding" vsizetype="Preferred">
         <horstretch>0</horstretch>
@@ -1277,7 +1277,7 @@
      <x>0</x>
      <y>0</y>
      <width>856</width>
-     <height>24</height>
+     <height>37</height>
     </rect>
    </property>
    <property name="cursor">
@@ -1516,13 +1516,10 @@
  </widget>
  <customwidgets>
   <customwidget>
-   <class>Widget</class>
+   <class>s21::Widget</class>
    <extends>QWidget</extends>
    <header>widget.h</header>
    <container>1</container>
-   <slots>
-    <slot>GetSettings(WidgetSettings*)</slot>
-   </slots>
   </customwidget>
  </customwidgets>
  <tabstops>
@@ -1546,24 +1543,7 @@
   <tabstop>pushButton_record</tabstop>
  </tabstops>
  <resources/>
- <connections>
-  <connection>
-   <sender>MainWindow</sender>
-   <signal>SettingsChanged(WidgetSettings*)</signal>
-   <receiver>widget</receiver>
-   <slot>GetSettings(WidgetSettings*)</slot>
-   <hints>
-    <hint type="sourcelabel">
-     <x>511</x>
-     <y>383</y>
-    </hint>
-    <hint type="destinationlabel">
-     <x>420</x>
-     <y>383</y>
-    </hint>
-   </hints>
-  </connection>
- </connections>
+ <connections/>
  <slots>
   <signal>SettingsChanged(WidgetSettings*)</signal>
  </slots>

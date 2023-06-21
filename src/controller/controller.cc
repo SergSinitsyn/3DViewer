@@ -15,13 +15,11 @@ void Controller::SetView(s21::MainWindow& view) {
 void Controller::LoadFile(const std::string& file_name) {
   model_->ReadModelFile(file_name);
   model_->Inscribe();
-  // just_loaded_model_->SetState(&model_);  // ! fix
   view_->SetModelInformation(model_->GetInformation());
   UpdateView();
 }
 
 void Controller::RestoreModel() {
-  // model_ = *just_loaded_model_.GetState();   // ! fix
   model_->RestoreModel();
   UpdateView();
 }

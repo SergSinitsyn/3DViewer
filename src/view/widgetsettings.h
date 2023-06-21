@@ -3,6 +3,7 @@
 
 #include <QColor>
 #include <QObject>
+namespace s21 {
 
 typedef enum { kLine, kVertex } Element;
 
@@ -63,4 +64,5 @@ class WidgetSettings {
   QVector<QString> recent_files_;
 };
 
+}  // namespace s21
 #endif  // WIDGETSETTINGS_H

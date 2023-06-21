@@ -19,7 +19,6 @@ class Decorator : public VModel {
   };
 
  private:
-  //   VModel* component_;
   Memento<VModel> just_loaded_model_;
 };
 

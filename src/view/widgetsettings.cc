@@ -2,7 +2,7 @@
 
 #include <QCoreApplication>
 #include <QSettings>
-
+using namespace s21;
 Q_DECLARE_METATYPE(Element);
 Q_DECLARE_METATYPE(LineType);
 Q_DECLARE_METATYPE(ProjectionType);

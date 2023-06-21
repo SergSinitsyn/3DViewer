@@ -4,7 +4,7 @@
 #include <QElapsedTimer>
 #include <QOpenGLFunctions>
 
-// namespace s21 {
+ namespace s21 {
 
 Widget::Widget(QWidget *parent) : QOpenGLWidget(parent) {}
 
@@ -127,4 +127,4 @@ void Widget::GetSettings(WidgetSettings *sptr) {
   update();
 }
 
-// };  // namespace s21
+ };  // namespace s21

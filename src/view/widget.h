@@ -10,7 +10,7 @@
 #include "../other/structs.h"
 #include "widgetsettings.h"
 
-// namespace s21 {
+namespace s21 {
 
 class Widget : public QOpenGLWidget, protected QOpenGLFunctions {
   Q_OBJECT
@@ -38,6 +38,6 @@ class Widget : public QOpenGLWidget, protected QOpenGLFunctions {
   WidgetSettings settings_;
 };
 
-// };  // namespace s21
+};  // namespace s21
 
 #endif  // WIDGET_H
