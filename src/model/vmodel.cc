@@ -1,5 +1,7 @@
 #include "vmodel.h"
 
+#include <cmath>
+
 namespace s21 {
 
 void VModel::ReadModelFile(std::string file_name) {

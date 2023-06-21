@@ -1,3 +1,6 @@
+#ifndef VIEWER_2_OTHER_DECORATOR_H
+#define VIEWER_2_OTHER_DECORATOR_H
+
 #include "../model/vmodel.h"
 #include "memento.h"
 
@@ -22,4 +25,6 @@ class Decorator : public VModel {
   Memento<VModel> just_loaded_model_;
 };
 
-}  // namespace s21
+};  // namespace s21
+
+#endif  // VIEWER_2_OTHER_DECORATOR_H

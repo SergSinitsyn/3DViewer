@@ -35,7 +35,6 @@ class Controller : public QObject, public Singleton<Controller> {
   void SetModel(s21::VModel& model);
   void SetView(s21::MainWindow& view);
 
- public slots:
   void RotateAroundXAxis(int angle);
   void RotateAroundYAxis(int angle);
   void RotateAroundZAxis(int angle);

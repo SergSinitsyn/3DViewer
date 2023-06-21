@@ -31,8 +31,8 @@ class MovementControl : public QObject {
 
  private:
   void SetupConnections();
-  Controller* controller_;
-  void (Controller::*method_)(double);
+  Controller* controller_{nullptr};
+  void (Controller::*method_)(double){nullptr};
   QDoubleSpinBox* box_{nullptr};
   QToolButton* positive_{nullptr};
   QToolButton* negative_{nullptr};

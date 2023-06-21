@@ -1,15 +1,12 @@
 #ifndef VIEWER_2_MODEL_VMODEL_H_
 #define VIEWER_2_MODEL_VMODEL_H_
 
-#include <cmath>
 #include <fstream>
 #include <iostream>
 #include <string>
 #include <vector>
 
 #include "../other/structs.h"
-
-#define _USE_MATH_DEFINES  // for M_PI
 
 namespace s21 {
 class VModel {

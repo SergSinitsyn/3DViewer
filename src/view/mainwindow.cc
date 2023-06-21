@@ -96,7 +96,7 @@ void MainWindow::LoadFile() {
   QString new_filename = QFileDialog::getOpenFileName(0, "Open", "", "*.obj");
   if (new_filename.isEmpty()) {
     ui_->statusbar->showMessage("File not selected");
-    return;  //!!! return
+    return;
   }
   try {
     controller_->LoadFile(new_filename.toStdString());
@@ -227,7 +227,7 @@ void MainWindow::SetupRadioButtons() {
       break;
   }
 }
-// TODO переделать в сигнал?
+
 void MainWindow::on_actionOpen_OBJ_file_triggered() { LoadFile(); }
 
 void MainWindow::on_actionModel_information_triggered() {
@@ -239,11 +239,10 @@ void MainWindow::on_actionModel_information_triggered() {
 void MainWindow::on_actionOpen_documentation_triggered() {
   //! правильные пути!
 #ifdef Q_OS_LINUX
-  QString link =
-      QCoreApplication::applicationDirPath() + "/../documentation/index.html";
+  QString link = QCoreApplication::applicationDirPath() + "/index.html";
 #else
-  QString link = QCoreApplication::applicationDirPath() +
-                 "/../../../../documentation/index.html";
+  QString link =
+      QCoreApplication::applicationDirPath() + "/../../../index.html";
 #endif
   if (QFile::exists(link)) {
     QDesktopServices::openUrl(QUrl("file:///" + link));

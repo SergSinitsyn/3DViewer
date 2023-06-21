@@ -39,6 +39,18 @@ class MainWindow : public QMainWindow {
   void SetupControls();
   void ShowInformation();
 
+  void LoadSettingFromFile();
+  void SaveSettingToFile();
+  void SetupRadioButtons();
+  void CreateRecentFilesMenu();
+  void RemoveRecentFilesMenu();
+  void UpdateRecentFilesMenu();
+  int LoadRecentFile();
+  int FileNameErrorDialog(const char *msg);
+
+  void SaveImageAs();
+  void RecordTimerAlarm();
+
   Ui::MainWindow *ui_;
   ModelData model_data_;
   ModelInformation model_information_;
@@ -83,7 +95,7 @@ class MainWindow : public QMainWindow {
   void on_actionOpen_documentation_triggered();
   void on_undoButton_clicked();
 
-  // settings  //TODO перенести в отдельный класс?
+  // settings
   void on_actionColor_edges_triggered();
   void on_actionColor_vertices_triggered();
   void on_actionBackground_color_triggered();
@@ -97,21 +109,11 @@ class MainWindow : public QMainWindow {
   void on_actionParallel_triggered(bool checked);
   void on_actionCentral_triggered(bool checked);
   void on_actionRestore_settings_triggered();
-  void LoadSettingFromFile();
-  void SaveSettingToFile();
-  void SetupRadioButtons();
-  void CreateRecentFilesMenu();
-  void RemoveRecentFilesMenu();
-  void UpdateRecentFilesMenu();
-  int LoadRecentFile();
-  int FileNameErrorDialog(const char *msg);
 
   // screenshot
   void on_actionSave_OBJ_to_Image_triggered();
   void on_pushButton_image_clicked();
   void on_pushButton_record_clicked();
-  void SaveImageAs();
-  void RecordTimerAlarm();
 
  signals:
   void SettingsChanged(WidgetSettings *);
