@@ -1,6 +1,8 @@
 #ifndef VIEWER2_OTHER_MEMENTO_H
 #define VIEWER2_OTHER_MEMENTO_H
 
+namespace s21 {
+
 // Pattern Xranitel
 template <class T>
 class Memento {
@@ -28,4 +30,7 @@ class Memento {
   T state_;
   bool is_valid_ = false;
 };
+
+};  // namespace s21
+
 #endif  // VIEWER2_OTHER_MEMENTO_H

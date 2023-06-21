@@ -9,7 +9,7 @@
 #include "mainwindow.h"
 #include "ui_mainwindow.h"
 
-using namespace s21;
+namespace s21 {
 
 // Shablonnyi method
 template <class T>
@@ -91,4 +91,4 @@ void MainWindow::on_actionRestore_settings_triggered() {
   emit SettingsChanged(&settings_);
 }
 
-// };  // namespace s21
+};  // namespace s21

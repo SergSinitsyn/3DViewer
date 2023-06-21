@@ -71,19 +71,20 @@ install:
 	make -C  $(BUILD_DIR)
 	cd $(BUILD_DIR) && rm -rf CMakeFiles cmake_install.cmake CMakeCache.txt Makefile $(NAME)_autogen
 	open  $(BUILD_DIR)
+	make dvi
 
 uninstall:
 	$(CLEAN) $(BUILD_DIR)	
 
 dvi:
-	makeinfo -o $(DOCUMENT_DIR) --html --no-warn --no-validate --force $(DOCUMENT_DIR)/$(DOCUMENT).texi
+	makeinfo -o $(BUILD_DIR) --html --no-warn --no-validate --force $(DOCUMENT_DIR)/$(DOCUMENT).texi
 	make open_dvi
 
 open_report:
 	-$(OPEN) report/index.html
 
 open_dvi:
-	-$(OPEN) $(DOCUMENT_DIR)/index.html
+	-$(OPEN) $(BUILD_DIR)/index.html
 
 dist:
 	make clean
@@ -112,7 +113,7 @@ run_linter:
 cppcheck:
 	# cppcheck --std=c++17 --enable=all --language=c++ --suppress=missingIncludeSystem $(TEST) $(SOURCE)
 	cppcheck --std=c++17 --enable=all --language=c++ --suppress=missingInclude --suppress=unusedStructMember\
-	 --suppress=unusedFunction  */*.cc */*.h
+	 --suppress=unusedFunction  */*.cc */*.h */..*/.cc */..*/.h
 
 leaks: $(TEST_FILE)
 	$(LEAKS) ./$(TEST_FILE)

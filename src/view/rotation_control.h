@@ -28,8 +28,8 @@ class RotationControl : public QObject {
 
  private:
   void SetupConnections();
-  Controller *controller_;
-  void (Controller::*method_)(int);
+  Controller *controller_{nullptr};
+  void (Controller::*method_)(int){nullptr};
   QSpinBox *box_{nullptr};
   QDial *dial_{nullptr};
   int current_angle_{0};

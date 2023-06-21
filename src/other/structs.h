@@ -1,5 +1,5 @@
-#ifndef OTHER_STRUCTS_H
-#define OTHER_STRUCTS_H
+#ifndef VIEWER_2_OTHER_STRUCTS_H
+#define VIEWER_2_OTHER_STRUCTS_H
 
 #include <string>
 #include <vector>
@@ -16,4 +16,4 @@ struct ModelData {
   std::vector<int> edges;
 };
 
-#endif  // OTHER_STRUCTS_H
+#endif  // VIEWER_2_OTHER_STRUCTS_H

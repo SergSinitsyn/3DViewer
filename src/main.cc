@@ -13,6 +13,6 @@ int main(int argc, char* argv[]) {
   controller.SetModel(model);
   controller.SetView(view);
   view.show();
-  int result = application.exec();
-  return result;
+  // int result = application.exec();
+  return application.exec();
 }
