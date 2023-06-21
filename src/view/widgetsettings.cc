@@ -7,7 +7,6 @@ Q_DECLARE_METATYPE(Element);
 Q_DECLARE_METATYPE(LineType);
 Q_DECLARE_METATYPE(ProjectionType);
 Q_DECLARE_METATYPE(DisplayMethod);
-
 void WidgetSettings::LoadSettingsFromFile() {
   QString settings_path = QCoreApplication::applicationDirPath() + "/" +
                           QCoreApplication::applicationName() + ".conf";
