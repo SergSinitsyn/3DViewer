@@ -151,7 +151,6 @@ TEST(Viewer, Rotation_x) {
   std::vector<double> reference{0, 0, 0, 0, -2, 0, 0, 0, 2, 0, -2, 2,
                                 2, 0, 0, 2, -2, 0, 2, 0, 2, 2, -2, 2};
   for (size_t i = 0; i < result.size(); ++i) {
-    std::cout << result[i] << " / " << reference[i] << std::endl;
     ASSERT_NEAR(result[i], reference[i], kAcc);
   }
 }
@@ -181,7 +180,8 @@ TEST(Viewer, Rotation_z) {
 }
 TEST(Viewer, Crash_test) {
   s21::VModel model;
-  std::vector<std::string> address_list{// "tests/models/12140_Skull_v3_L2.obj",
+  std::vector<std::string> address_list{//
+                                        "tests/models/12140_Skull_v3_L2.obj",
                                         // "tests/models/bat.obj"
                                         // ,
                                         "tests/models/dragon.obj"};
