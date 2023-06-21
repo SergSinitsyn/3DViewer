@@ -63,7 +63,7 @@ TEST(Viewer, Vertices) {
   std::vector<double> result = model.GetVertices();
   std::vector<double> reference{0, 0, 0, 0, 0, 2, 0, 2, 0, 0, 2, 2,
                                 2, 0, 0, 2, 0, 2, 2, 2, 0, 2, 2, 2};
-  for (size_t i = 0; i < result.size() - 1; ++i) {
+  for (size_t i = 0; i < result.size(); ++i) {
     ASSERT_NEAR(result[i], reference[i], kAcc);
   }
 }
@@ -75,7 +75,7 @@ TEST(Viewer, Edges) {
   std::vector<int> reference{8, 7, 8, 6, 8, 5, 8, 4, 8, 3, 8, 2, 7,
                              5, 7, 3, 7, 1, 6, 5, 6, 4, 6, 2, 6, 1,
                              5, 1, 4, 3, 4, 2, 4, 1, 3, 1, 2, 1};
-  for (size_t i = 0; i < result.size() - 1; ++i) {
+  for (size_t i = 0; i < result.size(); ++i) {
     ASSERT_EQ(result[i], reference[i] - 1);
   }
 }
@@ -111,7 +111,7 @@ TEST(Viewer, Inscribe) {
   }
   model.Inscribe();
   std::vector<double> vert_result = model.GetVertices();
-  for (size_t i = 0; i < vert_result.size() - 1; ++i) {
+  for (size_t i = 0; i < vert_result.size(); ++i) {
     ASSERT_NEAR(vert_result[i], vert_ref[i], kAcc);
   }
 }
@@ -125,7 +125,7 @@ TEST(Viewer, Shift) {
   std::vector<double> result = model.GetVertices();
   std::vector<double> reference{-1, -1, -1, -1, -1, 1, -1, 1, -1, -1, 1, 1,
                                 1,  -1, -1, 1,  -1, 1, 1,  1, -1, 1,  1, 1};
-  for (size_t i = 0; i < result.size() - 1; ++i) {
+  for (size_t i = 0; i < result.size(); ++i) {
     ASSERT_NEAR(result[i], reference[i], kAcc);
   }
 }
@@ -138,7 +138,7 @@ TEST(Viewer, Scaling) {
   std::vector<double> reference{0, 0,   0,   0,   0,   4.3, 0,   4.3,
                                 0, 0,   4.3, 4.3, 4.3, 0,   0,   4.3,
                                 0, 4.3, 4.3, 4.3, 0,   4.3, 4.3, 4.3};
-  for (size_t i = 0; i < result.size() - 1; ++i) {
+  for (size_t i = 0; i < result.size(); ++i) {
     ASSERT_NEAR(result[i], reference[i], kAcc);
   }
 }
@@ -148,9 +148,10 @@ TEST(Viewer, Rotation_x) {
   model.ReadModelFile("tests/models/cube.obj");
   model.XRotation(90);
   std::vector<double> result = model.GetVertices();
-  std::vector<double> reference{0, 0, 0, 0, 2, 0, 0, 0, -2, 0, 2, -2,
-                                2, 0, 0, 2, 2, 0, 2, 0, -2, 2, 2, -2};
-  for (size_t i = 0; i < result.size() - 1; ++i) {
+  std::vector<double> reference{0, 0, 0, 0, -2, 0, 0, 0, 2, 0, -2, 2,
+                                2, 0, 0, 2, -2, 0, 2, 0, 2, 2, -2, 2};
+  for (size_t i = 0; i < result.size(); ++i) {
+    std::cout << result[i] << " / " << reference[i] << std::endl;
     ASSERT_NEAR(result[i], reference[i], kAcc);
   }
 }
@@ -162,7 +163,7 @@ TEST(Viewer, Rotation_y) {
   std::vector<double> result = model.GetVertices();
   std::vector<double> reference{0, 0, 0,  2, 0, 0,  0, 2, 0,  2, 2, 0,
                                 0, 0, -2, 2, 0, -2, 0, 2, -2, 2, 2, -2};
-  for (size_t i = 0; i < result.size() - 1; ++i) {
+  for (size_t i = 0; i < result.size(); ++i) {
     ASSERT_NEAR(result[i], reference[i], kAcc);
   }
 }
@@ -174,7 +175,7 @@ TEST(Viewer, Rotation_z) {
   std::vector<double> result = model.GetVertices();
   std::vector<double> reference{0, 0, 0, 0, 0, 2, -2, 0, 0, -2, 0, 2,
                                 0, 2, 0, 0, 2, 2, -2, 2, 0, -2, 2, 2};
-  for (size_t i = 0; i < result.size() - 1; ++i) {
+  for (size_t i = 0; i < result.size(); ++i) {
     ASSERT_NEAR(result[i], reference[i], kAcc);
   }
 }
