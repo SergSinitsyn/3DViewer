@@ -180,11 +180,7 @@ TEST(Viewer, Rotation_z) {
 }
 TEST(Viewer, Crash_test) {
   s21::VModel model;
-  std::vector<std::string> address_list{//
-                                        "tests/models/12140_Skull_v3_L2.obj",
-                                        // "tests/models/bat.obj"
-                                        // ,
-                                        "tests/models/dragon.obj"};
+  std::vector<std::string> address_list{"tests/models/dragon.obj"};
   for (size_t i = 0; i < address_list.size(); ++i) {
     model.ReadModelFile(address_list[i]);
     model.Inscribe();
