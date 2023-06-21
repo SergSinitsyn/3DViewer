@@ -1,0 +1,184 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN" "http://www.w3.org/TR/html4/loose.dtd">
+<html>
+<!-- Created by GNU Texinfo 6.8, https://www.gnu.org/software/texinfo/ -->
+
+<head>
+    <meta http-equiv="Content-Type" content="text/html; charset=utf-8">
+    <!-- В данном проекте реализована на языке программирования С++ программа для просмотра 3D моделей в каркасном виде (3D Viewer).
+Модели загружаются из файлов формата .obj, и имеется возможность просматривать их на экране с возможностью вращения, масштабирования и перемещения.
+
+Copyright (C) 2023-06 bernarda, joellebo, quincshe -->
+    <title>3DViewer_v2.0</title>
+
+    <meta name="description" content="3DViewer_v2.0">
+    <meta name="keywords" content="3DViewer_v2.0">
+    <meta name="resource-type" content="document">
+    <meta name="distribution" content="global">
+    <meta name="Generator" content="makeinfo">
+    <meta name="viewport" content="width=device-width,initial-scale=1">
+
+    <style type="text/css">
+        <!--
+        a.copiable-anchor {
+            visibility: hidden;
+            text-decoration: none;
+            line-height: 0em
+        }
+
+        a.summary-letter {
+            text-decoration: none
+        }
+
+        blockquote.indentedblock {
+            margin-right: 0em
+        }
+
+        div.display {
+            margin-left: 3.2em
+        }
+
+        div.example {
+            margin-left: 3.2em
+        }
+
+        kbd {
+            font-style: oblique
+        }
+
+        pre.display {
+            font-family: inherit
+        }
+
+        pre.format {
+            font-family: inherit
+        }
+
+        pre.menu-comment {
+            font-family: serif
+        }
+
+        pre.menu-preformatted {
+            font-family: serif
+        }
+
+        span.nolinebreak {
+            white-space: nowrap
+        }
+
+        span.roman {
+            font-family: initial;
+            font-weight: normal
+        }
+
+        span.sansserif {
+            font-family: sans-serif;
+            font-weight: normal
+        }
+
+        span:hover a.copiable-anchor {
+            visibility: visible
+        }
+
+        ul.no-bullet {
+            list-style: none
+        }
+        -->
+    </style>
+
+
+</head>
+
+<body lang="en">
+    <h1 class="settitle" align="center">3DViewer_v2.0</h1>
+
+
+
+
+    <p>Программа для визуализации каркасной модели в трехмерном пространстве:
+    </p>
+    <ul>
+        <li> Программа разработана на языке С++ стандарта C++17 с использованием компилятора g++, с использованием
+            дополнительных библиотек и модулей QT. <br>
+        </li>
+        <li> В программе реализован графический пользовательский интерфейс, на базе GUI-библиотеки - Qt. <br>
+        </li>
+        <li> Код программы находится в папке src. <br>
+        </li>
+        <li> Сборка программы настроена с помощью Makefile со стандартным набором целей для GNU-программ: all, install,
+            uninstall, clean, dvi, dist, tests, gcov_report. <br>
+        </li>
+        <li> Установка программы ведется в каталог build. <br>
+        </li>
+        <li> Программа разработана в соответствии с принципами объектно-ориентированного программирования. <br>
+        </li>
+        <li> Обеспечено покрытие unit-тестами модулей, связанных с загрузкой моделей и аффинными преобразованиями. <br>
+        </li>
+        <li> В один момент времени может быть только одна модель на экране. <br>
+        </li>
+    </ul>
+
+    <p>Программа предоставляет возможность:
+    </p>
+    <ul>
+        <li> Загружать каркасную модель из файла формата obj (поддержка только списка вершин и поверхностей).
+        </li>
+        <li> Перемещать модель на заданное расстояние относительно осей X, Y, Z.
+        </li>
+        <li> Поворачивать модель на заданный угол относительно своих осей X, Y, Z.
+        </li>
+        <li> Масштабировать модель на заданное значение.
+        </li>
+    </ul>
+
+    <p>Графический пользовательский интерфейс содержит:
+    </p>
+    <ul>
+        <li> Меню для выбора файла с моделью и поле для вывода его названия.
+        </li>
+        <li> Зону визуализации каркасной модели.
+        </li>
+        <li> Кнопку/кнопки и поля ввода для перемещения модели.
+        </li>
+        <li> Кнопку/кнопки и поля ввода для поворота модели.
+        </li>
+        <li> Кнопку/кнопки и поля ввода для масштабирования модели.
+        </li>
+        <li> Информацию о загруженной модели - название файла, кол-во вершин и ребер.
+        </li>
+    </ul>
+
+    <p>В программе присутствуют следующие пользовательские настройки:
+    </p>
+    <ul>
+        <li> Настройка типа проекции (параллельная и центральная).
+        </li>
+        <li> Настройка типа (сплошная, пунктирная), цвет и толщину ребер.
+        </li>
+        <li> Настройка способа отображения (отсутствует, круг, квадрат), цвет и размер вершин.
+        </li>
+        <li> Выбор цвет фона.
+        </li>
+        <li> Настройки сохраняются между перезапусками программы.
+        </li>
+    </ul>
+
+    <p>Программа предоставляет возможность для записи:
+    </p>
+    <ul>
+        <li> Программа позволяет сохранять полученные (&quot;отрендеренные&quot;) изображения в файл в форматах bmp и
+            jpeg.
+        </li>
+        <li> Программа позволяет по специальной кнопке записывать небольшие &quot;скринкасты&quot; - текущие
+            пользовательские аффинные преобразования загруженного объекта в gif-анимацию (640x480, 10fps, 5s).
+        </li>
+    </ul>
+
+    <p>Created by: bernarda, joellebo, quincshe
+    </p>
+    <p>June, 2023
+    </p>
+
+
+</body>
+
+</html>
