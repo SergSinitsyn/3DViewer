@@ -22,6 +22,7 @@ void Controller::LoadFile(const std::string& file_name) {
 
 void Controller::RestoreModel() {
   // model_ = *just_loaded_model_.GetState();   // ! fix
+  model_->RestoreModel();
   UpdateView();
 }
 

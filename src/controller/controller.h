@@ -2,6 +2,7 @@
 #define VIEWER_2_CONTROLLER_CONTROLLER_H
 
 #include <../model/vmodel.h>
+#include <../other/decorator.h>
 #include <../view/mainwindow.h>
 
 namespace s21 {

@@ -38,7 +38,8 @@ class VModel {
     return info;
   }
 
-  void Inscribe();
+  virtual void Inscribe();
+  virtual void RestoreModel() { throw std::runtime_error("Not implemented"); };
   void ReadModelFile(std::string file_name);
   void Scaling(double scale);
   void XRotation(double x_rot);
@@ -48,7 +49,7 @@ class VModel {
   void ZRotation(double z_rot);
   void ZShift(double z_shift);
 
- private:
+ protected:
   enum CoordinateAxis { kX, kY, kZ };
   std::vector<int> edges_;
   int edges_num_;
