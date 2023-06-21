@@ -4,6 +4,7 @@
 #include <QMainWindow>
 #include <QTimer>
 
+#include "../other/memento.h"
 #include "../other/structs.h"
 #include "gifanim/gifanim.h"
 #include "movement_control.h"
