@@ -5,7 +5,6 @@ project(3D_Viewer_2 VERSION 0.1 LANGUAGES CXX)
 set(CMAKE_INCLUDE_CURRENT_DIR ON)
 
 # set(CMAKE_PREFIX_PATH "/Users/elenagorbatenko//Qt/6.5.0/macos/lib/cmake/")
-
 set(CMAKE_AUTOUIC ON)
 set(CMAKE_AUTOMOC ON)
 set(CMAKE_AUTORCC ON)

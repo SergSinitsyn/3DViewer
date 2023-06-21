@@ -31,46 +31,6 @@ class MainWindow : public QMainWindow {
   void SetModelInformation(const ModelInformation &information);
   void UpdateWidget();
 
- private slots:
-  void on_actionOpen_OBJ_file_triggered();
-  void on_actionModel_information_triggered();
-  void on_actionOpen_documentation_triggered();
-
-  // settings  //TODO перенести в отдельный класс?
-  void on_actionColor_edges_triggered();
-  void on_actionColor_vertices_triggered();
-  void on_actionBackground_color_triggered();
-  void on_actionThickness_triggered();
-  void on_actionSize_triggered();
-  void on_actionNone_triggered(bool checked);
-  void on_actionCircle_triggered(bool checked);
-  void on_actionSquare_triggered(bool checked);
-  void on_actionSolid_triggered(bool checked);
-  void on_actionDashed_triggered(bool checked);
-  void on_actionParallel_triggered(bool checked);
-  void on_actionCentral_triggered(bool checked);
-  void on_actionRestore_settings_triggered();
-  void LoadSettingFromFile();
-  void SaveSettingToFile();
-  void SetupRadioButtons();
-  void CreateRecentFilesMenu();
-  void RemoveRecentFilesMenu();
-  void UpdateRecentFilesMenu();
-  int LoadRecentFile();
-  int FileNameErrorDialog(const char *msg);
-
-  // screenshot
-  void on_actionSave_OBJ_to_Image_triggered();
-  void on_pushButton_image_clicked();
-  void on_pushButton_record_clicked();
-  void SaveImageAs();
-  void RecordTimerAlarm();
-
-  //  void on_undoButton_clicked();
-
- signals:
-  void SettingsChanged(WidgetSettings *);
-
  private:
   void DefaultControls();
   void EnableControls(bool enable);
@@ -115,6 +75,45 @@ class MainWindow : public QMainWindow {
   QString gif_file_name_;
   GifAnim ganim_;
   GifWriter gwriter_;
+
+ private slots:
+  void on_actionOpen_OBJ_file_triggered();
+  void on_actionModel_information_triggered();
+  void on_actionOpen_documentation_triggered();
+  void on_undoButton_clicked();
+
+  // settings  //TODO перенести в отдельный класс?
+  void on_actionColor_edges_triggered();
+  void on_actionColor_vertices_triggered();
+  void on_actionBackground_color_triggered();
+  void on_actionThickness_triggered();
+  void on_actionSize_triggered();
+  void on_actionNone_triggered(bool checked);
+  void on_actionCircle_triggered(bool checked);
+  void on_actionSquare_triggered(bool checked);
+  void on_actionSolid_triggered(bool checked);
+  void on_actionDashed_triggered(bool checked);
+  void on_actionParallel_triggered(bool checked);
+  void on_actionCentral_triggered(bool checked);
+  void on_actionRestore_settings_triggered();
+  void LoadSettingFromFile();
+  void SaveSettingToFile();
+  void SetupRadioButtons();
+  void CreateRecentFilesMenu();
+  void RemoveRecentFilesMenu();
+  void UpdateRecentFilesMenu();
+  int LoadRecentFile();
+  int FileNameErrorDialog(const char *msg);
+
+  // screenshot
+  void on_actionSave_OBJ_to_Image_triggered();
+  void on_pushButton_image_clicked();
+  void on_pushButton_record_clicked();
+  void SaveImageAs();
+  void RecordTimerAlarm();
+
+ signals:
+  void SettingsChanged(WidgetSettings *);
 };
 
 }  // namespace s21

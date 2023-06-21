@@ -33,9 +33,9 @@ class MovementControl : public QObject {
   void SetupConnections();
   Controller* controller_;
   void (Controller::*method_)(double);
-  QDoubleSpinBox* box_;
-  QToolButton* positive_;
-  QToolButton* negative_;
+  QDoubleSpinBox* box_{nullptr};
+  QToolButton* positive_{nullptr};
+  QToolButton* negative_{nullptr};
   void MoveOnAxis(MovementControl::Direction direction);
 };
 
