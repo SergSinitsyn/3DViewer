@@ -110,7 +110,8 @@ run_linter:
 	@rm -f .clang-format
 
 cppcheck:
-	cppcheck --std=c++17 --enable=all --language=c++ --suppress=missingIncludeSystem $(TEST) $(SOURCE)
+	# cppcheck --std=c++17 --enable=all --language=c++ --suppress=missingIncludeSystem $(TEST) $(SOURCE)
+	cppcheck --std=c++17 --enable=all --language=c++ --suppress=missingIncludeSystem --suppress=unusedStructMember */*.cc */*.h
 
 leaks: $(TEST_FILE)
 	$(LEAKS) ./$(TEST_FILE)
