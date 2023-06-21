@@ -1520,6 +1520,9 @@
    <extends>QWidget</extends>
    <header>widget.h</header>
    <container>1</container>
+   <slots>
+    <slot>GetSettings(WidgetSettings*)</slot>
+   </slots>
   </customwidget>
  </customwidgets>
  <tabstops>
@@ -1543,7 +1546,24 @@
   <tabstop>pushButton_record</tabstop>
  </tabstops>
  <resources/>
- <connections/>
+ <connections>
+  <connection>
+   <sender>MainWindow</sender>
+   <signal>SettingsChanged(WidgetSettings*)</signal>
+   <receiver>widget</receiver>
+   <slot>GetSettings(WidgetSettings*)</slot>
+   <hints>
+    <hint type="sourcelabel">
+     <x>427</x>
+     <y>395</y>
+    </hint>
+    <hint type="destinationlabel">
+     <x>331</x>
+     <y>400</y>
+    </hint>
+   </hints>
+  </connection>
+ </connections>
  <slots>
   <signal>SettingsChanged(WidgetSettings*)</signal>
  </slots>
