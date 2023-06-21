@@ -10,7 +10,7 @@
     <x>0</x>
     <y>0</y>
     <width>856</width>
-    <height>776</height>
+    <height>778</height>
    </rect>
   </property>
   <property name="sizePolicy">
@@ -626,7 +626,7 @@
              <bool>false</bool>
             </property>
             <property name="text">
-             <string>-</string>
+             <string>←</string>
             </property>
             <property name="autoRepeat">
              <bool>true</bool>
@@ -664,7 +664,7 @@
              <enum>Qt::StrongFocus</enum>
             </property>
             <property name="text">
-             <string>+</string>
+             <string>→</string>
             </property>
             <property name="autoRepeat">
              <bool>true</bool>
@@ -751,7 +751,7 @@
              <enum>Qt::StrongFocus</enum>
             </property>
             <property name="text">
-             <string>-</string>
+             <string>↓</string>
             </property>
             <property name="autoRepeat">
              <bool>true</bool>
@@ -787,7 +787,7 @@
              <enum>Qt::StrongFocus</enum>
             </property>
             <property name="text">
-             <string>+</string>
+             <string>↑</string>
             </property>
             <property name="checkable">
              <bool>false</bool>

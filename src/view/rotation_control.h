@@ -1,3 +1,4 @@
+
 #ifndef ROTATION_CONTROL_H
 #define ROTATION_CONTROL_H
 
@@ -29,8 +30,8 @@ class RotationControl : public QObject {
   void SetupConnections();
   Controller *controller_;
   void (Controller::*method_)(int);
-  QSpinBox *box_;
-  QDial *dial_;
+  QSpinBox *box_{nullptr};
+  QDial *dial_{nullptr};
   int current_angle_{0};
 };
 

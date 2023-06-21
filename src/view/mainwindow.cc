@@ -49,38 +49,6 @@ MainWindow::~MainWindow() {
   delete ui_;
 }
 
-int MainWindow::LoadRecentFile() {
-  QAction *action = qobject_cast<QAction *>(QObject::sender());
-  try {
-    controller_->LoadFile(action->text().toStdString());
-    EnableControls(true);
-  } catch (std::exception &e) {
-    QMessageBox::warning(this, "Error loading file" + action->text(), e.what());
-  }
-  return 0;
-}
-
-void MainWindow::CreateRecentFilesMenu() {
-  const auto recent_files = settings_.GetRecentFiles();
-  if (!recent_files->empty()) {
-    recent_files_menu_ = ui_->menuFile->addMenu("Recent files");
-    for (const auto &file : *recent_files) {
-      auto action = recent_files_menu_->addAction(file);
-      connect(action, SIGNAL(triggered()), this, SLOT(LoadRecentFile()));
-    }
-  }
-}
-
-void MainWindow::RemoveRecentFilesMenu() {
-  if (recent_files_menu_)
-    ui_->menuFile->removeAction(recent_files_menu_->menuAction());
-}
-
-void MainWindow::UpdateRecentFilesMenu() {
-  RemoveRecentFilesMenu();
-  CreateRecentFilesMenu();
-}
-
 void MainWindow::SetController(Controller &controller) {
   controller_ = &controller;
   rotation_control_x_.SetController(*controller_);
@@ -179,6 +147,38 @@ void MainWindow::ShowInformation() {
       ", Faces: " + number_of_faces);
 }
 
+int MainWindow::LoadRecentFile() {
+  QAction *action = qobject_cast<QAction *>(QObject::sender());
+  try {
+    controller_->LoadFile(action->text().toStdString());
+    EnableControls(true);
+  } catch (std::exception &e) {
+    QMessageBox::warning(this, "Error loading file" + action->text(), e.what());
+  }
+  return 0;
+}
+
+void MainWindow::CreateRecentFilesMenu() {
+  const auto recent_files = settings_.GetRecentFiles();
+  if (!recent_files->empty()) {
+    recent_files_menu_ = ui_->menuFile->addMenu("Recent files");
+    for (const auto &file : *recent_files) {
+      auto action = recent_files_menu_->addAction(file);
+      connect(action, SIGNAL(triggered()), this, SLOT(LoadRecentFile()));
+    }
+  }
+}
+
+void MainWindow::RemoveRecentFilesMenu() {
+  if (recent_files_menu_)
+    ui_->menuFile->removeAction(recent_files_menu_->menuAction());
+}
+
+void MainWindow::UpdateRecentFilesMenu() {
+  RemoveRecentFilesMenu();
+  CreateRecentFilesMenu();
+}
+
 void MainWindow::SetupRadioButtons() {
   QActionGroup *typeGroup = new QActionGroup(this);
   QActionGroup *display_methodGroup = new QActionGroup(this);
@@ -251,6 +251,11 @@ void MainWindow::on_actionOpen_documentation_triggered() {
   } else {
     ui_->statusbar->showMessage("Documentation file not found");
   }
+}
+
+void MainWindow::on_undoButton_clicked() {
+  DefaultControls();
+  controller_->RestoreModel();
 }
 
 };  // namespace s21

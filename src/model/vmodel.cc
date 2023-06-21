@@ -51,8 +51,8 @@ void VModel::XRotation(double x_rot) {
   for (size_t i = 0; i < vertex_.size(); i += 3) {
     double y = vertex_.at(i + 1);
     double z = vertex_.at(i + 2);
-    vertex_.at(i + 1) = y * cos_rot_x + z * sin_rot_x;
-    vertex_.at(i + 2) = z * cos_rot_x - y * sin_rot_x;
+    vertex_.at(i + 1) = y * cos_rot_x - z * sin_rot_x;
+    vertex_.at(i + 2) = z * cos_rot_x + y * sin_rot_x;
   }
 }
 

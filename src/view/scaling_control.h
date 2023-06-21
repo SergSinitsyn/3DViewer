@@ -34,10 +34,10 @@ class ScalingControl : public QObject {
   void SetupConnections();
   Controller* controller_;
   void (Controller::*method_)(double);
-  QDoubleSpinBox* scale_box_;
-  QPushButton* scale_button_;
-  QToolButton* scale_down_button_;
-  QToolButton* scale_up_button_;
+  QDoubleSpinBox* scale_box_{nullptr};
+  QPushButton* scale_button_{nullptr};
+  QToolButton* scale_down_button_{nullptr};
+  QToolButton* scale_up_button_{nullptr};
   double currect_scale_{100.0};
 };
 
