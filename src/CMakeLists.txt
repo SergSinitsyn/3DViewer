@@ -31,6 +31,8 @@ set(PROJECT_SOURCES
     main.cc
 
     other/structs.h
+    other/memento.h
+    other/decorator.h
 
     view/mainwindow.cc view/mainwindow.h view/mainwindow.ui
     view/mainwindow_settings.cc
