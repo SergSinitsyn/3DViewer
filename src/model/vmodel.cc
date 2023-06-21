@@ -96,8 +96,7 @@ void VModel::EdgeDuplicateDel() {
   temp.push_back(edges_.at(1));
   for (size_t i = 2; i < edges_.size() - 2; i += 2) {
     if ((temp.at(temp.size() - 1) != edges_.at(i + 1)) ||
-        (temp.at(temp.size() - 1) == edges_.at(i + 1) &&
-         temp.at(temp.size() - 2) != edges_.at(i))) {
+        (temp.at(temp.size() - 2) != edges_.at(i))) {
       temp.push_back(edges_.at(i));
       temp.push_back(edges_.at(i + 1));
     }
