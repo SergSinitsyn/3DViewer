@@ -51,19 +51,6 @@ class VModel {
 
  protected:
   enum CoordinateAxis { kX, kY, kZ };
-  std::vector<int> edges_;
-  int edges_num_;
-  int facetes_num_;
-  std::string file_name_;
-  std::vector<double> vertex_;
-  int vertex_num_;
-
-  double x_min_;
-  double x_max_;
-  double y_min_;
-  double y_max_;
-  double z_min_;
-  double z_max_;
 
   void Centering();
   void EdgesAdd(std::string line);
@@ -79,6 +66,20 @@ class VModel {
   void Shift(double shift, CoordinateAxis ca);
   void UniquelizationEdges();
   void VertexAdd(std::string line);
+
+  std::vector<int> edges_;
+  int edges_num_;
+  int facetes_num_;
+  std::string file_name_;
+  std::vector<double> vertex_;
+  int vertex_num_;
+
+  double x_min_;
+  double x_max_;
+  double y_min_;
+  double y_max_;
+  double z_min_;
+  double z_max_;
 };
 }  // namespace s21
 
