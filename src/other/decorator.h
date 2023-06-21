@@ -7,7 +7,7 @@ namespace s21 {
 class Decorator : public VModel {
  public:
   Decorator(){};
-  Decorator(VModel* component) : VModel(*component){};
+  explicit Decorator(VModel* component) : VModel(*component){};
 
   void SaveModel() { just_loaded_model_.SetState(this); };
   void Inscribe() override {
