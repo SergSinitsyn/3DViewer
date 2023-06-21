@@ -11,6 +11,7 @@
 
 namespace s21 {
 
+// Shablonnyi method
 template <class T>
 void MainWindow::SetSetting(void (WidgetSettings::*SetMetod)(const T &),
                             const T &value) {
