@@ -1,12 +1,12 @@
-#ifndef VIEWER_2_OTHER_DECORATOR_H
-#define VIEWER_2_OTHER_DECORATOR_H
+#ifndef VIEWER_2_OTHER_DECORATOR_H_
+#define VIEWER_2_OTHER_DECORATOR_H_
 
 #include "../model/vmodel.h"
 #include "memento.h"
 
 namespace s21 {
 
-// Класс Decorator
+// Decorator pattern
 class Decorator : public VModel {
  public:
   Decorator(){};
@@ -25,6 +25,6 @@ class Decorator : public VModel {
   Memento<VModel> just_loaded_model_;
 };
 
-};  // namespace s21
+}  // namespace s21
 
-#endif  // VIEWER_2_OTHER_DECORATOR_H
+#endif  // VIEWER_2_OTHER_DECORATOR_H_

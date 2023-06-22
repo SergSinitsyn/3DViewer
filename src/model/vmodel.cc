@@ -251,4 +251,4 @@ void VModel::VertexAdd(std::string line) {
         "coordinates.");
 }
 
-};  // namespace s21
+}  // namespace s21

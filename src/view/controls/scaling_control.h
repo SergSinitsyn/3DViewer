@@ -1,5 +1,5 @@
-#ifndef VIEWER_2_VIEW_CONTROLS_SCALING_CONTROL_H
-#define VIEWER_2_VIEW_CONTROLS_SCALING_CONTROL_H
+#ifndef VIEWER_2_VIEW_CONTROLS_SCALING_CONTROL_H_
+#define VIEWER_2_VIEW_CONTROLS_SCALING_CONTROL_H_
 
 #include <QDoubleSpinBox>
 #include <QPushButton>
@@ -36,6 +36,6 @@ class ScalingControl : public QObject {
   double currect_scale_{100.0};
 };
 
-};  // namespace s21
+}  // namespace s21
 
-#endif  // VIEWER_2_VIEW_CONTROLS_SCALING_CONTROL_H
+#endif  // VIEWER_2_VIEW_CONTROLS_SCALING_CONTROL_H_

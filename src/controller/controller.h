@@ -1,5 +1,5 @@
-#ifndef VIEWER_2_CONTROLLER_CONTROLLER_H
-#define VIEWER_2_CONTROLLER_CONTROLLER_H
+#ifndef VIEWER_2_CONTROLLER_CONTROLLER_H_
+#define VIEWER_2_CONTROLLER_CONTROLLER_H_
 
 #include "../model/vmodel.h"
 #include "../other/decorator.h"
@@ -7,6 +7,7 @@
 
 namespace s21 {
 
+// Singleton pattern
 template <typename T>
 class Singleton {
  public:
@@ -24,9 +25,7 @@ class Singleton {
   Singleton& operator=(const Singleton&) = delete;
 };
 
-class Controller : public QObject, public Singleton<Controller> {
-  Q_OBJECT
-
+class Controller : public Singleton<Controller> {
  public:
   friend class Singleton<Controller>;
 
@@ -52,6 +51,6 @@ class Controller : public QObject, public Singleton<Controller> {
   s21::MainWindow* view_{nullptr};
 };
 
-};  // namespace s21
+}  // namespace s21
 
-#endif  // VIEWER_2_CONTROLLER_CONTROLLER_H
+#endif  // VIEWER_2_CONTROLLER_CONTROLLER_H_

@@ -43,4 +43,4 @@ void MovementControl::MoveOnAxis(MovementControl::Direction direction) {
   (controller_->*method_)(movement);
 }
 
-};  // namespace s21
+}  // namespace s21

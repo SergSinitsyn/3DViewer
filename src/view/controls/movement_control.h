@@ -1,5 +1,5 @@
-#ifndef VIEWER_2_VIEW_CONTROLS_MOVEMENT_CONTROL_H
-#define VIEWER_2_VIEW_CONTROLS_MOVEMENT_CONTROL_H
+#ifndef VIEWER_2_VIEW_CONTROLS_MOVEMENT_CONTROL_H_
+#define VIEWER_2_VIEW_CONTROLS_MOVEMENT_CONTROL_H_
 
 #include <QDoubleSpinBox>
 #include <QToolButton>
@@ -35,6 +35,6 @@ class MovementControl : public QObject {
   void MoveOnAxis(MovementControl::Direction direction);
 };
 
-};  // namespace s21
+}  // namespace s21
 
-#endif  // VIEWER_2_VIEW_CONTROLS_MOVEMENT_CONTROL_H
+#endif  // VIEWER_2_VIEW_CONTROLS_MOVEMENT_CONTROL_H_

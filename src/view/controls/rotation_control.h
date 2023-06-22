@@ -1,5 +1,5 @@
-#ifndef VIEWER_2_VIEW_CONTROLS_ROTATION_CONTROL_H
-#define VIEWER_2_VIEW_CONTROLS_ROTATION_CONTROL_H
+#ifndef VIEWER_2_VIEW_CONTROLS_ROTATION_CONTROL_H_
+#define VIEWER_2_VIEW_CONTROLS_ROTATION_CONTROL_H_
 
 #include <QDial>
 #include <QSpinBox>
@@ -29,6 +29,6 @@ class RotationControl : public QObject {
   int current_angle_{0};
 };
 
-};  // namespace s21
+}  // namespace s21
 
-#endif  // VIEWER_2_VIEW_CONTROLS_ROTATION_CONTROL_H
+#endif  // VIEWER_2_VIEW_CONTROLS_ROTATION_CONTROL_H_

@@ -1,5 +1,5 @@
-#ifndef VIEWER_2_VIEW_MAINWINDOW_MAINWINDOW_H
-#define VIEWER_2_VIEW_MAINWINDOW_MAINWINDOW_H
+#ifndef VIEWER_2_VIEW_MAINWINDOW_MAINWINDOW_H_
+#define VIEWER_2_VIEW_MAINWINDOW_MAINWINDOW_H_
 
 #include <QMainWindow>
 #include <QTimer>
@@ -65,7 +65,7 @@ class MainWindow : public QMainWindow {
   WidgetSettings settings_;
   Memento<WidgetSettings> *start_settindgs_ = nullptr;
 
-  // video recording variables
+  // Video recording variables
   const int kCancelScreenCast = -1;
   const int kRetryScreenCast = 0;
   const int kEndScreenCast = 0;
@@ -83,7 +83,7 @@ class MainWindow : public QMainWindow {
   void on_actionOpen_documentation_triggered();
   void on_undoButton_clicked();
 
-  // settings
+  // Settings
   void on_actionColor_edges_triggered();
   void on_actionColor_vertices_triggered();
   void on_actionBackground_color_triggered();
@@ -107,7 +107,7 @@ class MainWindow : public QMainWindow {
   int LoadRecentFile();
   int FileNameErrorDialog(const char *msg);
 
-  // screenshot
+  // Screenshot
   int ValidateGifFilename();
   void on_actionSave_OBJ_to_Image_triggered();
   void on_pushButton_image_clicked();
@@ -122,4 +122,4 @@ class MainWindow : public QMainWindow {
 
 }  // namespace s21
 
-#endif  // VIEWER_2_VIEW_MAINWINDOW_MAINWINDOW_H
+#endif  // VIEWER_2_VIEW_MAINWINDOW_MAINWINDOW_H_

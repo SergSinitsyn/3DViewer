@@ -1,5 +1,5 @@
-#ifndef VIEWER_2_VIEW_WIDGET_WIDGET_H
-#define VIEWER_2_VIEW_WIDGET_WIDGET_H
+#ifndef VIEWER_2_VIEW_WIDGET_WIDGET_H_
+#define VIEWER_2_VIEW_WIDGET_WIDGET_H_
 
 #define GL_SILENCE_DEPRECATION
 
@@ -38,6 +38,6 @@ class Widget : public QOpenGLWidget, protected QOpenGLFunctions {
   WidgetSettings settings_;
 };
 
-};  // namespace s21
+}  // namespace s21
 
-#endif  // VIEWER_2_VIEW_WIDGET_WIDGET_H
+#endif  // VIEWER_2_VIEW_WIDGET_WIDGET_H_

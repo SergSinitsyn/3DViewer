@@ -21,7 +21,7 @@
 #include "../widget/widget.h"
 #include "ui_mainwindow.h"
 
-using namespace s21;
+namespace s21 {
 
 MainWindow::MainWindow(QWidget *parent)
     : QMainWindow(parent),
@@ -31,7 +31,6 @@ MainWindow::MainWindow(QWidget *parent)
   ui_->setupUi(this);
   SetupControls();
 
-  // Settings
   LoadSettingFromFile();
   start_settindgs_ = new Memento<WidgetSettings>(settings_);
   SetupRadioButtons();
@@ -261,3 +260,5 @@ void MainWindow::on_undoButton_clicked() {
   DefaultControls();
   controller_->RestoreModel();
 }
+
+}  // namespace s21

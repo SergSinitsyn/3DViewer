@@ -59,4 +59,4 @@ void ScalingControl::ApplyScale(double new_scale) {
   scale_box_->blockSignals(false);
 }
 
-};  // namespace s21
+}  // namespace s21

@@ -1,5 +1,5 @@
-#ifndef VIEWER_2_VIEW_INFO_INFO_H
-#define VIEWER_2_VIEW_INFO_INFO_H
+#ifndef VIEWER_2_VIEW_INFO_INFO_H_
+#define VIEWER_2_VIEW_INFO_INFO_H_
 
 #include <QDialog>
 
@@ -25,6 +25,6 @@ class Info : public QDialog {
   ModelInformation model_information_;
 };
 
-};  // namespace s21
+}  // namespace s21
 
-#endif  // VIEWER_2_VIEW_INFO_INFO_H
+#endif  // VIEWER_2_VIEW_INFO_INFO_H_

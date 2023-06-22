@@ -118,4 +118,5 @@ void MainWindow::RecordTimerAlarm() {
     on_pushButton_record_clicked();
   }
 }
-};  // namespace s21
+
+}  // namespace s21

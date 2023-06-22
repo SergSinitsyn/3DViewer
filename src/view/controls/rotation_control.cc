@@ -48,4 +48,4 @@ void RotationControl::RotateAroundAxis(int new_angle) {
   dial_->blockSignals(false);
 }
 
-};  // namespace s21
+}  // namespace s21

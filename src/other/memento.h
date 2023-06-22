@@ -1,9 +1,9 @@
-#ifndef VIEWER2_OTHER_MEMENTO_H
-#define VIEWER2_OTHER_MEMENTO_H
+#ifndef VIEWER2_OTHER_MEMENTO_H_
+#define VIEWER2_OTHER_MEMENTO_H_
 
 namespace s21 {
 
-// Pattern Xranitel
+// Memento pattern
 template <class T>
 class Memento {
  public:
@@ -31,6 +31,6 @@ class Memento {
   bool is_valid_ = false;
 };
 
-};  // namespace s21
+}  // namespace s21
 
-#endif  // VIEWER2_OTHER_MEMENTO_H
+#endif  // VIEWER2_OTHER_MEMENTO_H_

@@ -28,4 +28,4 @@ void Info::InitializationInfo() {
   ui_->label_numberOfFaces->setText(faces);
 }
 
-};  // namespace s21
+}  // namespace s21

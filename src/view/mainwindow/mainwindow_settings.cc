@@ -11,7 +11,7 @@
 
 namespace s21 {
 
-// Shablonnyi method
+// Template Method pattern
 template <class T>
 void MainWindow::SetSetting(void (WidgetSettings::*SetMetod)(const T &),
                             const T &value) {
@@ -92,4 +92,4 @@ void MainWindow::on_actionRestore_settings_triggered() {
   emit SettingsChanged(&settings_);
 }
 
-};  // namespace s21
+}  // namespace s21

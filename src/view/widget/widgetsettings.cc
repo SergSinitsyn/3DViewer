@@ -4,10 +4,14 @@
 #include <QSettings>
 
 using namespace s21;
+
 Q_DECLARE_METATYPE(Element);
 Q_DECLARE_METATYPE(LineType);
 Q_DECLARE_METATYPE(ProjectionType);
 Q_DECLARE_METATYPE(DisplayMethod);
+
+namespace s21 {
+
 void WidgetSettings::LoadSettingsFromFile() {
   QString settings_path = QCoreApplication::applicationDirPath() + "/" +
                           QCoreApplication::applicationName() + ".conf";
@@ -74,3 +78,5 @@ void WidgetSettings::RememberRecentFile(QString name) {
   recent_files_.insert(0, name);
   if (recent_files_.size() > kMaxRecentFiles) recent_files_.removeLast();
 }
+
+}  // namespace s21
