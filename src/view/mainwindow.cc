@@ -23,7 +23,8 @@
 #include "ui_mainwindow.h"
 #include "widget.h"
 
-namespace s21 {
+using namespace s21;
+
 MainWindow::MainWindow(QWidget *parent)
     : QMainWindow(parent),
       ui_(new Ui::MainWindow),
@@ -164,7 +165,7 @@ void MainWindow::CreateRecentFilesMenu() {
     recent_files_menu_ = ui_->menuFile->addMenu("Recent files");
     for (const auto &file : *recent_files) {
       auto action = recent_files_menu_->addAction(file);
-      connect(action, SIGNAL(triggered()), this, SLOT(LoadRecentFile()));
+      connect(action, &QAction::triggered, this, &MainWindow::LoadRecentFile);
     }
   }
 }
@@ -256,5 +257,3 @@ void MainWindow::on_undoButton_clicked() {
   DefaultControls();
   controller_->RestoreModel();
 }
-
-};  // namespace s21

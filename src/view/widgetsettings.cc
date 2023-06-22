@@ -14,11 +14,21 @@ void WidgetSettings::LoadSettingsFromFile() {
   settings_file.beginGroup("WidgetParameters");
   setEdgeThickness(settings_file.value("edgeThickness", 1).toInt());
   setVertexSize(settings_file.value("vertexSize", 1).toInt());
+#ifdef Q_OS_LINUX
   setDisplayVertexes(
       settings_file.value("displayMethod", kCircle).value<DisplayMethod>());
   setProjection(
       settings_file.value("projectionType", kCentral).value<ProjectionType>());
   setLineType(settings_file.value("lineType", kSolid).value<LineType>());
+#else
+  setDisplayVertexes(static_cast<DisplayMethod>(
+      settings_file.value("displayMethod", kCircle).toInt()));
+  setProjection(static_cast<ProjectionType>(
+      settings_file.value("projectionType", kCentral).toInt()));
+  setLineType(
+      static_cast<LineType>(settings_file.value("lineType", kSolid).toInt()));
+#endif
+
   setBackgroundColor(settings_file.value("backgroundColor", QColor(Qt::yellow))
                          .value<QColor>());
   setVertexColor(
