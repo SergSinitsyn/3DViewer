@@ -97,23 +97,28 @@ dist:
 check: leaks cppcheck linter
 
 linter:
-	clang-format -n -style=google -verbose view/*/*.cc view/*/*.h
-	clang-format -n -style=google -verbose controller/*.cc controller/*.h
-	clang-format -n -style=google -verbose main.cc
+	@clang-format -n -style=google -verbose controller/*.cc controller/*.h
+	@clang-format -n -style=google -verbose model/*.cc model/*.h
+	@clang-format -n -style=google -verbose other/*.h
+	@clang-format -n -style=google -verbose tests/*.cc
+	@clang-format -n -style=google -verbose view/*/*.cc view/*/*.h
+	@clang-format -n -style=google -verbose main.cc
 
 run_linter:
 	@cp ../materials/linters/.clang-format ./
-# @clang-format -i $(TEST)
-# @clang-format -i $(SOURCE)
-	@clang-format -i view/*/*.cc view/*/*.h
 	@clang-format -i controller/*.cc controller/*.h
+	@clang-format -i model/*.cc model/*.h
+	@clang-format -i other/*.h
+	@clang-format -i tests/*.cc
+	@clang-format -i view/*/*.cc view/*/*.h
 	@clang-format -i main.cc
 	@rm -f .clang-format
 
 cppcheck:
-	# cppcheck --std=c++17 --enable=all --language=c++ --suppress=missingIncludeSystem $(TEST) $(SOURCE)
+	# cppcheck --std=c++17 --enable=all --language=c++ --suppress=missingInclude --suppress=unusedStructMember\
+	#  --suppress=unusedFunction  */*.cc */*.h */..*/.cc */..*/.h
 	cppcheck --std=c++17 --enable=all --language=c++ --suppress=missingInclude --suppress=unusedStructMember\
-	 --suppress=unusedFunction  */*.cc */*.h */..*/.cc */..*/.h
+	 --suppress=unusedFunction  controller/*.cc controller/*.h model/*.cc model/*.h other/*.h tests/*.cc view/*/*.cc view/*/*.h main.cc
 
 leaks: $(TEST_FILE)
 	$(LEAKS) ./$(TEST_FILE)
