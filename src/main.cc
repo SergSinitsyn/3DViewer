@@ -2,7 +2,7 @@
 
 #include "controller/controller.h"
 #include "model/vmodel.h"
-#include "view/mainwindow.h"
+#include "view/mainwindow/mainwindow.h"
 
 int main(int argc, char* argv[]) {
   QApplication application(argc, argv);

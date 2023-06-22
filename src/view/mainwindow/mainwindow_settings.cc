@@ -5,7 +5,7 @@
 #include <QMessageBox>
 #include <QSettings>
 
-#include "info/info.h"
+#include "../info/info.h"
 #include "mainwindow.h"
 #include "ui_mainwindow.h"
 

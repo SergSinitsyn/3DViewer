@@ -1,14 +1,8 @@
+#ifndef VIEWER_2_VIEW_CONTROLS_ROTATION_CONTROL_H
+#define VIEWER_2_VIEW_CONTROLS_ROTATION_CONTROL_H
 
-#ifndef ROTATION_CONTROL_H
-#define ROTATION_CONTROL_H
-
-#include <QAbstractSlider>
 #include <QDial>
 #include <QSpinBox>
-#include <QStatusBar>
-#include <QString>
-
-#include "widget.h"
 
 namespace s21 {
 
@@ -37,4 +31,4 @@ class RotationControl : public QObject {
 
 };  // namespace s21
 
-#endif  // ROTATION_CONTROL_H
+#endif  // VIEWER_2_VIEW_CONTROLS_ROTATION_CONTROL_H

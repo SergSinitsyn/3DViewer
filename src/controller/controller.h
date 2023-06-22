@@ -1,9 +1,9 @@
 #ifndef VIEWER_2_CONTROLLER_CONTROLLER_H
 #define VIEWER_2_CONTROLLER_CONTROLLER_H
 
-#include <../model/vmodel.h>
-#include <../other/decorator.h>
-#include <../view/mainwindow.h>
+#include "../model/vmodel.h"
+#include "../other/decorator.h"
+#include "../view/mainwindow/mainwindow.h"
 
 namespace s21 {
 

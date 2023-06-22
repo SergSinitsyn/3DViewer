@@ -1,8 +1,6 @@
 #include "movement_control.h"
 
-#include <QMessageBox>
-
-#include "../controller/controller.h"
+#include "../../controller/controller.h"
 
 namespace s21 {
 

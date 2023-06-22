@@ -5,6 +5,7 @@ project(3D_Viewer_2 VERSION 0.1 LANGUAGES CXX)
 set(CMAKE_INCLUDE_CURRENT_DIR ON)
 
 cmake_host_system_information(RESULT HOSTNAME QUERY HOSTNAME)
+
 IF(${HOSTNAME} MATCHES "MacBook-Pro-Elena")
     set(CMAKE_PREFIX_PATH "/Users/elenagorbatenko//Qt/6.5.0/macos/lib/cmake/")
 endif()
@@ -25,7 +26,7 @@ else()
     find_package(Qt${QT_VERSION_MAJOR} REQUIRED COMPONENTS Widgets OpenGLWidgets OpenGL)
 endif()
 
-include_directories(view)
+include_directories(view/widget)
 
 set(PROJECT_SOURCES
     main.cc
@@ -34,26 +35,24 @@ set(PROJECT_SOURCES
     other/memento.h
     other/decorator.h
 
-    view/mainwindow.cc view/mainwindow.h view/mainwindow.ui
-    view/mainwindow_settings.cc
-    view/mainwindow_screenshots.cc
+    controller/controller.cc controller/controller.h
 
-    view/widget.cc view/widget.h
-    view/rotation_control.cc view/rotation_control.h
-    view/movement_control.cc view/movement_control.h
-    view/scaling_control.cc view/scaling_control.h
+    model/vmodel.cc model/vmodel.h
 
-    view/mainwindow_settings.cc
-    view/widgetsettings.cc view/widgetsettings.h
-    view/mainwindow_screenshots.cc
+    view/mainwindow/mainwindow.cc view/mainwindow/mainwindow.h view/mainwindow/mainwindow.ui
+    view/mainwindow/mainwindow_settings.cc
+    view/mainwindow/mainwindow_screenshots.cc
+
+    view/widget/widget.cc view/widget/widget.h
+    view/widget/widgetsettings.cc view/widget/widgetsettings.h
+
+    view/controls/rotation_control.cc view/controls/rotation_control.h
+    view/controls/movement_control.cc view/controls/movement_control.h
+    view/controls/scaling_control.cc view/controls/scaling_control.h
 
     view/info/info.cc view/info/info.h view/info/info.ui
 
     view/gifanim/gifanim.cpp view/gifanim/gifanim.h
-
-    controller/controller.cc controller/controller.h
-
-    model/vmodel.cc model/vmodel.h
 )
 
 if(${QT_VERSION_MAJOR} GREATER_EQUAL 6)

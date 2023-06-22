@@ -1,8 +1,9 @@
-#ifndef WIDGETSETTINGS_H
-#define WIDGETSETTINGS_H
+#ifndef VIEWER_2_VIEW_WIDGET_WIDGETSETTINGS_H
+#define VIEWER_2_VIEW_WIDGET_WIDGETSETTINGS_H
 
 #include <QColor>
 #include <QObject>
+
 namespace s21 {
 
 typedef enum { kLine, kVertex } Element;
@@ -65,4 +66,4 @@ class WidgetSettings {
 };
 
 }  // namespace s21
-#endif  // WIDGETSETTINGS_H
+#endif  // VIEWER_2_VIEW_WIDGET_WIDGETSETTINGS_H

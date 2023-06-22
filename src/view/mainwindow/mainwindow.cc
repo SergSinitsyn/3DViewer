@@ -16,12 +16,10 @@
 #include <algorithm>
 #include <functional>
 
-#include "../controller/controller.h"
-#include "info/info.h"
-#include "movement_control.h"
-#include "rotation_control.h"
+#include "../../controller/controller.h"
+#include "../info/info.h"
+#include "../widget/widget.h"
 #include "ui_mainwindow.h"
-#include "widget.h"
 
 using namespace s21;
 
@@ -111,6 +109,9 @@ void MainWindow::LoadFile() {
     QMessageBox::critical(this, "Warning", e.what());
     ui_->statusbar->showMessage("Error loading file: '" + new_filename + "'" +
                                 ", error:" + e.what());
+    DefaultControls();
+    EnableControls(false);
+    UpdateWidget();
   }
 }
 
@@ -238,7 +239,6 @@ void MainWindow::on_actionModel_information_triggered() {
 }
 
 void MainWindow::on_actionOpen_documentation_triggered() {
-  //! правильные пути!
 #ifdef Q_OS_LINUX
   QString link = QCoreApplication::applicationDirPath() + "/index.html";
 #else

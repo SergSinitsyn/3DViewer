@@ -1,6 +1,6 @@
 #include "scaling_control.h"
 
-#include "../controller/controller.h"
+#include "../../controller/controller.h"
 
 namespace s21 {
 

@@ -1,5 +1,5 @@
-#ifndef WIDGET_H
-#define WIDGET_H
+#ifndef VIEWER_2_VIEW_WIDGET_WIDGET_H
+#define VIEWER_2_VIEW_WIDGET_WIDGET_H
 
 #define GL_SILENCE_DEPRECATION
 
@@ -7,7 +7,7 @@
 #include <QOpenGLFunctions>
 #include <QOpenGLWidget>
 
-#include "../other/structs.h"
+#include "../../other/structs.h"
 #include "widgetsettings.h"
 
 namespace s21 {
@@ -40,4 +40,4 @@ class Widget : public QOpenGLWidget, protected QOpenGLFunctions {
 
 };  // namespace s21
 
-#endif  // WIDGET_H
+#endif  // VIEWER_2_VIEW_WIDGET_WIDGET_H

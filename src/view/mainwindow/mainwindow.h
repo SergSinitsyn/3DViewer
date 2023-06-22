@@ -1,16 +1,16 @@
-#ifndef MAINWINDOW_H
-#define MAINWINDOW_H
+#ifndef VIEWER_2_VIEW_MAINWINDOW_MAINWINDOW_H
+#define VIEWER_2_VIEW_MAINWINDOW_MAINWINDOW_H
 
 #include <QMainWindow>
 #include <QTimer>
 
-#include "../other/memento.h"
-#include "../other/structs.h"
-#include "gifanim/gifanim.h"
-#include "movement_control.h"
-#include "rotation_control.h"
-#include "scaling_control.h"
-#include "widget.h"
+#include "../../other/memento.h"
+#include "../../other/structs.h"
+#include "../controls/movement_control.h"
+#include "../controls/rotation_control.h"
+#include "../controls/scaling_control.h"
+#include "../gifanim/gifanim.h"
+#include "../widget/widget.h"
 
 QT_BEGIN_NAMESPACE
 namespace Ui {
@@ -38,18 +38,6 @@ class MainWindow : public QMainWindow {
   void LoadFile();
   void SetupControls();
   void ShowInformation();
-
-  void LoadSettingFromFile();
-  void SaveSettingToFile();
-  void SetupRadioButtons();
-  void CreateRecentFilesMenu();
-  void RemoveRecentFilesMenu();
-  void UpdateRecentFilesMenu();
-  int LoadRecentFile();
-  int FileNameErrorDialog(const char *msg);
-
-  void SaveImageAs();
-  void RecordTimerAlarm();
 
   Ui::MainWindow *ui_;
   ModelData model_data_;
@@ -110,10 +98,22 @@ class MainWindow : public QMainWindow {
   void on_actionCentral_triggered(bool checked);
   void on_actionRestore_settings_triggered();
 
+  void LoadSettingFromFile();
+  void SaveSettingToFile();
+  void SetupRadioButtons();
+  void CreateRecentFilesMenu();
+  void RemoveRecentFilesMenu();
+  void UpdateRecentFilesMenu();
+  int LoadRecentFile();
+  int FileNameErrorDialog(const char *msg);
+
   // screenshot
   void on_actionSave_OBJ_to_Image_triggered();
   void on_pushButton_image_clicked();
   void on_pushButton_record_clicked();
+
+  void SaveImageAs();
+  void RecordTimerAlarm();
 
  signals:
   void SettingsChanged(WidgetSettings *);
@@ -121,4 +121,4 @@ class MainWindow : public QMainWindow {
 
 }  // namespace s21
 
-#endif  // MAINWINDOW_H
+#endif  // VIEWER_2_VIEW_MAINWINDOW_MAINWINDOW_H

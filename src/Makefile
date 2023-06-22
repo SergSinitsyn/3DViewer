@@ -71,20 +71,20 @@ install:
 	make -C  $(BUILD_DIR)
 	cd $(BUILD_DIR) && rm -rf CMakeFiles cmake_install.cmake CMakeCache.txt Makefile $(NAME)_autogen
 	open  $(BUILD_DIR)
-	make dvi
+	make create_dvi
 
 uninstall:
 	$(CLEAN) $(BUILD_DIR)	
 
-dvi:
+
+create_dvi: $(DOCUMENT_DIR)/$(DOCUMENT).texi
 	makeinfo -o $(BUILD_DIR) --html --no-warn --no-validate --force $(DOCUMENT_DIR)/$(DOCUMENT).texi
-	make open_dvi
+
+dvi: create_dvi
+	-$(OPEN) $(BUILD_DIR)/index.html
 
 open_report:
 	-$(OPEN) report/index.html
-
-open_dvi:
-	-$(OPEN) $(BUILD_DIR)/index.html
 
 dist:
 	make clean

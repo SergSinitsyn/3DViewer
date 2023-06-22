@@ -1,12 +1,8 @@
-#ifndef MOVEMENT_CONTROL_H
-#define MOVEMENT_CONTROL_H
+#ifndef VIEWER_2_VIEW_CONTROLS_MOVEMENT_CONTROL_H
+#define VIEWER_2_VIEW_CONTROLS_MOVEMENT_CONTROL_H
 
 #include <QDoubleSpinBox>
-#include <QStatusBar>
-#include <QString>
 #include <QToolButton>
-
-#include "widget.h"
 
 namespace s21 {
 
@@ -41,4 +37,4 @@ class MovementControl : public QObject {
 
 };  // namespace s21
 
-#endif  // MOVEMENT_CONTROLLER_H
+#endif  // VIEWER_2_VIEW_CONTROLS_MOVEMENT_CONTROL_H

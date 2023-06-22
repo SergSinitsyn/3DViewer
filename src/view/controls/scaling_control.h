@@ -1,14 +1,9 @@
-#ifndef SCALING_CONTROL_H
-#define SCALING_CONTROL_H
+#ifndef VIEWER_2_VIEW_CONTROLS_SCALING_CONTROL_H
+#define VIEWER_2_VIEW_CONTROLS_SCALING_CONTROL_H
 
 #include <QDoubleSpinBox>
-#include <QObject>
 #include <QPushButton>
-#include <QStatusBar>
 #include <QToolButton>
-#include <QWidget>
-
-#include "widget.h"
 
 namespace s21 {
 
@@ -43,4 +38,4 @@ class ScalingControl : public QObject {
 
 };  // namespace s21
 
-#endif  // SCALING_CONTROL_H
+#endif  // VIEWER_2_VIEW_CONTROLS_SCALING_CONTROL_H

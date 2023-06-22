@@ -1,7 +1,7 @@
 #include "controller.h"
 
-#include <../model/vmodel.h>
-#include <../view/mainwindow.h>
+#include "../model/vmodel.h"
+#include "../view/mainwindow/mainwindow.h"
 
 namespace s21 {
 
