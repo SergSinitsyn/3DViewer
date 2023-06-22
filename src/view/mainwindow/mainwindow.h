@@ -70,7 +70,7 @@ class MainWindow : public QMainWindow {
   const int kRetryScreenCast = 0;
   const int kEndScreenCast = 0;
   const int kMaxFrames = 50;
-  bool record_ = false;
+  bool start_recording_ = false;
   QTimer record_timer_;
   int frames_;
   QString gif_file_name_;
@@ -97,10 +97,10 @@ class MainWindow : public QMainWindow {
   void on_actionParallel_triggered(bool checked);
   void on_actionCentral_triggered(bool checked);
   void on_actionRestore_settings_triggered();
-
   void LoadSettingFromFile();
   void SaveSettingToFile();
   void SetupRadioButtons();
+  void SetActualSettingsMenu();
   void CreateRecentFilesMenu();
   void RemoveRecentFilesMenu();
   void UpdateRecentFilesMenu();
@@ -108,6 +108,7 @@ class MainWindow : public QMainWindow {
   int FileNameErrorDialog(const char *msg);
 
   // screenshot
+  int ValidateGifFilename();
   void on_actionSave_OBJ_to_Image_triggered();
   void on_pushButton_image_clicked();
   void on_pushButton_record_clicked();

@@ -181,17 +181,7 @@ void MainWindow::UpdateRecentFilesMenu() {
   CreateRecentFilesMenu();
 }
 
-void MainWindow::SetupRadioButtons() {
-  QActionGroup *typeGroup = new QActionGroup(this);
-  QActionGroup *display_methodGroup = new QActionGroup(this);
-  QActionGroup *projectionGroup = new QActionGroup(this);
-  projectionGroup->addAction(ui_->actionParallel);
-  projectionGroup->addAction(ui_->actionCentral);
-  typeGroup->addAction(ui_->actionSolid);
-  typeGroup->addAction(ui_->actionDashed);
-  display_methodGroup->addAction(ui_->actionNone);
-  display_methodGroup->addAction(ui_->actionCircle);
-  display_methodGroup->addAction(ui_->actionSquare);
+void MainWindow::SetActualSettingsMenu() {
   switch (settings_.projection()) {
     case kParallel:
       ui_->actionParallel->setChecked(true);
@@ -228,6 +218,20 @@ void MainWindow::SetupRadioButtons() {
       ui_->actionSquare->setChecked(true);
       break;
   }
+}
+
+void MainWindow::SetupRadioButtons() {
+  QActionGroup *typeGroup = new QActionGroup(this);
+  QActionGroup *display_methodGroup = new QActionGroup(this);
+  QActionGroup *projectionGroup = new QActionGroup(this);
+  projectionGroup->addAction(ui_->actionParallel);
+  projectionGroup->addAction(ui_->actionCentral);
+  typeGroup->addAction(ui_->actionSolid);
+  typeGroup->addAction(ui_->actionDashed);
+  display_methodGroup->addAction(ui_->actionNone);
+  display_methodGroup->addAction(ui_->actionCircle);
+  display_methodGroup->addAction(ui_->actionSquare);
+  SetActualSettingsMenu();
 }
 
 void MainWindow::on_actionOpen_OBJ_file_triggered() { LoadFile(); }

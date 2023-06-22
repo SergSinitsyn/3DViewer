@@ -88,6 +88,7 @@ void MainWindow::on_actionCentral_triggered(bool checked) {
 
 void MainWindow::on_actionRestore_settings_triggered() {
   settings_ = *start_settindgs_->GetState();
+  SetActualSettingsMenu();
   emit SettingsChanged(&settings_);
 }
 
