@@ -36,7 +36,7 @@ class VModel {
   }
 
   virtual void Inscribe();
-  virtual void RestoreModel() { throw std::runtime_error("Not implemented"); };
+  virtual void RestoreModel();
   void ReadModelFile(std::string file_name);
   void Scaling(double scale);
   void XRotation(double x_rot);

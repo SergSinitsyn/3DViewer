@@ -115,8 +115,6 @@ run_linter:
 	@rm -f .clang-format
 
 cppcheck:
-	# cppcheck --std=c++17 --enable=all --language=c++ --suppress=missingInclude --suppress=unusedStructMember\
-	#  --suppress=unusedFunction  */*.cc */*.h */..*/.cc */..*/.h
 	cppcheck --std=c++17 --enable=all --language=c++ --suppress=missingInclude --suppress=unusedStructMember\
 	 --suppress=unusedFunction  controller/*.cc controller/*.h model/*.cc model/*.h other/*.h tests/*.cc view/*/*.cc view/*/*.h main.cc
 
