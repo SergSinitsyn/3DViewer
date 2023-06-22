@@ -36,6 +36,7 @@ TEST 					= $(TEST_DIR)/$(TEST_SOURCE_FILE)
 BUILD_DIR 				= ../build
 DOCUMENT_DIR			= ./other
 DOCUMENT				= documentation
+HELP_FILE				= index.html
 DIST_NAME 				= $(NAME)-1.0
 
 all: install
@@ -45,6 +46,7 @@ clean:
 	$(CLEAN) *.o *.a *.gcno *.gcda *.info *.out *.gch *.dSYM report
 	$(CLEAN) ../$(DIST_NAME).tar.gz ../$(DIST_NAME)
 	$(CLEAN) ../documentation
+	$(CLEAN) $(DOCUMENT_DIR)/$(HELP_FILE)
 	$(CLEAN) report*
 
 $(TEST_FILE):
@@ -66,21 +68,21 @@ gcov_report: report/index.html
 	open report/index.html
 
 
-install:
+install: $(DOCUMENT_DIR)/$(HELP_FILE)
 	cmake -S . -B $(BUILD_DIR) -G "Unix Makefiles"
 	make -C  $(BUILD_DIR)
+	cp $(DOCUMENT_DIR)/$(HELP_FILE) $(BUILD_DIR)
 	cd $(BUILD_DIR) && rm -rf CMakeFiles cmake_install.cmake CMakeCache.txt Makefile $(NAME)_autogen
 	open  $(BUILD_DIR)
-	make create_dvi
 
 uninstall:
 	$(CLEAN) $(BUILD_DIR)	
 
 
-create_dvi: $(DOCUMENT_DIR)/$(DOCUMENT).texi
-	makeinfo -o $(BUILD_DIR) --html --no-warn --no-validate --force $(DOCUMENT_DIR)/$(DOCUMENT).texi
+$(DOCUMENT_DIR)/$(HELP_FILE): $(DOCUMENT_DIR)/$(DOCUMENT).texi
+	makeinfo -o $(DOCUMENT_DIR) --html --no-warn --no-validate --force $(DOCUMENT_DIR)/$(DOCUMENT).texi
 
-dvi: create_dvi
+dvi: $(DOCUMENT_DIR)/$(HELP_FILE)
 	-$(OPEN) $(BUILD_DIR)/index.html
 
 open_report:

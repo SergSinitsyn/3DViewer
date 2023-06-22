@@ -178,6 +178,12 @@ TEST(Viewer, Rotation_z) {
     ASSERT_NEAR(result[i], reference[i], kAcc);
   }
 }
+
+TEST(Viewer, RestoreModel) {
+  s21::VModel model;
+  ASSERT_ANY_THROW(model.RestoreModel());
+}
+
 TEST(Viewer, Crash_test) {
   s21::VModel model;
   std::vector<std::string> address_list{"tests/models/dragon.obj"};

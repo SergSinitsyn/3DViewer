@@ -16,7 +16,7 @@ class Info : public QDialog {
 
  public:
   explicit Info(QWidget *parent = nullptr,
-                ModelInformation model_information = ModelInformation());
+                const ModelInformation &model_information = ModelInformation());
   ~Info();
   void InitializationInfo();
 

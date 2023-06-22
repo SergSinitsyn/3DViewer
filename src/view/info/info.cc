@@ -6,7 +6,7 @@
 
 namespace s21 {
 
-Info::Info(QWidget *parent, ModelInformation &model_information)
+Info::Info(QWidget *parent, const ModelInformation &model_information)
     : QDialog(parent),
       ui_(new Ui::Info),
       model_information_(model_information) {
