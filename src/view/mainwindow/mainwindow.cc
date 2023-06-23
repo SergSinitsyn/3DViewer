@@ -159,13 +159,15 @@ void MainWindow::ShowInformation() {
       ", Faces: " + number_of_faces);
 }
 
-void MainWindow::on_actionOpen_OBJ_file_triggered() { LoadFile(); }
-
-void MainWindow::on_actionModel_information_triggered() {
+void MainWindow::InformationWidget() {
   s21::Info info(nullptr, model_information_);
   info.setModal(true);
   info.exec();
 }
+
+void MainWindow::on_actionOpen_OBJ_file_triggered() { LoadFile(); }
+
+void MainWindow::on_actionModel_information_triggered() { InformationWidget(); }
 
 void MainWindow::on_actionOpen_documentation_triggered() {
 #ifdef Q_OS_LINUX
@@ -186,5 +188,7 @@ void MainWindow::on_undoButton_clicked() {
   DefaultControls();
   controller_->RestoreModel();
 }
+
+void MainWindow::on_pushButton_model_info_clicked() { InformationWidget(); }
 
 }  // namespace s21

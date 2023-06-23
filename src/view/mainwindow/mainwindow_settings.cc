@@ -1,3 +1,4 @@
+#include <QActionGroup>
 #include <QColor>
 #include <QColorDialog>
 #include <QFileDialog>

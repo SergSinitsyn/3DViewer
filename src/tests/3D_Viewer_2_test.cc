@@ -100,13 +100,13 @@ TEST(Viewer, Inscribe) {
     model.ZShift(-1);
   }
   for (size_t i = 0; i < 360; ++i) {
-    model.XRotation(1);
+    model.XRotation(-1);
   }
   for (size_t i = 0; i < 360; ++i) {
-    model.YRotation(1);
+    model.YRotation(-1);
   }
   for (size_t i = 0; i < 360; ++i) {
-    model.ZRotation(1);
+    model.ZRotation(-1);
   }
   model.Inscribe();
   std::vector<double> vert_result = model.GetVertices();
@@ -145,7 +145,7 @@ TEST(Viewer, Scaling) {
 TEST(Viewer, Rotation_x) {
   s21::VModel model;
   model.ReadModelFile("tests/models/cube.obj");
-  model.XRotation(90);
+  model.XRotation(-90);
   std::vector<double> result = model.GetVertices();
   std::vector<double> reference{0, 0, 0, 0, -2, 0, 0, 0, 2, 0, -2, 2,
                                 2, 0, 0, 2, -2, 0, 2, 0, 2, 2, -2, 2};
@@ -157,7 +157,7 @@ TEST(Viewer, Rotation_x) {
 TEST(Viewer, Rotation_y) {
   s21::VModel model;
   model.ReadModelFile("tests/models/cube.obj");
-  model.YRotation(90);
+  model.YRotation(-90);
   std::vector<double> result = model.GetVertices();
   std::vector<double> reference{0, 0, 0,  2, 0, 0,  0, 2, 0,  2, 2, 0,
                                 0, 0, -2, 2, 0, -2, 0, 2, -2, 2, 2, -2};
@@ -169,7 +169,7 @@ TEST(Viewer, Rotation_y) {
 TEST(Viewer, Rotation_z) {
   s21::VModel model;
   model.ReadModelFile("tests/models/cube.obj");
-  model.ZRotation(90);
+  model.ZRotation(-90);
   std::vector<double> result = model.GetVertices();
   std::vector<double> reference{0, 0, 0, 0, 0, 2, -2, 0, 0, -2, 0, 2,
                                 0, 2, 0, 0, 2, 2, -2, 2, 0, -2, 2, 2};
@@ -205,13 +205,13 @@ TEST(Viewer, Crash_test) {
       model.ZShift(-1);
     }
     for (size_t d = 0; d < 360; ++d) {
-      model.XRotation(1);
+      model.XRotation(-1);
     }
     for (size_t e = 0; e < 360; ++e) {
-      model.YRotation(1);
+      model.YRotation(-1);
     }
     for (size_t f = 0; f < 360; ++f) {
-      model.ZRotation(1);
+      model.ZRotation(-1);
     }
     model.Inscribe();
     for (size_t g = 0; g < result.size() - 1; ++g) {
@@ -242,13 +242,13 @@ TEST(Viewer, Crash_test_shitmodel) {
       model.ZShift(-1);
     }
     for (size_t d = 0; d < 360; ++d) {
-      model.XRotation(1);
+      model.XRotation(-1);
     }
     for (size_t e = 0; e < 360; ++e) {
-      model.YRotation(1);
+      model.YRotation(-1);
     }
     for (size_t f = 0; f < 360; ++f) {
-      model.ZRotation(1);
+      model.ZRotation(-1);
     }
     model.Inscribe();
     for (size_t g = 0; g < result.size() - 1; ++g) {

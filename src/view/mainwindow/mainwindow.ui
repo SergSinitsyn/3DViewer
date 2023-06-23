@@ -9,8 +9,8 @@
    <rect>
     <x>0</x>
     <y>0</y>
-    <width>856</width>
-    <height>791</height>
+    <width>855</width>
+    <height>757</height>
    </rect>
   </property>
   <property name="sizePolicy">
@@ -83,6 +83,9 @@
     </item>
     <item>
      <layout class="QVBoxLayout" name="verticalLayout_controls">
+      <property name="spacing">
+       <number>8</number>
+      </property>
       <item alignment="Qt::AlignHCenter|Qt::AlignVCenter">
        <widget class="QLabel" name="label_controls">
         <property name="font">
@@ -94,17 +97,70 @@
         <property name="text">
          <string>&lt;html&gt;&lt;head/&gt;&lt;body&gt;&lt;p&gt;Controls&lt;/p&gt;&lt;/body&gt;&lt;/html&gt;</string>
         </property>
-       </widget>
-      </item>
-      <item>
-       <widget class="QPushButton" name="undoButton">
-        <property name="text">
-         <string>Show original</string>
+        <property name="alignment">
+         <set>Qt::AlignCenter</set>
         </property>
        </widget>
       </item>
       <item>
+       <layout class="QVBoxLayout" name="verticalLayout">
+        <property name="spacing">
+         <number>6</number>
+        </property>
+        <item>
+         <layout class="QHBoxLayout" name="horizontalLayout_2">
+          <item>
+           <widget class="Line" name="line_2">
+            <property name="orientation">
+             <enum>Qt::Horizontal</enum>
+            </property>
+           </widget>
+          </item>
+          <item>
+           <widget class="QLabel" name="label">
+            <property name="font">
+             <font>
+              <pointsize>15</pointsize>
+             </font>
+            </property>
+            <property name="text">
+             <string>Model</string>
+            </property>
+            <property name="alignment">
+             <set>Qt::AlignCenter</set>
+            </property>
+           </widget>
+          </item>
+          <item>
+           <widget class="Line" name="line_3">
+            <property name="orientation">
+             <enum>Qt::Horizontal</enum>
+            </property>
+           </widget>
+          </item>
+         </layout>
+        </item>
+        <item>
+         <widget class="QPushButton" name="pushButton_model_info">
+          <property name="text">
+           <string>Model Information</string>
+          </property>
+         </widget>
+        </item>
+        <item>
+         <widget class="QPushButton" name="undoButton">
+          <property name="text">
+           <string>Show original</string>
+          </property>
+         </widget>
+        </item>
+       </layout>
+      </item>
+      <item>
        <layout class="QVBoxLayout" name="verticalLayout_rotation">
+        <property name="spacing">
+         <number>4</number>
+        </property>
         <item>
          <layout class="QHBoxLayout" name="horizontalLayout_rotationLabel">
           <item>
@@ -144,8 +200,14 @@
         </item>
         <item>
          <layout class="QHBoxLayout" name="horizontalLayout_rotationX">
+          <property name="spacing">
+           <number>4</number>
+          </property>
           <item>
            <layout class="QVBoxLayout" name="verticalLayout_xrot1">
+            <property name="spacing">
+             <number>4</number>
+            </property>
             <item alignment="Qt::AlignHCenter|Qt::AlignBottom">
              <widget class="QLabel" name="label_x">
               <property name="text">
@@ -271,8 +333,14 @@
         </item>
         <item>
          <layout class="QHBoxLayout" name="horizontalLayout_rotationY">
+          <property name="spacing">
+           <number>4</number>
+          </property>
           <item>
            <layout class="QVBoxLayout" name="verticalLayout_yrot1">
+            <property name="spacing">
+             <number>4</number>
+            </property>
             <item alignment="Qt::AlignHCenter|Qt::AlignBottom">
              <widget class="QLabel" name="label_y">
               <property name="text">
@@ -389,8 +457,14 @@
         </item>
         <item>
          <layout class="QHBoxLayout" name="horizontalLayout_rotationZ">
+          <property name="spacing">
+           <number>4</number>
+          </property>
           <item>
            <layout class="QVBoxLayout" name="verticalLayout_zrot1">
+            <property name="spacing">
+             <number>4</number>
+            </property>
             <item alignment="Qt::AlignHCenter|Qt::AlignBottom">
              <widget class="QLabel" name="label_z">
               <property name="sizePolicy">
@@ -515,6 +589,9 @@
       </item>
       <item>
        <layout class="QVBoxLayout" name="verticalLayout_movement">
+        <property name="spacing">
+         <number>6</number>
+        </property>
         <item>
          <layout class="QHBoxLayout" name="horizontalLayout_movementLabel">
           <item>
@@ -926,6 +1003,9 @@
       </item>
       <item>
        <layout class="QVBoxLayout" name="verticalLayout_scaling">
+        <property name="spacing">
+         <number>4</number>
+        </property>
         <item>
          <layout class="QHBoxLayout" name="horizontalLayout_scalingLabel">
           <item>
@@ -1187,6 +1267,9 @@
       </item>
       <item>
        <layout class="QVBoxLayout" name="verticalLayout_record">
+        <property name="spacing">
+         <number>6</number>
+        </property>
         <item>
          <layout class="QHBoxLayout" name="horizontalLayout_recordLabel">
           <item>
@@ -1276,8 +1359,8 @@
     <rect>
      <x>0</x>
      <y>0</y>
-     <width>856</width>
-     <height>37</height>
+     <width>855</width>
+     <height>24</height>
     </rect>
    </property>
    <property name="cursor">
@@ -1526,6 +1609,8 @@
   </customwidget>
  </customwidgets>
  <tabstops>
+  <tabstop>pushButton_model_info</tabstop>
+  <tabstop>undoButton</tabstop>
   <tabstop>spinBox_x</tabstop>
   <tabstop>dial_x</tabstop>
   <tabstop>spinBox_y</tabstop>
@@ -1542,6 +1627,9 @@
   <tabstop>toolButton_zNeg</tabstop>
   <tabstop>toolButton_zPos</tabstop>
   <tabstop>doubleSpinBox_scale</tabstop>
+  <tabstop>pushButton_scale</tabstop>
+  <tabstop>toolButton_scaleL</tabstop>
+  <tabstop>toolButton_scaleH</tabstop>
   <tabstop>pushButton_image</tabstop>
   <tabstop>pushButton_record</tabstop>
  </tabstops>

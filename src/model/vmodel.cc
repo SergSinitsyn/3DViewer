@@ -50,8 +50,8 @@ void VModel::XRotation(double x_rot) {
   for (size_t i = 0; i < vertex_.size(); i += 3) {
     double y = vertex_.at(i + 1);
     double z = vertex_.at(i + 2);
-    vertex_.at(i + 1) = y * cos_rot_x - z * sin_rot_x;
-    vertex_.at(i + 2) = z * cos_rot_x + y * sin_rot_x;
+    vertex_.at(i + 1) = y * cos_rot_x + z * sin_rot_x;
+    vertex_.at(i + 2) = z * cos_rot_x - y * sin_rot_x;
   }
 }
 
@@ -62,8 +62,8 @@ void VModel::YRotation(double y_rot) {
   for (size_t i = 1; i < vertex_.size(); i += 3) {
     double x = vertex_.at(i - 1);
     double z = vertex_.at(i + 1);
-    vertex_.at(i - 1) = x * cos_rot_y + z * sin_rot_y;
-    vertex_.at(i + 1) = z * cos_rot_y - x * sin_rot_y;
+    vertex_.at(i - 1) = x * cos_rot_y - z * sin_rot_y;
+    vertex_.at(i + 1) = z * cos_rot_y + x * sin_rot_y;
   }
 }
 
@@ -74,8 +74,8 @@ void VModel::ZRotation(double z_rot) {
   for (size_t i = 2; i < vertex_.size(); i += 3) {
     double x = vertex_.at(i - 2);
     double y = vertex_.at(i - 1);
-    vertex_.at(i - 1) = y * cos_rot_z + x * sin_rot_z;
-    vertex_.at(i - 2) = x * cos_rot_z - y * sin_rot_z;
+    vertex_.at(i - 1) = y * cos_rot_z - x * sin_rot_z;
+    vertex_.at(i - 2) = x * cos_rot_z + y * sin_rot_z;
   }
 }
 

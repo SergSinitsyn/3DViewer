@@ -49,11 +49,11 @@ clean:
 	$(CLEAN) $(DOCUMENT_DIR)/$(HELP_FILE)
 	$(CLEAN) report*
 
-$(TEST_FILE):
+$(TEST_FILE): $(SOURCE) $(TEST)
 	$(CLEAN) $(TEST_FILE)
 	$(CC) $(WFLAGS) $(CFLACS) $(SOURCE) $(TEST) -o $(TEST_FILE) $(CHECKFLAGS)
 
-test: $(TEST_FILE)
+tests: $(TEST_FILE)
 	./$(TEST_FILE)
 
 rebuild: clean all
@@ -68,10 +68,9 @@ gcov_report: report/index.html
 	open report/index.html
 
 
-install: $(DOCUMENT_DIR)/$(HELP_FILE)
+install: $(BUILD_DIR)/$(HELP_FILE)
 	cmake -S . -B $(BUILD_DIR) -G "Unix Makefiles"
 	make -C  $(BUILD_DIR)
-	cp $(DOCUMENT_DIR)/$(HELP_FILE) $(BUILD_DIR)
 	cd $(BUILD_DIR) && rm -rf CMakeFiles cmake_install.cmake CMakeCache.txt Makefile $(NAME)_autogen
 	open  $(BUILD_DIR)
 
@@ -79,10 +78,10 @@ uninstall:
 	$(CLEAN) $(BUILD_DIR)	
 
 
-$(DOCUMENT_DIR)/$(HELP_FILE): $(DOCUMENT_DIR)/$(DOCUMENT).texi
-	makeinfo -o $(DOCUMENT_DIR) --html --no-warn --no-validate --force $(DOCUMENT_DIR)/$(DOCUMENT).texi
+$(BUILD_DIR)/$(HELP_FILE): $(DOCUMENT_DIR)/$(DOCUMENT).texi
+	makeinfo -o $(BUILD_DIR) --html --no-warn --no-validate --force $(DOCUMENT_DIR)/$(DOCUMENT).texi
 
-dvi: $(DOCUMENT_DIR)/$(HELP_FILE)
+dvi: $(BUILD_DIR)/$(HELP_FILE)
 	-$(OPEN) $(BUILD_DIR)/index.html
 
 open_report:
@@ -99,12 +98,14 @@ dist:
 check: leaks cppcheck linter
 
 linter:
+	@cp ../materials/linters/.clang-format ./	
 	@clang-format -n -style=google -verbose controller/*.cc controller/*.h
 	@clang-format -n -style=google -verbose model/*.cc model/*.h
 	@clang-format -n -style=google -verbose other/*.h
 	@clang-format -n -style=google -verbose tests/*.cc
 	@clang-format -n -style=google -verbose view/*/*.cc view/*/*.h
 	@clang-format -n -style=google -verbose main.cc
+	@rm -f .clang-format
 
 run_linter:
 	@cp ../materials/linters/.clang-format ./
@@ -123,4 +124,4 @@ cppcheck:
 leaks: $(TEST_FILE)
 	$(LEAKS) ./$(TEST_FILE)
 
-.PHONY: all clean test gcov_report rebuild linter cppcheck leaks check
+.PHONY: all clean tests gcov_report rebuild linter cppcheck leaks check

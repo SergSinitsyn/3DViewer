@@ -1,5 +1,5 @@
-#ifndef VIEWER_2_VIEW_GIFANIM_GIFANIM_H
-#define VIEWER_2_VIEW_GIFANIM_GIFANIM_H
+#ifndef VIEWER_2_VIEW_GIFANIM_GIFANIM_H_
+#define VIEWER_2_VIEW_GIFANIM_GIFANIM_H_
 
 #include <cstdint>
 #include <cstdio>   // for FILE*
@@ -94,4 +94,4 @@ class GifAnim {
   GifPalette* have;
 };
 
-#endif  // VIEWER_2_VIEW_GIFANIM_GIFANIM_H
+#endif  // VIEWER_2_VIEW_GIFANIM_GIFANIM_H_

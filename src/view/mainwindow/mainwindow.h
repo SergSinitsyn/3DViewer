@@ -38,6 +38,7 @@ class MainWindow : public QMainWindow {
   void LoadFile();
   void SetupControls();
   void ShowInformation();
+  void InformationWidget();
 
   Ui::MainWindow *ui_;
   ModelData model_data_;
@@ -82,6 +83,7 @@ class MainWindow : public QMainWindow {
   void on_actionModel_information_triggered();
   void on_actionOpen_documentation_triggered();
   void on_undoButton_clicked();
+  void on_pushButton_model_info_clicked();
 
   // Settings
   void on_actionColor_edges_triggered();
