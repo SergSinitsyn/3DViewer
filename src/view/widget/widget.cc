@@ -45,11 +45,15 @@ void Widget::paintGL() {
   glTranslatef(0.0, 0.0, -8.0);
 
   glEnableClientState(GL_VERTEX_ARRAY);
+#ifdef QT_DEBUG
   QElapsedTimer time;  //!
   time.start();        //!
+#endif
   PaintImage();
+#ifdef QT_DEBUG
   qDebug() << time.elapsed() << "msec, " << time.nsecsElapsed()
            << "nanosec";  //!
+#endif
   glDisableClientState(GL_VERTEX_ARRAY);
 }
 

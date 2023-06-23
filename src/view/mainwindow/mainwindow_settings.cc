@@ -92,4 +92,78 @@ void MainWindow::on_actionRestore_settings_triggered() {
   emit SettingsChanged(&settings_);
 }
 
+void MainWindow::CreateRecentFilesMenu() {
+  const auto recent_files = settings_.GetRecentFiles();
+  if (!recent_files->empty()) {
+    recent_files_menu_ = ui_->menuFile->addMenu("Recent files");
+    for (const auto &file : *recent_files) {
+      auto action = recent_files_menu_->addAction(file);
+      connect(action, &QAction::triggered, this, &MainWindow::LoadRecentFile);
+    }
+  }
+}
+
+void MainWindow::RemoveRecentFilesMenu() {
+  if (recent_files_menu_)
+    ui_->menuFile->removeAction(recent_files_menu_->menuAction());
+}
+
+void MainWindow::UpdateRecentFilesMenu() {
+  RemoveRecentFilesMenu();
+  CreateRecentFilesMenu();
+}
+
+void MainWindow::SetActualSettingsMenu() {
+  switch (settings_.projection()) {
+    case kParallel:
+      ui_->actionParallel->setChecked(true);
+      break;
+    case kCentral:
+      ui_->actionCentral->setChecked(true);
+      break;
+    default:
+      ui_->actionCentral->setChecked(true);
+      break;
+  }
+  switch (settings_.lineType()) {
+    case kSolid:
+      ui_->actionSolid->setChecked(true);
+      break;
+    case kDashed:
+      ui_->actionDashed->setChecked(true);
+      break;
+    default:
+      ui_->actionDashed->setChecked(true);
+      break;
+  }
+  switch (settings_.displayVertexes()) {
+    case kNone:
+      ui_->actionNone->setChecked(true);
+      break;
+    case kCircle:
+      ui_->actionCircle->setChecked(true);
+      break;
+    case kSquare:
+      ui_->actionSquare->setChecked(true);
+      break;
+    default:
+      ui_->actionSquare->setChecked(true);
+      break;
+  }
+}
+
+void MainWindow::SetupRadioButtons() {
+  QActionGroup *typeGroup = new QActionGroup(this);
+  QActionGroup *display_methodGroup = new QActionGroup(this);
+  QActionGroup *projectionGroup = new QActionGroup(this);
+  projectionGroup->addAction(ui_->actionParallel);
+  projectionGroup->addAction(ui_->actionCentral);
+  typeGroup->addAction(ui_->actionSolid);
+  typeGroup->addAction(ui_->actionDashed);
+  display_methodGroup->addAction(ui_->actionNone);
+  display_methodGroup->addAction(ui_->actionCircle);
+  display_methodGroup->addAction(ui_->actionSquare);
+  SetActualSettingsMenu();
+}
+
 }  // namespace s21
