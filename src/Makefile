@@ -18,7 +18,7 @@ else
 	APP					= $(NAME)
 endif
 
-NAME					= 3D_Viewer_2
+NAME					= 3D_Viewer
 
 SRC_DIR					= ./model
 SOURCE_FILES			= *.cc
